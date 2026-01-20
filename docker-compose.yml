@@ -1,0 +1,185 @@
+services:
+  # -----------------------------
+  # DB for Airflow metadata
+  # -----------------------------
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  # -----------------------------
+  # Airflow init (run once)
+  # -----------------------------
+  airflow-init:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    depends_on:
+      - postgres
+    env_file: .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+    user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./src:/opt/airflow/src
+      - chroma_data:/opt/airflow/chroma_news
+      - airflow_logs:/opt/airflow/logs
+    command: >
+      bash -lc "
+      airflow db migrate &&
+      airflow users create
+        --username ${AIRFLOW_ADMIN_USER:-admin}
+        --password ${AIRFLOW_ADMIN_PASS:-admin}
+        --firstname Admin
+        --lastname User
+        --role Admin
+        --email ${AIRFLOW_ADMIN_EMAIL:-admin@example.com}
+      "
+    restart: "no"
+
+  # -----------------------------
+  # Airflow scheduler
+  # -----------------------------
+  airflow-scheduler:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    depends_on:
+      - postgres
+      - ollama
+    env_file: .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      # 파이프라인에서 읽는 환경변수
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://ollama:11434}"
+      OLLAMA_MODEL: "${OLLAMA_MODEL:-llama3}"
+      CHROMA_DIR: "${CHROMA_DIR:-/opt/airflow/chroma_news}"
+      CHROMA_COLLECTION: "${CHROMA_COLLECTION:-naver_finance_news_chunks}"
+    user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./src:/opt/airflow/src
+      - chroma_data:/opt/airflow/chroma_news
+      - airflow_logs:/opt/airflow/logs
+    command: scheduler
+    restart: unless-stopped
+
+  # -----------------------------
+  # Airflow webserver
+  # -----------------------------
+  airflow-webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.airflow
+    depends_on:
+      - postgres
+      - airflow-scheduler
+    env_file: .env
+    environment:
+      AIRFLOW__CORE__EXECUTOR: LocalExecutor
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+      AIRFLOW__CORE__LOAD_EXAMPLES: "false"
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://ollama:11434}"
+      OLLAMA_MODEL: "${OLLAMA_MODEL:-llama3}"
+      CHROMA_DIR: "${CHROMA_DIR:-/opt/airflow/chroma_news}"
+      CHROMA_COLLECTION: "${CHROMA_COLLECTION:-naver_finance_news_chunks}"
+    user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-0}"
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./src:/opt/airflow/src
+      - chroma_data:/opt/airflow/chroma_news
+      - airflow_logs:/opt/airflow/logs
+    ports:
+      - "8080:8080"
+    command: webserver
+    restart: unless-stopped
+
+  # -----------------------------
+  # Ollama (GPU)
+  # -----------------------------
+  ollama:
+    image: ollama/ollama:latest
+    # GPU 사용 (NVIDIA container toolkit 필요)
+    gpus: all
+    environment:
+      OLLAMA_KEEP_ALIVE: "24h"
+    volumes:
+      - ollama_data:/root/.ollama
+    ports:
+      - "11434:11434"
+    restart: unless-stopped
+
+  # ============================================================
+  # ====== Templates (disabled by default) ======================
+  # ============================================================
+
+  # -----------------------------
+  # Chatbot backend (RAG/API) template
+  # -----------------------------
+  chatbot-backend:
+    profiles: ["template"]
+    build:
+      context: ./chatbot_backend
+      dockerfile: Dockerfile
+    env_file: .env
+    environment:
+      OLLAMA_BASE_URL: "${OLLAMA_BASE_URL:-http://ollama:11434}"
+      CHROMA_PERSIST_DIR: "/data/chroma_news"
+      CHROMA_COLLECTION: "${CHROMA_COLLECTION:-naver_finance_news_chunks}"
+    volumes:
+      - chroma_data:/data/chroma_news
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ollama
+    restart: unless-stopped
+
+  # -----------------------------
+  # Frontend template (React/Vite/Next)
+  # -----------------------------
+  frontend:
+    profiles: ["template"]
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      VITE_API_BASE: "http://localhost:8000"
+    ports:
+      - "3000:3000"
+    depends_on:
+      - chatbot-backend
+    restart: unless-stopped
+
+  # -----------------------------
+  # TFT serving template (GPU)
+  # -----------------------------
+  tft-serving:
+    profiles: ["template"]
+    build:
+      context: ./tft_serving
+      dockerfile: Dockerfile
+    gpus: all
+    environment:
+      MODEL_DIR: "/models/tft"
+    volumes:
+      - tft_models:/models/tft
+    ports:
+      - "9000:9000"
+    restart: unless-stopped
+
+volumes:
+  pgdata:
+  chroma_data:
+  ollama_data:
+  airflow_logs:
+  tft_models:
