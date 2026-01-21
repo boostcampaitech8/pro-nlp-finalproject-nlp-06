@@ -43,13 +43,13 @@ class RagNewsChatService:
         ollama_base_url: str = "http://localhost:11434",
         # --- Retrieval tuning knobs ---
         retrieval_k: int = 48,
-        top_articles: int = 3,
-        max_chunks_per_article: int = 6,
+        top_articles: int = 5,
+        max_chunks_per_article: int = 3,
         # Chroma 점수는 보통 "distance(낮을수록 유사)"인 경우가 많습니다.
         # 아래 값은 기본 안전값이고, 로그 보고 튜닝하세요.
-        max_distance: float = 0.5,
-        min_docs_after_filter: int = 8,
-        enable_query_refine: bool = True,
+        max_distance: float = 0.7,
+        min_docs_after_filter: int = 12,
+        enable_query_refine: bool = False,
         debug: bool = True,
     ):
         self.ollama_base_url = ollama_base_url

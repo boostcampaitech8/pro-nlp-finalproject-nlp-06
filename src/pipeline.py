@@ -43,19 +43,26 @@ def build_chunk_rows_for_article(
 
     rows: List[Dict] = []
     for i, (chunk_text, start_idx, end_idx) in enumerate(chunks):
-        rows.append({
-            "id": f"{link}#chunk_{i}",
-            "document": chunk_text,
-            "metadata": {
-                **base_meta,
-                "chunk_index": i,
-                "chunk_total": chunk_total,
-                "chunk_start": start_idx,
-                "chunk_end": end_idx,
+        rows.append(
+            {
+                "id": f"{link}#chunk_{i}",
+                "document": chunk_text,
+                "metadata": {
+                    **base_meta,
+                    "chunk_index": i,
+                    "chunk_total": chunk_total,
+                    "chunk_start": start_idx,
+                    "chunk_end": end_idx,
+                },
             }
-        })
+        )
 
     return rows
+
+
+def _abs_path(p: str) -> str:
+    """상대경로가 들어오면 현재 실행 위치 기준으로 달라져서 위험 -> 절대경로로 고정"""
+    return os.path.abspath(p)
 
 
 def run_pipeline(
@@ -68,7 +75,7 @@ def run_pipeline(
     ollama_summary_base_url: str | None = None,
     ollama_summary_model: str | None = None,
     summarize_timeout: int = 90,
-    # Ollama (임베딩용) model_ollama.py와 맞추기
+    # Ollama (임베딩용)
     ollama_embed_base_url: str | None = None,
     ollama_embed_model: str | None = None,
     # Keywords
@@ -93,15 +100,43 @@ def run_pipeline(
       }
     """
 
+    # (중요) env가 있으면 env를 최우선으로 사용해 경로를 "한 곳"으로 고정
+    chroma_dir = os.getenv("CHROMA_DIR", chroma_dir)
+    csv_output_dir = os.getenv("CSV_DIR", csv_output_dir)
+
+    chroma_dir = _abs_path(chroma_dir)
+    csv_output_dir = _abs_path(csv_output_dir)
+
     # 요약/키워드 정제용 Ollama
-    summary_base = ollama_summary_base_url or os.getenv("OLLAMA_SUMMARY_BASE_URL") or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    summary_model = ollama_summary_model or os.getenv("OLLAMA_SUMMARY_MODEL") or os.getenv("OLLAMA_MODEL", "llama3")
+    summary_base = (
+        ollama_summary_base_url
+        or os.getenv("OLLAMA_SUMMARY_BASE_URL")
+        or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    )
+    summary_model = (
+        ollama_summary_model
+        or os.getenv("OLLAMA_SUMMARY_MODEL")
+        or os.getenv("OLLAMA_MODEL", "llama3")
+    )
 
-    # 임베딩용 Ollama (model_ollama.py에서 embedding_model/base_url과 동일하게 맞춤)
-    embed_base = ollama_embed_base_url or os.getenv("OLLAMA_EMBED_BASE_URL") or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    embed_model = ollama_embed_model or os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
+    # 임베딩용 Ollama
+    embed_base = (
+        ollama_embed_base_url
+        or os.getenv("OLLAMA_EMBED_BASE_URL")
+        or os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
+    )
+    embed_model = (
+        ollama_embed_model
+        or os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
+    )
 
-    # healthcheck는 요약 서버 기준으로만 체크 (원하면 embed도 체크 가능)
+    print("[pipeline] chroma_dir:", chroma_dir)
+    print("[pipeline] csv_output_dir:", csv_output_dir)
+    print("[pipeline] chroma_collection:", chroma_collection)
+    print("[pipeline] summary_base:", summary_base, "summary_model:", summary_model)
+    print("[pipeline] embed_base:", embed_base, "embed_model:", embed_model)
+
+    # healthcheck는 요약 서버 기준으로만 체크
     if not ollama_healthcheck(base_url=summary_base, timeout=5):
         raise RuntimeError(f"Ollama healthcheck failed: {summary_base}")
 
@@ -142,13 +177,12 @@ def run_pipeline(
             timeout=keyword_refine_timeout,
         )
 
-        # enriched_articles에도 keywords_str을 같이 붙여두면 CSV/디버깅에 편함(선택이지만 추천)
         keywords_str = ", ".join([k.strip() for k in (keywords or []) if k and k.strip()])
 
         a2 = dict(a)
         a2["summary"] = summary
-        a2["keywords"] = keywords           # list (파이썬에서 쓰기 편함)
-        a2["keywords_str"] = keywords_str   # str  (CSV/표시용)
+        a2["keywords"] = keywords           # list
+        a2["keywords_str"] = keywords_str   # str
         enriched_articles.append(a2)
 
         chunk_rows.extend(
@@ -166,8 +200,6 @@ def run_pipeline(
     # 3) CSV 저장(기사 단위)
     csv_path = None
     if save_csv:
-        # csv_export.py가 keywords(list)도 처리하도록 되어있다면 그대로 OK
-        # 아니면 a2["keywords_str"]를 쓰게 csv_export.py를 약간 수정하면 됨
         csv_path = export_articles_csv(enriched_articles, output_dir=csv_output_dir, hours=hours)
         print("CSV 저장:", csv_path)
 
@@ -176,8 +208,8 @@ def run_pipeline(
         chunk_rows,
         persist_dir=chroma_dir,
         collection_name=chroma_collection,
-        ollama_base_url=embed_base,     # 임베딩 서버
-        ollama_embed_model=embed_model, # embedding_model 통일
+        ollama_base_url=embed_base,
+        ollama_embed_model=embed_model,
     )
 
     # 5) 오래된 데이터 정리
@@ -186,7 +218,7 @@ def run_pipeline(
             persist_dir=chroma_dir,
             collection_name=chroma_collection,
             days=cleanup_days,
-            ollama_base_url=embed_base,     # 임베딩 함수 동일하게 맞추는 게 안전
+            ollama_base_url=embed_base,
             ollama_embed_model=embed_model,
         )
 
@@ -194,24 +226,26 @@ def run_pipeline(
 
 
 if __name__ == "__main__":
+    hours = int(os.getenv("HOURS", "1"))
+    max_page = int(os.getenv("MAX_PAGE", "10"))
+
     out = run_pipeline(
-        hours=1,
-        max_page=10,
-        chroma_dir="./chroma_news",
-        chroma_collection="naver_finance_news_chunks",
-        chunk_size=800,
-        overlap=120,
-        cleanup_days=14,
-        save_csv=True,
-        csv_output_dir="./csv_out",
-        # 키워드 옵션
-        keyword_top_k=40,
-        keyword_min_k=1,
-        keyword_max_k=20,
-        keyword_refine_timeout=60,
-        # 필요하면 요약/임베딩 서버 분리해서 넣기
-        # ollama_summary_base_url="http://localhost:11434",
-        # ollama_embed_base_url="http://localhost:11434",
-        # ollama_embed_model="nomic-embed-text",
+        hours=hours,
+        max_page=max_page,
+        chroma_dir=os.getenv("CHROMA_DIR", "/data/ephemeral/home/project/chroma_news"),
+        chroma_collection=os.getenv("CHROMA_COLLECTION", "naver_finance_news_chunks"),
+        chunk_size=int(os.getenv("CHUNK_SIZE", "800")),
+        overlap=int(os.getenv("CHUNK_OVERLAP", "120")),
+        cleanup_days=int(os.getenv("CLEANUP_DAYS", "14")),
+        save_csv=os.getenv("SAVE_CSV", "true").lower() == "true",
+        csv_output_dir=os.getenv("CSV_DIR", "/data/ephemeral/home/project/csv_out"),
+        keyword_top_k=int(os.getenv("KEYWORD_TOP_K", "40")),
+        keyword_min_k=int(os.getenv("KEYWORD_MIN_K", "1")),
+        keyword_max_k=int(os.getenv("KEYWORD_MAX_K", "20")),
+        keyword_refine_timeout=int(os.getenv("KEYWORD_REFINE_TIMEOUT", "60")),
+        ollama_summary_base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+        ollama_summary_model=os.getenv("OLLAMA_MODEL", "llama3"),
+        ollama_embed_base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
+        ollama_embed_model=os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text"),
     )
     print(out)
