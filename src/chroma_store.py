@@ -7,7 +7,7 @@ import math
 import chromadb
 from chromadb.errors import DuplicateIDError
 
-from ollama_embeddings import OllamaEmbeddingFunction
+from .ollama_embeddings import OllamaEmbeddingFunction
 
 DEFAULT_PERSIST_DIR = "./chroma_news"
 DEFAULT_COLLECTION = "naver_finance_news_chunks"

@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import pendulum
 
 import chromadb
-from ollama_embeddings import OllamaEmbeddingFunction
+from .ollama_embeddings import OllamaEmbeddingFunction
 
 KST = pendulum.timezone("Asia/Seoul")
 

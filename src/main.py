@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
+from typing import Optional
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from .model_ollama import RagNewsChatService  
-
+# 절대경로 import
+from .model_ollama import RagNewsChatService
 
 app = FastAPI()
 
@@ -27,21 +29,35 @@ app.add_middleware(
 )
 
 # ----------------------------
-# 경로/환경변수 통일 (pipeline/DAG와 동일)
+# PROJECT_ROOT 자동 계산
 # ----------------------------
-# Airflow가 어디서 돌든, FastAPI가 어디서 돌든
-# "항상 같은 Chroma 폴더"를 보게 만드는 게 핵심
-PROJECT_ROOT = os.getenv("PROJECT_ROOT", "/data/ephemeral/home/project")
+THIS_FILE = Path(__file__).resolve()
+DEFAULT_PROJECT_ROOT = THIS_FILE.parents[1]  # project/
 
-CHROMA_DIR = os.getenv("CHROMA_DIR", os.path.join(PROJECT_ROOT, "chroma_news"))
-CHROMA_COLLECTION = os.getenv("CHROMA_COLLECTION", "naver_finance_news_chunks")
+PROJECT_ROOT = Path(
+    os.getenv("PROJECT_ROOT", str(DEFAULT_PROJECT_ROOT))
+)
 
+# ----------------------------
+# 공통 경로 (pipeline / DAG / FastAPI 통일)
+# ----------------------------
+CHROMA_DIR = Path(
+    os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "chroma_news"))
+)
+CHROMA_COLLECTION = os.getenv(
+    "CHROMA_COLLECTION", "naver_finance_news_chunks"
+)
+
+# ----------------------------
 # Ollama
+# ----------------------------
 OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
 OLLAMA_LLM_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
 OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
 
-# (선택) Retrieval 튜닝 env로 조절 가능하게
+# ----------------------------
+# Retrieval 튜닝
+# ----------------------------
 RETRIEVAL_K = int(os.getenv("RETRIEVAL_K", "48"))
 TOP_ARTICLES = int(os.getenv("TOP_ARTICLES", "5"))
 MAX_CHUNKS_PER_ARTICLE = int(os.getenv("MAX_CHUNKS_PER_ARTICLE", "3"))
@@ -51,26 +67,33 @@ ENABLE_QUERY_REFINE = os.getenv("ENABLE_QUERY_REFINE", "false").lower() == "true
 DEBUG = os.getenv("DEBUG", "true").lower() == "true"
 
 # ----------------------------
-# RAG 서비스 인스턴스 (서버 시작 시 1회 로딩)
+# RAG 서비스 (lazy init)
 # ----------------------------
-rag_service = RagNewsChatService(
-    collection_name=CHROMA_COLLECTION,
-    persist_directory=CHROMA_DIR,
-    llm_model=OLLAMA_LLM_MODEL,
-    embedding_model=OLLAMA_EMBED_MODEL,
-    ollama_base_url=OLLAMA_BASE_URL,
-    retrieval_k=RETRIEVAL_K,
-    top_articles=TOP_ARTICLES,
-    max_chunks_per_article=MAX_CHUNKS_PER_ARTICLE,
-    max_distance=MAX_DISTANCE,
-    min_docs_after_filter=MIN_DOCS_AFTER_FILTER,
-    enable_query_refine=ENABLE_QUERY_REFINE,
-    debug=DEBUG,
-)
+_rag_service: Optional[RagNewsChatService] = None
+
+
+def get_rag_service() -> RagNewsChatService:
+    global _rag_service
+    if _rag_service is None:
+        _rag_service = RagNewsChatService(
+            collection_name=CHROMA_COLLECTION,
+            persist_directory=str(CHROMA_DIR),
+            llm_model=OLLAMA_LLM_MODEL,
+            embedding_model=OLLAMA_EMBED_MODEL,
+            ollama_base_url=OLLAMA_BASE_URL,
+            retrieval_k=RETRIEVAL_K,
+            top_articles=TOP_ARTICLES,
+            max_chunks_per_article=MAX_CHUNKS_PER_ARTICLE,
+            max_distance=MAX_DISTANCE,
+            min_docs_after_filter=MIN_DOCS_AFTER_FILTER,
+            enable_query_refine=ENABLE_QUERY_REFINE,
+            debug=DEBUG,
+        )
+    return _rag_service
 
 
 # ----------------------------
-# Request/Response Models
+# Request / Response
 # ----------------------------
 class ChatRequest(BaseModel):
     message: str
@@ -87,8 +110,9 @@ class ChatResponse(BaseModel):
 @app.get("/")
 def root():
     return {
-        "message": "Backend server is running!",
-        "chroma_dir": CHROMA_DIR,
+        "status": "ok",
+        "project_root": str(PROJECT_ROOT),
+        "chroma_dir": str(CHROMA_DIR),
         "chroma_collection": CHROMA_COLLECTION,
         "ollama_base_url": OLLAMA_BASE_URL,
         "ollama_llm_model": OLLAMA_LLM_MODEL,
@@ -98,5 +122,6 @@ def root():
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
-    answer, used_db = rag_service.answer(request.message)
+    rag = get_rag_service()
+    answer, used_db = rag.answer(request.message)
     return ChatResponse(answer=answer, used_db=used_db)

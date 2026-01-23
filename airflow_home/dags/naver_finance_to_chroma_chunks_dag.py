@@ -41,10 +41,8 @@ with DAG(
 ) as dag:
 
     run_pipeline = BashOperator(
-        task_id="run_news_rag_hourly",
-        bash_command=(
-            f'"{PY310_PYTHON}" "{PROJECT_ROOT}/src/pipeline.py"'
-        ),
+        task_id="run_news_hourly",
+        bash_command=f'cd "{PROJECT_ROOT}" && "{PY310_PYTHON}" -m src.pipeline',
     )
 
     run_pipeline
