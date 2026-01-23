@@ -1,0 +1,848 @@
+[2026-01-23T12:15:59.175+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-01-23T12:15:59.176+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-01-23T12:15:59.176+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/project/airflow_home/dags every 300 seconds
+[2026-01-23T12:15:59.176+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:15:59.177+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:15:59.328+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.11s           2026-01-23T03:15:59
+================================================================================
+[2026-01-23T12:16:14.412+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-01-23T12:22:49.261+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-01-23T12:22:49.262+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-01-23T12:22:49.262+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/project/airflow_home/dags every 300 seconds
+[2026-01-23T12:22:49.262+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:22:49.264+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:22:49.418+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:22:49
+================================================================================
+[2026-01-23T12:23:19.559+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:23:19
+================================================================================
+[2026-01-23T12:24:15.685+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:24:15
+================================================================================
+[2026-01-23T12:24:45.832+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:24:45
+================================================================================
+[2026-01-23T12:25:16.169+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:25:16
+================================================================================
+[2026-01-23T12:25:46.509+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:25:46
+================================================================================
+[2026-01-23T12:26:16.839+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:26:16
+================================================================================
+[2026-01-23T12:26:47.153+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:26:47
+================================================================================
+[2026-01-23T12:27:17.481+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:27:17
+================================================================================
+[2026-01-23T12:27:47.812+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:27:47
+================================================================================
+[2026-01-23T12:27:49.275+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:27:49.277+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:28:18.143+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:28:18
+================================================================================
+[2026-01-23T12:28:48.474+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:28:48
+================================================================================
+[2026-01-23T12:29:18.641+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:29:18
+================================================================================
+[2026-01-23T12:29:49.021+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:29:49
+================================================================================
+[2026-01-23T12:30:19.355+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:30:19
+================================================================================
+[2026-01-23T12:30:49.483+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:30:49
+================================================================================
+[2026-01-23T12:31:19.908+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:31:19
+================================================================================
+[2026-01-23T12:31:50.136+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:31:50
+================================================================================
+[2026-01-23T12:32:20.463+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:32:20
+================================================================================
+[2026-01-23T12:32:49.317+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:32:49.318+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:32:50.656+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:32:50
+================================================================================
+[2026-01-23T12:33:20.965+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:33:20
+================================================================================
+[2026-01-23T12:33:51.292+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:33:51
+================================================================================
+[2026-01-23T12:34:21.621+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:34:21
+================================================================================
+[2026-01-23T12:34:51.953+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:34:51
+================================================================================
+[2026-01-23T12:35:22.279+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:35:22
+================================================================================
+[2026-01-23T12:35:52.610+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:35:52
+================================================================================
+[2026-01-23T12:36:22.906+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:36:22
+================================================================================
+[2026-01-23T12:36:53.230+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:36:53
+================================================================================
+[2026-01-23T12:37:23.552+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:37:23
+================================================================================
+[2026-01-23T12:37:49.358+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:37:49.359+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:37:53.881+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:37:53
+================================================================================
+[2026-01-23T12:38:24.210+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:38:24
+================================================================================
+[2026-01-23T12:38:54.537+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:38:54
+================================================================================
+[2026-01-23T12:39:24.869+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:39:24
+================================================================================
+[2026-01-23T12:39:55.198+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:39:55
+================================================================================
+[2026-01-23T12:40:25.533+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:40:25
+================================================================================
+[2026-01-23T12:40:55.858+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:40:55
+================================================================================
+[2026-01-23T12:41:26.178+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:41:26
+================================================================================
+[2026-01-23T12:41:56.505+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:41:56
+================================================================================
+[2026-01-23T12:42:26.830+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:42:26
+================================================================================
+[2026-01-23T12:42:49.401+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:42:49.402+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:42:57.160+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:42:57
+================================================================================
+[2026-01-23T12:43:27.480+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:43:27
+================================================================================
+[2026-01-23T12:43:57.806+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:43:57
+================================================================================
+[2026-01-23T12:44:28.135+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:44:28
+================================================================================
+[2026-01-23T12:44:58.458+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:44:58
+================================================================================
+[2026-01-23T12:45:28.784+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:45:28
+================================================================================
+[2026-01-23T12:45:59.119+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:45:59
+================================================================================
+[2026-01-23T12:46:29.447+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:46:29
+================================================================================
+[2026-01-23T12:46:59.773+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:46:59
+================================================================================
+[2026-01-23T12:47:29.989+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:47:29
+================================================================================
+[2026-01-23T12:47:49.444+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:47:49.445+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:48:00.197+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:48:00
+================================================================================
+[2026-01-23T12:48:30.414+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:48:30
+================================================================================
+[2026-01-23T12:49:00.631+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:49:00
+================================================================================
+[2026-01-23T12:49:30.845+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:49:30
+================================================================================
+[2026-01-23T12:50:01.053+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:50:01
+================================================================================
+[2026-01-23T12:50:31.265+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:50:31
+================================================================================
+[2026-01-23T12:51:01.473+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:51:01
+================================================================================
+[2026-01-23T12:51:31.680+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:51:31
+================================================================================
+[2026-01-23T12:52:01.888+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:52:01
+================================================================================
+[2026-01-23T12:52:32.111+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:52:32
+================================================================================
+[2026-01-23T12:52:49.485+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:52:49.487+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:53:02.322+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:53:02
+================================================================================
+[2026-01-23T12:53:32.529+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:53:32
+================================================================================
+[2026-01-23T12:54:02.735+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:54:02
+================================================================================
+[2026-01-23T12:54:32.940+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:54:32
+================================================================================
+[2026-01-23T12:55:03.145+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:55:03
+================================================================================
+[2026-01-23T12:55:33.354+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:55:33
+================================================================================
+[2026-01-23T12:56:03.564+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:56:03
+================================================================================
+[2026-01-23T12:56:33.759+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:56:33
+================================================================================
+[2026-01-23T12:57:03.967+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:57:03
+================================================================================
+[2026-01-23T12:57:34.177+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:57:34
+================================================================================
+[2026-01-23T12:57:49.527+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:57:49.528+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T12:58:04.383+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:58:04
+================================================================================
+[2026-01-23T12:58:34.609+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.12s           2026-01-23T03:58:34
+================================================================================
+[2026-01-23T12:59:04.816+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:59:04
+================================================================================
+[2026-01-23T12:59:35.023+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T03:59:35
+================================================================================
+[2026-01-23T13:00:20.083+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:00:20
+================================================================================
+[2026-01-23T13:00:50.257+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:00:50
+================================================================================
+[2026-01-23T13:01:20.581+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:01:20
+================================================================================
+[2026-01-23T13:01:50.913+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:01:50
+================================================================================
+[2026-01-23T13:02:21.241+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:02:21
+================================================================================
+[2026-01-23T13:02:49.529+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T13:02:49.531+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T13:02:51.547+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:02:51
+================================================================================
+[2026-01-23T13:03:21.875+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:03:21
+================================================================================
+[2026-01-23T13:03:52.207+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:03:52
+================================================================================
+[2026-01-23T13:04:22.537+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:04:22
+================================================================================
+[2026-01-23T13:04:52.863+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:04:52
+================================================================================
+[2026-01-23T13:05:23.036+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:05:23
+================================================================================
+[2026-01-23T13:05:53.410+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:05:53
+================================================================================
+[2026-01-23T13:06:23.742+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:06:23
+================================================================================
+[2026-01-23T13:06:54.080+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:06:54
+================================================================================
+[2026-01-23T13:07:24.409+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:07:24
+================================================================================
+[2026-01-23T13:07:49.573+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T13:07:49.574+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T13:07:54.537+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:07:54
+================================================================================
+[2026-01-23T13:08:24.954+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:08:24
+================================================================================
+[2026-01-23T13:08:55.284+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:08:55
+================================================================================
+[2026-01-23T13:09:25.611+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:09:25
+================================================================================
+[2026-01-23T13:09:55.944+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:09:55
+================================================================================
+[2026-01-23T13:10:26.277+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:10:26
+================================================================================
+[2026-01-23T13:10:56.608+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:10:56
+================================================================================
+[2026-01-23T13:11:26.943+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:11:26
+================================================================================
+[2026-01-23T13:11:57.242+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:11:57
+================================================================================
+[2026-01-23T13:12:27.570+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:12:27
+================================================================================
+[2026-01-23T13:12:49.621+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T13:12:49.622+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/project/airflow_home/dags
+[2026-01-23T13:12:57.905+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:12:57
+================================================================================
+[2026-01-23T13:13:28.240+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:13:28
+================================================================================
+[2026-01-23T13:13:58.573+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                             PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:13:58
+================================================================================
+[2026-01-23T13:14:04.635+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15

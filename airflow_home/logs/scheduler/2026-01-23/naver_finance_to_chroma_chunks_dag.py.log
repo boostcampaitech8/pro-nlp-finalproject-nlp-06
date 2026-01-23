@@ -1,0 +1,712 @@
+[2026-01-23T12:15:59.229+0900] {processor.py:157} INFO - Started process (PID=707351) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:15:59.231+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:15:59.232+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:15:59.231+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:15:59.248+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:15:59.256+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:15:59.256+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:15:59.278+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:15:59.278+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T02:00:00+00:00, run_after=2026-01-23T03:00:00+00:00
+[2026-01-23T12:15:59.298+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.072 seconds
+[2026-01-23T12:22:49.318+0900] {processor.py:157} INFO - Started process (PID=708020) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:22:49.319+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:22:49.320+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:22:49.320+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:22:49.336+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:22:49.344+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:22:49.344+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:22:49.366+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:22:49.366+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T02:00:00+00:00, run_after=2026-01-23T03:00:00+00:00
+[2026-01-23T12:22:49.385+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.071 seconds
+[2026-01-23T12:23:19.465+0900] {processor.py:157} INFO - Started process (PID=708273) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:23:19.466+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:23:19.467+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:23:19.467+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:23:19.480+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:23:19.502+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:23:19.502+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:23:19.523+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:23:19.522+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T02:00:00+00:00, run_after=2026-01-23T03:00:00+00:00
+[2026-01-23T12:23:19.541+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:24:15.591+0900] {processor.py:157} INFO - Started process (PID=709146) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:24:15.593+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:24:15.594+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:24:15.593+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:24:15.608+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:24:15.632+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:24:15.632+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:24:15.670+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
+[2026-01-23T12:24:45.738+0900] {processor.py:157} INFO - Started process (PID=709231) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:24:45.740+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:24:45.741+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:24:45.740+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:24:45.753+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:24:45.776+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:24:45.776+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:24:45.798+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:24:45.797+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:24:45.819+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.084 seconds
+[2026-01-23T12:25:16.074+0900] {processor.py:157} INFO - Started process (PID=709316) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:25:16.076+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:25:16.077+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:25:16.077+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:25:16.089+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:25:16.112+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:25:16.111+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:25:16.134+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:25:16.134+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:25:16.153+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
+[2026-01-23T12:25:46.415+0900] {processor.py:157} INFO - Started process (PID=709339) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:25:46.416+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:25:46.417+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:25:46.417+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:25:46.429+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:25:46.452+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:25:46.452+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:25:46.473+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:25:46.473+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:25:46.493+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:26:16.745+0900] {processor.py:157} INFO - Started process (PID=709424) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:26:16.747+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:26:16.748+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:26:16.748+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:26:16.761+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:26:16.783+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:26:16.783+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:26:16.804+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:26:16.804+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:26:16.822+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:26:47.058+0900] {processor.py:157} INFO - Started process (PID=709446) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:26:47.059+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:26:47.060+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:26:47.060+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:26:47.072+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:26:47.094+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:26:47.094+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:26:47.115+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:26:47.115+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:26:47.133+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T12:27:17.387+0900] {processor.py:157} INFO - Started process (PID=709531) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:27:17.389+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:27:17.390+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:27:17.389+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:27:17.402+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:27:17.424+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:27:17.424+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:27:17.445+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:27:17.445+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:27:17.465+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:27:47.717+0900] {processor.py:157} INFO - Started process (PID=709553) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:27:47.718+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:27:47.719+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:27:47.719+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:27:47.731+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:27:47.755+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:27:47.754+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:27:47.777+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:27:47.777+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:27:47.796+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:28:18.049+0900] {processor.py:157} INFO - Started process (PID=709701) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:28:18.050+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:28:18.051+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:28:18.051+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:28:18.064+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:28:18.086+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:28:18.086+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:28:18.108+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:28:18.108+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:28:18.127+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:28:48.380+0900] {processor.py:157} INFO - Started process (PID=709725) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:28:48.381+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:28:48.382+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:28:48.382+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:28:48.395+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:28:48.418+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:28:48.418+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:28:48.441+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:28:48.440+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:28:48.460+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.084 seconds
+[2026-01-23T12:29:18.547+0900] {processor.py:157} INFO - Started process (PID=709821) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:29:18.548+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:29:18.549+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:29:18.549+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:29:18.561+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:29:18.584+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:29:18.584+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:29:18.605+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:29:18.605+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:29:18.623+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:29:48.927+0900] {processor.py:157} INFO - Started process (PID=709843) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:29:48.927+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:29:48.928+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:29:48.928+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:29:48.940+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:29:48.963+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:29:48.963+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:29:48.984+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:29:48.984+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:29:49.003+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:30:19.261+0900] {processor.py:157} INFO - Started process (PID=709928) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:30:19.262+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:30:19.263+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:30:19.263+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:30:19.275+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:30:19.297+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:30:19.297+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:30:19.319+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:30:19.319+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:30:19.337+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:30:49.388+0900] {processor.py:157} INFO - Started process (PID=709950) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:30:49.390+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:30:49.391+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:30:49.391+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:30:49.403+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:30:49.425+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:30:49.425+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:30:49.446+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:30:49.446+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:30:49.466+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:31:19.813+0900] {processor.py:157} INFO - Started process (PID=710035) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:31:19.815+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:31:19.816+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:31:19.815+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:31:19.827+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:31:19.849+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:31:19.849+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:31:19.871+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:31:19.871+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:31:19.889+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:31:50.041+0900] {processor.py:157} INFO - Started process (PID=710058) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:31:50.043+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:31:50.044+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:31:50.044+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:31:50.057+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:31:50.079+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:31:50.079+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:31:50.102+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:31:50.101+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:31:50.121+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.084 seconds
+[2026-01-23T12:32:20.369+0900] {processor.py:157} INFO - Started process (PID=710143) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:32:20.371+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:32:20.371+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:32:20.371+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:32:20.384+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:32:20.407+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:32:20.406+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:32:20.429+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:32:20.429+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:32:20.447+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:32:50.561+0900] {processor.py:157} INFO - Started process (PID=710191) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:32:50.562+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:32:50.563+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:32:50.563+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:32:50.575+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:32:50.598+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:32:50.598+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:32:50.620+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:32:50.619+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:32:50.638+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:33:20.871+0900] {processor.py:157} INFO - Started process (PID=710313) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:33:20.872+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:33:20.873+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:33:20.873+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:33:20.885+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:33:20.908+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:33:20.908+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:33:20.929+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:33:20.929+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:33:20.948+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:33:51.198+0900] {processor.py:157} INFO - Started process (PID=710374) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:33:51.199+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:33:51.200+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:33:51.200+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:33:51.212+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:33:51.235+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:33:51.235+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:33:51.256+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:33:51.256+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:33:51.274+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:34:21.526+0900] {processor.py:157} INFO - Started process (PID=710462) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:34:21.527+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:34:21.528+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:34:21.528+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:34:21.540+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:34:21.562+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:34:21.562+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:34:21.583+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:34:21.583+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:34:21.601+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T12:34:51.858+0900] {processor.py:157} INFO - Started process (PID=710578) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:34:51.859+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:34:51.860+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:34:51.860+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:34:51.872+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:34:51.894+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:34:51.894+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:34:51.915+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:34:51.915+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:34:51.935+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:35:22.184+0900] {processor.py:157} INFO - Started process (PID=710626) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:35:22.186+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:35:22.187+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:35:22.187+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:35:22.199+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:35:22.222+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:35:22.222+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:35:22.244+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:35:22.244+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:35:22.262+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:35:52.515+0900] {processor.py:157} INFO - Started process (PID=710756) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:35:52.516+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:35:52.517+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:35:52.517+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:35:52.529+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:35:52.551+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:35:52.551+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:35:52.573+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:35:52.573+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:35:52.591+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T12:36:22.811+0900] {processor.py:157} INFO - Started process (PID=710802) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:36:22.813+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:36:22.814+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:36:22.813+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:36:22.825+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:36:22.847+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:36:22.847+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:36:22.869+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:36:22.869+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:36:22.887+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:36:53.136+0900] {processor.py:157} INFO - Started process (PID=710895) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:36:53.137+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:36:53.138+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:36:53.137+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:36:53.150+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:36:53.172+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:36:53.172+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:36:53.193+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:36:53.193+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:36:53.211+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T12:37:23.458+0900] {processor.py:157} INFO - Started process (PID=710917) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:37:23.459+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:37:23.460+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:37:23.460+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:37:23.472+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:37:23.496+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:37:23.496+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:37:23.519+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:37:23.518+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:37:23.538+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.084 seconds
+[2026-01-23T12:37:53.786+0900] {processor.py:157} INFO - Started process (PID=711003) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:37:53.788+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:37:53.789+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:37:53.789+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:37:53.801+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:37:53.825+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:37:53.825+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:37:53.849+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:37:53.848+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:37:53.867+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.084 seconds
+[2026-01-23T12:38:24.115+0900] {processor.py:157} INFO - Started process (PID=711088) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:38:24.117+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:38:24.117+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:38:24.117+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:38:24.129+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:38:24.151+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:38:24.151+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:38:24.172+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:38:24.172+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:38:24.192+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:38:54.443+0900] {processor.py:157} INFO - Started process (PID=711173) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:38:54.444+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:38:54.445+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:38:54.445+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:38:54.457+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:38:54.481+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:38:54.481+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:38:54.505+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:38:54.505+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:38:54.524+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.085 seconds
+[2026-01-23T12:39:24.775+0900] {processor.py:157} INFO - Started process (PID=711201) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:39:24.776+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:39:24.777+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:39:24.777+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:39:24.789+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:39:24.811+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:39:24.811+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:39:24.833+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:39:24.833+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:39:24.852+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:39:55.103+0900] {processor.py:157} INFO - Started process (PID=711286) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:39:55.105+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:39:55.106+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:39:55.106+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:39:55.118+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:39:55.141+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:39:55.141+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:39:55.163+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:39:55.163+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:39:55.182+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:40:25.438+0900] {processor.py:157} INFO - Started process (PID=711308) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:40:25.439+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:40:25.440+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:40:25.440+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:40:25.452+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:40:25.475+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:40:25.475+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:40:25.497+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:40:25.497+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:40:25.516+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:40:55.765+0900] {processor.py:157} INFO - Started process (PID=711394) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:40:55.767+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:40:55.768+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:40:55.767+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:40:55.780+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:40:55.804+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:40:55.804+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:40:55.826+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:40:55.826+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:40:55.845+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.085 seconds
+[2026-01-23T12:41:26.084+0900] {processor.py:157} INFO - Started process (PID=711416) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:41:26.085+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:41:26.086+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:41:26.085+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:41:26.102+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:41:26.125+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:41:26.125+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:41:26.146+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:41:26.146+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:41:26.165+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.085 seconds
+[2026-01-23T12:41:56.410+0900] {processor.py:157} INFO - Started process (PID=711501) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:41:56.412+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:41:56.413+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:41:56.413+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:41:56.425+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:41:56.447+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:41:56.447+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:41:56.468+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:41:56.468+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:41:56.486+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:42:26.736+0900] {processor.py:157} INFO - Started process (PID=711522) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:42:26.737+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:42:26.738+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:42:26.738+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:42:26.750+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:42:26.773+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:42:26.773+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:42:26.794+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:42:26.794+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:42:26.813+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:42:57.066+0900] {processor.py:157} INFO - Started process (PID=711670) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:42:57.067+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:42:57.068+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:42:57.068+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:42:57.080+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:42:57.101+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:42:57.101+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:42:57.123+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:42:57.123+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:42:57.141+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T12:43:27.386+0900] {processor.py:157} INFO - Started process (PID=711692) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:43:27.387+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:43:27.388+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:43:27.388+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:43:27.400+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:43:27.422+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:43:27.422+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:43:27.444+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:43:27.443+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:43:27.463+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:43:57.712+0900] {processor.py:157} INFO - Started process (PID=711778) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:43:57.713+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:43:57.714+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:43:57.714+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:43:57.726+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:43:57.748+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:43:57.748+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:43:57.770+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:43:57.770+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:43:57.789+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:44:28.041+0900] {processor.py:157} INFO - Started process (PID=711800) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:44:28.042+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:44:28.043+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:44:28.043+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:44:28.056+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:44:28.078+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:44:28.078+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:44:28.099+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:44:28.099+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:44:28.117+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T12:44:58.364+0900] {processor.py:157} INFO - Started process (PID=711885) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:44:58.365+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:44:58.366+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:44:58.366+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:44:58.378+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:44:58.400+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:44:58.400+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:44:58.421+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:44:58.421+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:44:58.440+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:45:28.689+0900] {processor.py:157} INFO - Started process (PID=711907) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:45:28.691+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:45:28.692+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:45:28.692+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:45:28.705+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:45:28.732+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:45:28.731+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:45:28.753+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:45:28.753+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:45:28.772+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.087 seconds
+[2026-01-23T12:45:59.025+0900] {processor.py:157} INFO - Started process (PID=711992) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:45:59.026+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:45:59.027+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:45:59.027+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:45:59.039+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:45:59.062+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:45:59.062+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:45:59.084+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:45:59.084+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:45:59.103+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:46:29.353+0900] {processor.py:157} INFO - Started process (PID=712016) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:46:29.354+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:46:29.355+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:46:29.355+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:46:29.368+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:46:29.391+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:46:29.390+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:46:29.412+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:46:29.412+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:46:29.432+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
+[2026-01-23T12:46:59.679+0900] {processor.py:157} INFO - Started process (PID=712102) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:46:59.680+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:46:59.681+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:46:59.681+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:46:59.693+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:46:59.715+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:46:59.714+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:46:59.736+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:46:59.736+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:46:59.755+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:47:29.895+0900] {processor.py:157} INFO - Started process (PID=712124) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:47:29.896+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:47:29.896+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:47:29.896+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:47:29.908+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:47:29.930+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:47:29.930+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:47:29.951+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:47:29.951+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:47:29.969+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.078 seconds
+[2026-01-23T12:48:00.103+0900] {processor.py:157} INFO - Started process (PID=712272) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:48:00.105+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:48:00.105+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:48:00.105+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:48:00.118+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:48:00.140+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:48:00.140+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:48:00.161+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:48:00.161+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:48:00.179+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:48:30.320+0900] {processor.py:157} INFO - Started process (PID=712294) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:48:30.321+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:48:30.322+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:48:30.322+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:48:30.334+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:48:30.357+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:48:30.357+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:48:30.378+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:48:30.378+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:48:30.396+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:49:00.537+0900] {processor.py:157} INFO - Started process (PID=712380) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:49:00.538+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:49:00.539+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:49:00.539+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:49:00.551+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:49:00.573+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:49:00.573+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:49:00.594+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:49:00.594+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:49:00.613+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:49:30.751+0900] {processor.py:157} INFO - Started process (PID=712403) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:49:30.753+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:49:30.754+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:49:30.753+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:49:30.766+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:49:30.789+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:49:30.789+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:49:30.811+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:49:30.810+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:49:30.829+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:50:00.959+0900] {processor.py:157} INFO - Started process (PID=712489) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:50:00.960+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:50:00.961+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:50:00.961+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:50:00.973+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:50:00.996+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:50:00.996+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:50:01.018+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:50:01.018+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:50:01.037+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:50:31.171+0900] {processor.py:157} INFO - Started process (PID=712511) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:50:31.173+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:50:31.174+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:50:31.173+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:50:31.186+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:50:31.208+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:50:31.208+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:50:31.231+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:50:31.230+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:50:31.250+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
+[2026-01-23T12:51:01.379+0900] {processor.py:157} INFO - Started process (PID=712596) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:51:01.380+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:51:01.381+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:51:01.381+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:51:01.393+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:51:01.415+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:51:01.415+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:51:01.436+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:51:01.436+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:51:01.456+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:51:31.585+0900] {processor.py:157} INFO - Started process (PID=712618) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:51:31.586+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:51:31.587+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:51:31.587+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:51:31.600+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:51:31.622+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:51:31.622+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:51:31.644+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:51:31.643+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:51:31.662+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:52:01.794+0900] {processor.py:157} INFO - Started process (PID=712703) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:52:01.796+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:52:01.797+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:52:01.796+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:52:01.809+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:52:01.832+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:52:01.832+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:52:01.853+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:52:01.853+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:52:01.872+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:52:32.016+0900] {processor.py:157} INFO - Started process (PID=712726) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:52:32.018+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:52:32.019+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:52:32.019+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:52:32.031+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:52:32.054+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:52:32.054+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:52:32.076+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:52:32.076+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:52:32.095+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:53:02.228+0900] {processor.py:157} INFO - Started process (PID=712874) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:53:02.230+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:53:02.231+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:53:02.230+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:53:02.244+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:53:02.267+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:53:02.266+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:53:02.288+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:53:02.288+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:53:02.306+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:53:32.434+0900] {processor.py:157} INFO - Started process (PID=712897) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:53:32.436+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:53:32.437+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:53:32.436+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:53:32.449+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:53:32.470+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:53:32.470+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:53:32.491+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:53:32.491+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:53:32.511+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:54:02.640+0900] {processor.py:157} INFO - Started process (PID=712982) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:54:02.642+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:54:02.643+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:54:02.642+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:54:02.655+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:54:02.677+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:54:02.677+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:54:02.700+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:54:02.700+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:54:02.718+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:54:32.845+0900] {processor.py:157} INFO - Started process (PID=713004) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:54:32.847+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:54:32.848+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:54:32.847+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:54:32.860+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:54:32.882+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:54:32.882+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:54:32.904+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:54:32.903+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:54:32.922+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:55:03.051+0900] {processor.py:157} INFO - Started process (PID=713089) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:55:03.053+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:55:03.054+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:55:03.053+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:55:03.066+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:55:03.088+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:55:03.088+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:55:03.110+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:55:03.109+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:55:03.128+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:55:33.260+0900] {processor.py:157} INFO - Started process (PID=713112) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:55:33.262+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:55:33.263+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:55:33.263+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:55:33.275+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:55:33.298+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:55:33.298+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:55:33.322+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:55:33.322+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:55:33.340+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.084 seconds
+[2026-01-23T12:56:03.470+0900] {processor.py:157} INFO - Started process (PID=713197) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:56:03.471+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:56:03.472+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:56:03.472+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:56:03.485+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:56:03.509+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:56:03.509+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:56:03.531+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:56:03.531+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:56:03.553+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.087 seconds
+[2026-01-23T12:56:33.664+0900] {processor.py:157} INFO - Started process (PID=713219) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:56:33.665+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:56:33.666+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:56:33.666+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:56:33.679+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:56:33.701+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:56:33.701+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:56:33.722+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:56:33.722+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:56:33.740+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T12:57:03.872+0900] {processor.py:157} INFO - Started process (PID=713304) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:57:03.874+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:57:03.875+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:57:03.874+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:57:03.888+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:57:03.911+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:57:03.911+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:57:03.934+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:57:03.933+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:57:03.953+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.085 seconds
+[2026-01-23T12:57:34.083+0900] {processor.py:157} INFO - Started process (PID=713326) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:57:34.085+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:57:34.085+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:57:34.085+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:57:34.098+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:57:34.120+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:57:34.120+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:57:34.142+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:57:34.142+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:57:34.161+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T12:58:04.289+0900] {processor.py:157} INFO - Started process (PID=713475) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:58:04.290+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:58:04.291+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:58:04.291+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:58:04.303+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:58:04.326+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:58:04.326+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:58:04.348+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:58:04.348+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:58:04.366+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:58:34.515+0900] {processor.py:157} INFO - Started process (PID=713500) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:58:34.517+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:58:34.518+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:58:34.518+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:58:34.531+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:58:34.553+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:58:34.553+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:58:34.576+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:58:34.575+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:58:34.595+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
+[2026-01-23T12:59:04.722+0900] {processor.py:157} INFO - Started process (PID=713590) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:59:04.723+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:59:04.724+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:59:04.724+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:59:04.737+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:59:04.759+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:59:04.759+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:59:04.781+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:59:04.781+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:59:04.799+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T12:59:34.928+0900] {processor.py:157} INFO - Started process (PID=713612) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:59:34.930+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T12:59:34.931+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:59:34.930+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:59:34.942+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T12:59:34.964+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:59:34.964+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T12:59:34.985+0900] {logging_mixin.py:150} INFO - [2026-01-23T12:59:34.985+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T03:00:00+00:00, run_after=2026-01-23T04:00:00+00:00
+[2026-01-23T12:59:35.003+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T13:00:19.989+0900] {processor.py:157} INFO - Started process (PID=713929) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:00:19.991+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:00:19.992+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:00:19.991+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:00:20.005+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:00:20.029+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:00:20.029+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:00:20.068+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
+[2026-01-23T13:00:50.163+0900] {processor.py:157} INFO - Started process (PID=714077) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:00:50.165+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:00:50.166+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:00:50.165+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:00:50.178+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:00:50.200+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:00:50.200+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:00:50.221+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:00:50.220+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:00:50.239+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T13:01:20.486+0900] {processor.py:157} INFO - Started process (PID=714162) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:01:20.488+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:01:20.489+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:01:20.489+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:01:20.501+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:01:20.531+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:01:20.530+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:01:20.552+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:01:20.552+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:01:20.574+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.091 seconds
+[2026-01-23T13:01:50.820+0900] {processor.py:157} INFO - Started process (PID=714185) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:01:50.822+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:01:50.823+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:01:50.822+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:01:50.835+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:01:50.858+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:01:50.857+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:01:50.881+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:01:50.881+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:01:50.902+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.086 seconds
+[2026-01-23T13:02:21.147+0900] {processor.py:157} INFO - Started process (PID=714270) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:02:21.148+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:02:21.149+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:02:21.149+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:02:21.161+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:02:21.183+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:02:21.183+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:02:21.205+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:02:21.204+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:02:21.223+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.079 seconds
+[2026-01-23T13:02:51.453+0900] {processor.py:157} INFO - Started process (PID=714450) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:02:51.454+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:02:51.455+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:02:51.455+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:02:51.468+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:02:51.490+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:02:51.489+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:02:51.511+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:02:51.511+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:02:51.529+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T13:03:21.780+0900] {processor.py:157} INFO - Started process (PID=714609) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:03:21.781+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:03:21.782+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:03:21.782+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:03:21.794+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:03:21.816+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:03:21.816+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:03:21.837+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:03:21.837+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:03:21.855+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.078 seconds
+[2026-01-23T13:03:52.112+0900] {processor.py:157} INFO - Started process (PID=714661) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:03:52.114+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:03:52.115+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:03:52.114+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:03:52.126+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:03:52.149+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:03:52.148+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:03:52.169+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:03:52.169+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:03:52.187+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.078 seconds
+[2026-01-23T13:04:22.442+0900] {processor.py:157} INFO - Started process (PID=714721) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:04:22.444+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:04:22.445+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:04:22.444+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:04:22.457+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:04:22.479+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:04:22.478+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:04:22.499+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:04:22.499+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:04:22.520+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T13:04:52.769+0900] {processor.py:157} INFO - Started process (PID=714770) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:04:52.771+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:04:52.772+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:04:52.771+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:04:52.784+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:04:52.807+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:04:52.807+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:04:52.828+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:04:52.828+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:04:52.847+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T13:05:22.942+0900] {processor.py:157} INFO - Started process (PID=714840) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:05:22.944+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:05:22.944+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:05:22.944+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:05:22.957+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:05:22.979+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:05:22.979+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:05:23.005+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:05:23.005+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:05:23.025+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.086 seconds
+[2026-01-23T13:05:53.316+0900] {processor.py:157} INFO - Started process (PID=714925) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:05:53.318+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:05:53.319+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:05:53.318+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:05:53.331+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:05:53.354+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:05:53.353+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:05:53.375+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:05:53.375+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:05:53.394+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T13:06:23.647+0900] {processor.py:157} INFO - Started process (PID=714947) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:06:23.649+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:06:23.650+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:06:23.649+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:06:23.662+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:06:23.684+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:06:23.684+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:06:23.706+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:06:23.706+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:06:23.724+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T13:06:53.986+0900] {processor.py:157} INFO - Started process (PID=715032) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:06:53.988+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:06:53.989+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:06:53.988+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:06:54.001+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:06:54.023+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:06:54.023+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:06:54.045+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:06:54.044+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:06:54.062+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T13:07:24.315+0900] {processor.py:157} INFO - Started process (PID=715054) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:07:24.316+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:07:24.317+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:07:24.317+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:07:24.329+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:07:24.352+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:07:24.352+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:07:24.373+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:07:24.372+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:07:24.391+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T13:07:54.443+0900] {processor.py:157} INFO - Started process (PID=715140) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:07:54.445+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:07:54.445+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:07:54.445+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:07:54.459+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:07:54.482+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:07:54.482+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:07:54.503+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:07:54.503+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:07:54.521+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T13:08:24.860+0900] {processor.py:157} INFO - Started process (PID=715232) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:08:24.862+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:08:24.863+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:08:24.863+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:08:24.875+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:08:24.898+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:08:24.898+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:08:24.919+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:08:24.919+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:08:24.938+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T13:08:55.189+0900] {processor.py:157} INFO - Started process (PID=715317) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:08:55.191+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:08:55.192+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:08:55.191+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:08:55.204+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:08:55.226+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:08:55.226+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:08:55.248+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:08:55.248+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:08:55.267+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T13:09:25.517+0900] {processor.py:157} INFO - Started process (PID=715339) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:09:25.518+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:09:25.519+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:09:25.519+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:09:25.532+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:09:25.556+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:09:25.556+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:09:25.579+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:09:25.579+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:09:25.598+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.085 seconds
+[2026-01-23T13:09:55.849+0900] {processor.py:157} INFO - Started process (PID=715424) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:09:55.852+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:09:55.853+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:09:55.852+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:09:55.865+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:09:55.888+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:09:55.887+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:09:55.911+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:09:55.911+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:09:55.930+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.084 seconds
+[2026-01-23T13:10:26.182+0900] {processor.py:157} INFO - Started process (PID=715446) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:10:26.184+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:10:26.185+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:10:26.184+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:10:26.196+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:10:26.218+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:10:26.218+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:10:26.240+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:10:26.240+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:10:26.258+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T13:10:56.514+0900] {processor.py:157} INFO - Started process (PID=715532) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:10:56.515+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:10:56.516+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:10:56.516+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:10:56.529+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:10:56.552+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:10:56.552+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:10:56.574+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:10:56.574+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:10:56.593+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T13:11:26.849+0900] {processor.py:157} INFO - Started process (PID=715554) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:11:26.850+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:11:26.851+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:11:26.851+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:11:26.864+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:11:26.887+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:11:26.887+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:11:26.909+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:11:26.909+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:11:26.928+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
+[2026-01-23T13:11:57.148+0900] {processor.py:157} INFO - Started process (PID=715639) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:11:57.149+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:11:57.150+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:11:57.149+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:11:57.162+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:11:57.184+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:11:57.184+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:11:57.205+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:11:57.205+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:11:57.224+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T13:12:27.476+0900] {processor.py:157} INFO - Started process (PID=715661) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:12:27.477+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:12:27.478+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:12:27.478+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:12:27.490+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:12:27.513+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:12:27.513+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:12:27.534+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:12:27.534+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:12:27.552+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.080 seconds
+[2026-01-23T13:12:57.811+0900] {processor.py:157} INFO - Started process (PID=715809) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:12:57.812+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:12:57.813+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:12:57.813+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:12:57.826+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:12:57.849+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:12:57.849+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:12:57.871+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:12:57.871+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:12:57.890+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.082 seconds
+[2026-01-23T13:13:28.146+0900] {processor.py:157} INFO - Started process (PID=715832) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:13:28.147+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:13:28.148+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:13:28.148+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:13:28.160+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:13:28.183+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:13:28.183+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:13:28.205+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:13:28.205+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:13:28.223+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.081 seconds
+[2026-01-23T13:13:58.479+0900] {processor.py:157} INFO - Started process (PID=715917) to work on /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:13:58.481+0900] {processor.py:826} INFO - Processing file /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py for tasks to queue
+[2026-01-23T13:13:58.482+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:13:58.481+0900] {dagbag.py:541} INFO - Filling up the DagBag from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:13:58.494+0900] {processor.py:836} INFO - DAG(s) dict_keys(['naver_finance_to_chroma_chunks_kst']) retrieved from /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py
+[2026-01-23T13:13:58.518+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:13:58.517+0900] {dag.py:2742} INFO - Sync 1 DAGs
+[2026-01-23T13:13:58.539+0900] {logging_mixin.py:150} INFO - [2026-01-23T13:13:58.539+0900] {dag.py:3504} INFO - Setting next_dagrun for naver_finance_to_chroma_chunks_kst to 2026-01-23T04:00:00+00:00, run_after=2026-01-23T05:00:00+00:00
+[2026-01-23T13:13:58.558+0900] {processor.py:179} INFO - Processing /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py took 0.083 seconds
