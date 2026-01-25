@@ -9,7 +9,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # 절대경로 import
-from .Agent import app as agent_app, AgentState
+try:
+    from .model_agent import agent
+    print("[SUCCESS] Agent import 성공!")
+except Exception as e:
+    print(f"[ERROR] Agent import 실패: {e}")
+    raise
 
 app = FastAPI()
 
@@ -109,28 +114,32 @@ class ChatResponse(BaseModel):
 # ----------------------------
 @app.get("/")
 def root():
-    return {"message": "Backend server is running with Agent!"}
+    """서버 상태 및 설정 확인"""
+    return {
+        "message": "Backend server is running with FinancialAgent!",
+        "status": "ok",
+        "config": {
+            "vllm_url": agent.vllm_base_url,
+            "model": agent.vllm_model,
+            "embedding": agent.embedding_model,
+            "embedding_device": agent.embedding_device,
+            "chroma_dir": str(agent.chroma_base_dir),
+            "k_values": agent.k_values,
+        }
+    }
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
-    """
-    Agent.py의 LangGraph를 실행하여 사용자 질문에 답변
-    """
-    # 초기 상태 설정
-    state: AgentState = {
-        "query": request.message,
-        "category": "",
-        "sub_category": "",
-        "debate_history": [],
-        "debate_count": 0,
-        "response": "",
-    }
-    
+    """채팅 엔드포인트"""
     try:
-        # Agent 그래프 실행
-        result = agent_app.invoke(state)
+        print(f"\n[REQUEST] User: {request.message}")
         
-        # 응답 반환
+        # Agent 실행
+        result = agent.invoke(request.message)
+        
+        print(f"[RESPONSE] Category: {result.get('category')}")
+        print(f"[RESPONSE] Answer: {result.get('response')[:100]}...")
+        
         return ChatResponse(
             answer=result.get("response", "응답을 생성할 수 없습니다."),
             category=result.get("category", "unknown"),
@@ -138,7 +147,10 @@ def chat(request: ChatRequest):
         )
     
     except Exception as e:
-        print(f"[ERROR] Agent 실행 중 오류 발생: {e}")
+        print(f"\n[ERROR] Agent 실행 중 오류: {e}")
+        import traceback
+        traceback.print_exc()
+        
         return ChatResponse(
             answer=f"오류가 발생했습니다: {str(e)}",
             category="error",
