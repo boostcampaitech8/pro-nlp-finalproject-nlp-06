@@ -9,7 +9,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # 절대경로 import
-from .model_ollama import RagNewsChatService
+from .Agent import app as agent_app, AgentState
 
 app = FastAPI()
 
@@ -101,27 +101,46 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
-    used_db: bool
-
+    category: str
+    sub_category: str = ""
 
 # ----------------------------
 # Routes
 # ----------------------------
 @app.get("/")
 def root():
-    return {
-        "status": "ok",
-        "project_root": str(PROJECT_ROOT),
-        "chroma_dir": str(CHROMA_DIR),
-        "chroma_collection": CHROMA_COLLECTION,
-        "ollama_base_url": OLLAMA_BASE_URL,
-        "ollama_llm_model": OLLAMA_LLM_MODEL,
-        "ollama_embed_model": OLLAMA_EMBED_MODEL,
-    }
-
+    return {"message": "Backend server is running with Agent!"}
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
-    rag = get_rag_service()
-    answer, used_db = rag.answer(request.message)
-    return ChatResponse(answer=answer, used_db=used_db)
+    """
+    Agent.py의 LangGraph를 실행하여 사용자 질문에 답변
+    """
+    # 초기 상태 설정
+    state: AgentState = {
+        "query": request.message,
+        "category": "",
+        "sub_category": "",
+        "debate_history": [],
+        "debate_count": 0,
+        "response": "",
+    }
+    
+    try:
+        # Agent 그래프 실행
+        result = agent_app.invoke(state)
+        
+        # 응답 반환
+        return ChatResponse(
+            answer=result.get("response", "응답을 생성할 수 없습니다."),
+            category=result.get("category", "unknown"),
+            sub_category=result.get("sub_category", "")
+        )
+    
+    except Exception as e:
+        print(f"[ERROR] Agent 실행 중 오류 발생: {e}")
+        return ChatResponse(
+            answer=f"오류가 발생했습니다: {str(e)}",
+            category="error",
+            sub_category=""
+        )
