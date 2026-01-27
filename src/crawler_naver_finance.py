@@ -141,6 +141,9 @@ def crawl_page(page: int, session: requests.Session, time_limit: datetime, base_
         if article_time and article_time < time_limit:
             return articles, True
 
+        date_iso = article_time.isoformat() if article_time else ""
+        date_ts = int(article_time.timestamp()) if article_time else 0
+
         content = crawl_article_content(link, session)
         time.sleep(0.4)
 
@@ -149,6 +152,8 @@ def crawl_page(page: int, session: requests.Session, time_limit: datetime, base_
             "link": link,
             "press": press,
             "date": wdate,
+            "date_iso": date_iso,  # 표준화(선택)
+            "date_ts": date_ts,    # 정렬용
             "content": content,
         })
 

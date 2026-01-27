@@ -2,14 +2,16 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-from typing import Optional
+from typing import Optional, List, Dict, Any
+from uuid import uuid4 
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-# 절대경로 import
+# 상대경로 import
 from .model_ollama import RagNewsChatService
+from redis_dir.redis_storage import RedisSessionStore
 
 app = FastAPI()
 
@@ -91,6 +93,24 @@ def get_rag_service() -> RagNewsChatService:
         )
     return _rag_service
 
+# ----------------------------
+# Redis Session Store (lazy init)
+# ----------------------------
+_store: Optional[RedisSessionStore] = None
+
+
+def get_store() -> RedisSessionStore:
+    global _store
+    if _store is None:
+        _store = RedisSessionStore()
+        # 서버 시작 시 Redis 연결 문제를 빨리 감지하고 싶으면 ping 체크:
+        try:
+            _store.ping()
+        except Exception as e:
+            raise RuntimeError(f"Redis connection failed: {e}") from e
+    return _store
+
+
 
 # ----------------------------
 # Request / Response
@@ -103,6 +123,15 @@ class ChatResponse(BaseModel):
     answer: str
     used_db: bool
 
+class SessionChatResponse(BaseModel):
+    session_id: str
+    answer: str
+    used_db: bool
+
+
+class RecentMessagesResponse(BaseModel):
+    session_id: str
+    messages: List[Dict[str, Any]]
 
 # ----------------------------
 # Routes
@@ -117,11 +146,57 @@ def root():
         "ollama_base_url": OLLAMA_BASE_URL,
         "ollama_llm_model": OLLAMA_LLM_MODEL,
         "ollama_embed_model": OLLAMA_EMBED_MODEL,
+        "redis_host": os.getenv("REDIS_HOST", "localhost"),
+        "redis_port": os.getenv("REDIS_PORT", "6379"),
     }
 
 
+#기존 
 @app.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
     rag = get_rag_service()
     answer, used_db = rag.answer(request.message)
     return ChatResponse(answer=answer, used_db=used_db)
+
+#새 채팅방(세션) 만들기
+@app.post("/session")
+def create_session():
+    session_id = str(uuid4())
+    store = get_store()
+    store.create_session(session_id)
+    return {"session_id": session_id}
+
+
+
+# 세션 기반 채팅: "최근 5개 히스토리"를 프롬프트에 포함
+@app.post("/chat/{session_id}", response_model=SessionChatResponse)
+def chat_with_session(session_id: str, request: ChatRequest):
+    store = get_store()
+    rag = get_rag_service()
+
+    # 0) 과거 대화 최근 5개를 먼저 가져오기 (현재 user 메시지 저장 전에!)
+    history = store.get_last_n(session_id, n=5, chronological=True)
+
+    # 1) 사용자 메시지 저장
+    store.add_message(session_id, "user", request.message)
+
+    # 2) 히스토리 포함하여 답변 생성
+    answer, used_db = rag.answer_with_history(request.message, history)
+
+    # 3) 어시스턴트 메시지 저장
+    store.add_message(session_id, "assistant", answer)
+
+    return SessionChatResponse(session_id=session_id, answer=answer, used_db=used_db)
+
+
+
+
+#최근 N개 메시지 조회 (기본 5개)
+@app.get("/chat/{session_id}/recent", response_model=RecentMessagesResponse)
+def recent_messages(session_id: str, limit: int = 10):
+    if limit < 1 or limit > 200:
+        raise HTTPException(status_code=400, detail="limit must be between 1 and 200")
+
+    store = get_store()
+    msgs = store.get_last_n(session_id, n=limit, chronological=True)
+    return RecentMessagesResponse(session_id=session_id, messages=msgs)

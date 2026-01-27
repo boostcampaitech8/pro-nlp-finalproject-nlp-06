@@ -320,6 +320,115 @@ class RagNewsChatService:
 """
         return prompt
 
+
+        # ADDED: ---------------- Session history helpers ----------------
+    def _format_history(self, history: List[Dict[str, Any]], max_turns: int = 5) -> str:
+        """
+        history 예시:
+          [{"role":"user","content":"...", "ts":"..."}, {"role":"assistant","content":"..."} ...]
+        max_turns: 포함할 최근 메시지 수
+        """
+        if not history:
+            return ""
+
+        clipped = history[-max_turns:]  # (과거->최신) 기준으로 마지막 N개
+        lines: List[str] = []
+        for m in clipped:
+            role = (m.get("role") or "").strip().lower()
+            content = (m.get("content") or "").strip()
+            if not content:
+                continue
+
+            if role == "user":
+                lines.append(f"사용자: {content}")
+            elif role == "assistant":
+                lines.append(f"어시스턴트: {content}")
+            else:
+                lines.append(f"{role}: {content}")
+
+        return "\n".join(lines).strip()
+
+    #ADDED
+    def answer_with_history(self, question: str, history: List[Dict[str, Any]]) -> Tuple[str, bool]:
+        """
+        기존 answer() 흐름을 유지하면서, 프롬프트에 '최근 대화'를 같이 넣어준다.
+        - 라우팅(뉴스DB/일반)에도 맥락이 반영되도록 'question_for_routing'을 따로 구성
+        - 최종 프롬프트에는 [Conversation Context] 섹션 추가
+        """
+        history_text = self._format_history(history, max_turns=5)
+
+        # 1) 라우팅/검색 쿼리에도 맥락을 조금 반영하고 싶으면 질문을 이렇게 확장
+        # (너무 길어지면 라우팅이 흔들릴 수 있어서 history를 짧게만)
+        question_for_routing = question
+        if history_text:
+            question_for_routing = f"{history_text}\n\n현재 질문: {question}"
+
+        # 2) 아래는 answer()를 거의 복사하되, prompt를 만들 때 history를 끼워 넣는다.
+        use_db = self.should_use_news_db(question_for_routing)
+
+        used_db = False
+        articles: List[Dict[str, Any]] = []
+
+        if use_db and self.news_db is not None:
+            try:
+                search_q = question_for_routing
+                if self.enable_query_refine:
+                    search_q = self.refine_search_query(question_for_routing)
+
+                # 점수까지 가져오기
+                raw_pairs: List[TypingTuple[Document, float]] = self.news_db.similarity_search_with_score(
+                    search_q, k=self.retrieval_k
+                )
+
+                if self.debug:
+                    top_scores = [round(s, 4) for _d, s in raw_pairs[:10] if s is not None]
+                    print("[DB] retrieved_pairs:", len(raw_pairs))
+                    print("[DB] top_scores:", top_scores)
+
+                # 임계치 필터
+                pairs = self._filter_pairs_by_score(raw_pairs)
+
+                if self.debug:
+                    print("[DB] pairs_after_filter:", len(pairs))
+                    if pairs:
+                        m0 = pairs[0][0].metadata or {}
+                        print("[DB] first meta keys:", list(m0.keys()))
+                        print("[DB] first link:", (m0.get("link") or "")[:120])
+
+                # 기사 단위 묶기 + best_score 기반 topN
+                articles = self._group_pairs_to_articles(pairs, top_articles=self.top_articles)
+
+                if self.debug:
+                    print("[DB] articles:", len(articles))
+                    for i, a in enumerate(articles[:3], start=1):
+                        print(f"[DB] #{i} best_score={a.get('best_score')}, title={a.get('title')[:60]}")
+
+                used_db = len(articles) > 0
+
+            except Exception as e:
+                print(f"[WARN] Vector DB search skipped: {e}")
+                used_db = False
+                articles = []
+
+        # 3) 기존 프롬프트 생성
+        base_prompt = self._build_news_prompt(question, articles) if used_db else self._build_general_prompt(question)
+
+        # 4) 프롬프트에 대화 맥락을 삽입
+        if history_text:
+            prompt = (
+                base_prompt
+                + "\n\n[Conversation Context]\n"
+                + history_text
+                + "\n\n[Instruction]\n"
+                + "- 위 대화 맥락이 현재 질문을 이해하는 데 도움이 된다면 반영하세요.\n"
+                + "- 다만 기사 기반 답변 규칙/금지사항은 그대로 지키세요.\n"
+            )
+        else:
+            prompt = base_prompt
+
+        answer = self.answer_llm.invoke(prompt).content
+        return answer, used_db
+
     # ---------------- Main entry ----------------
     def answer(self, question: str) -> Tuple[str, bool]:
         use_db = self.should_use_news_db(question)
