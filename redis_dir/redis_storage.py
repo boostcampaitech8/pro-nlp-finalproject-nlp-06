@@ -15,7 +15,7 @@ class RedisConfig:
     port: int = int(os.getenv("REDIS_PORT", "6379"))
     db: int = int(os.getenv("REDIS_DB", "0"))
     ttl_seconds: int = int(os.getenv("SESSION_TTL_SECONDS", str(60 * 60 * 24)))  # 24h
-    keep_messages: int = int(os.getenv("SESSION_KEEP_MESSAGES", "200"))          # 세션당 보관 메시지 수
+    keep_messages: int = int(os.getenv("SESSION_KEEP_MESSAGES", "200")) # 세션당 보관 메시지 수
 
 
 class RedisSessionStore:
@@ -76,7 +76,7 @@ class RedisSessionStore:
         # TTL 연장
         self.touch(session_id)
 
-    def get_last_n(self, session_id: str, n: int = 5, chronological: bool = True) -> List[Dict[str, Any]]:
+    def get_last_n(self, session_id: str, n: int = 10, chronological: bool = True) -> List[Dict[str, Any]]:
         k = self._messages_key(session_id)
         raw = self.r.lrange(k, 0, max(0, n - 1))  # 최신 n개
         msgs = [json.loads(x) for x in raw]

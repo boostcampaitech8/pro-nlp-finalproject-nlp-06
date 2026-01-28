@@ -175,7 +175,7 @@ def chat_with_session(session_id: str, request: ChatRequest):
     rag = get_rag_service()
 
     # 0) 과거 대화 최근 5개를 먼저 가져오기 (현재 user 메시지 저장 전에!)
-    history = store.get_last_n(session_id, n=5, chronological=True)
+    history = store.get_last_n(session_id, n=10, chronological=True)
 
     # 1) 사용자 메시지 저장
     store.add_message(session_id, "user", request.message)
