@@ -5,7 +5,7 @@ from pathlib import Path
 from typing import Optional, List, Dict, Any
 from uuid import uuid4 
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
@@ -237,6 +237,20 @@ def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
 
 
 
+class StockRecOut(BaseModel):
+    symbol: str                 # 예: AAPL
+    name: str                   # 예: Apple Inc.
+    market: Optional[str] = None  # 예: NASDAQ
+    price: Optional[float] = None # 예시
+    change_pct: Optional[float] = None # 예시
+    headline: str               # 카드에 보이는 한 줄 추천 문구
+    why: str                    # hover 시 노출되는 상세 이유
+    risk: Optional[str] = None  # 리스크 한줄(선택)
+
+class StockRecListOut(BaseModel):
+    items: List[StockRecOut]
+
+
 # ----------------------------
 # Routes
 # ----------------------------
@@ -313,3 +327,41 @@ def latest_news(limit: int = 20):
         raise HTTPException(status_code=400, detail="limit must be between 1 and 100")
     items = fetch_latest_news(limit=limit)
     return {"items": items}
+
+
+
+@app.get("/stocks/recommendations", response_model=StockRecListOut)
+def get_stock_recommendations(limit: int = Query(2, ge=1, le=10)):
+    # 지금은 예시 2개 하드코딩.
+    # 나중에 실제 추천으로 교체하면 됨.
+    sample = [
+        StockRecOut(
+            symbol="AAPL",
+            name="Apple Inc.",
+            market="NASDAQ",
+            price=198.12,
+            change_pct=1.24,
+            headline="현금흐름/자사주 매입 기반의 방어적 빅테크",
+            why=(
+                "• 실적 변동성이 상대적으로 낮고, 서비스 매출 비중이 커서 수익 구조가 안정적입니다.\n"
+                "• 강한 현금흐름을 바탕으로 자사주 매입/배당을 지속해 주주환원 여력이 큽니다.\n"
+                "• 단기 변동성(금리/기술주 조정)에도 포트폴리오 코어로 편입하기 좋습니다."
+            ),
+            risk="밸류에이션(멀티플) 부담 시 조정 폭이 커질 수 있음",
+        ),
+        StockRecOut(
+            symbol="MSFT",
+            name="Microsoft",
+            market="NASDAQ",
+            price=431.55,
+            change_pct=0.78,
+            headline="클라우드 + AI 수요의 구조적 수혜",
+            why=(
+                "• Azure 성장과 기업용 소프트웨어 구독 매출로 장기 성장성이 탄탄합니다.\n"
+                "• AI 도입(업무 자동화/코파일럿) 확산이 매출 업사이드로 연결될 가능성이 있습니다.\n"
+                "• 경기 둔화 국면에서도 엔터프라이즈 락인 효과가 강합니다."
+            ),
+            risk="클라우드 성장률 둔화/경쟁 심화 시 모멘텀 약화 가능",
+        ),
+    ]
+    return {"items": sample[:limit]}
