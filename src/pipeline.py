@@ -56,9 +56,9 @@ def build_chunk_rows_for_article(
     base_meta = {
         "title": article.get("title", ""),
         "press": article.get("press", ""),
-        "date": article.get("date", ""),
-        "date_iso": article.get("date_iso", ""),
-        "date_ts": int(article.get("date_ts", 0) or 0),
+        "date": article.get("date", ""), # 원본 날짜 문자열
+        "date_iso": article.get("date_iso", ""), # 표준화된 문자열 날짜
+        "date_ts": int(article.get("date_ts", 0) or 0), # 정렬, 비교용 숫자 타임스탬프
         "link": link,
         "summary": summary,
         "keywords": keywords_str,
