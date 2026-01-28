@@ -5,13 +5,14 @@ from pathlib import Path
 from typing import Optional, List, Dict, Any
 from uuid import uuid4 
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 # 상대경로 import
 from .model_ollama import RagNewsChatService
 from redis_dir.redis_storage import RedisSessionStore
+from .chroma_store import get_collection
 
 app = FastAPI()
 
@@ -133,6 +134,109 @@ class RecentMessagesResponse(BaseModel):
     session_id: str
     messages: List[Dict[str, Any]]
 
+
+
+class NewsItem(BaseModel):
+    title: str
+    press: str
+    date: str
+    date_iso: str
+    date_ts: int
+    link: str
+    preview_lines: List[str]
+    summary: str
+
+
+class NewsListResponse(BaseModel):
+    items: List[NewsItem]
+
+
+
+def _first_3_lines(text: str) -> List[str]:
+    if not text:
+        return []
+    lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
+    return lines[:3]
+
+
+def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
+    # Chroma collection 열기
+    client, col = get_collection(
+        persist_dir=str(CHROMA_DIR),
+        collection_name=CHROMA_COLLECTION,
+        ollama_base_url=OLLAMA_BASE_URL,
+        ollama_embed_model=OLLAMA_EMBED_MODEL,
+    )
+
+    # Chroma 버전마다 limit/offset 지원이 다를 수 있어서 방어적으로 처리
+    try:
+        got = col.get(include=["metadatas", "documents"], limit=5000)
+    except TypeError:
+        got = col.get(include=["metadatas", "documents"])
+
+    metadatas = got.get("metadatas") or []
+    documents = got.get("documents") or []
+
+    # link 기준으로 기사 단위 묶기
+    by_link: Dict[str, Dict[str, Any]] = {}
+
+    for meta, doc in zip(metadatas, documents):
+        if not meta:
+            continue
+        link = (meta.get("link") or "").strip()
+        if not link:
+            continue
+
+        # 기본 기사 정보
+        item = by_link.get(link)
+        if item is None:
+            item = {
+                "title": meta.get("title", ""),
+                "press": meta.get("press", ""),
+                "date": meta.get("date", ""),
+                "date_iso": meta.get("date_iso", ""),
+                "date_ts": int(meta.get("date_ts", 0) or 0),
+                "link": link,
+                "summary": meta.get("summary", ""),
+                "preview_doc": "",
+                "preview_lines": [],
+                "best_chunk_index": 10**9,
+            }
+            by_link[link] = item
+
+        # chunk_index==0(혹은 가장 작은 chunk_index)을 미리보기로 사용
+        chunk_index = meta.get("chunk_index")
+        try:
+            chunk_index = int(chunk_index) if chunk_index is not None else 10**9
+        except Exception:
+            chunk_index = 10**9
+
+        if chunk_index < item["best_chunk_index"]:
+            item["best_chunk_index"] = chunk_index
+            item["preview_doc"] = doc or ""
+
+    # preview_lines 만들고 정렬/슬라이스
+    items = []
+    for link, item in by_link.items():
+        preview_lines = _first_3_lines(item.get("preview_doc", ""))
+        items.append(
+            {
+                "title": item.get("title", ""),
+                "press": item.get("press", ""),
+                "date": item.get("date", ""),
+                "date_iso": item.get("date_iso", ""),
+                "date_ts": int(item.get("date_ts", 0) or 0),
+                "link": item.get("link", ""),
+                "preview_lines": preview_lines,
+                "summary": item.get("summary", ""),
+            }
+        )
+
+    items.sort(key=lambda x: x.get("date_ts", 0), reverse=True)
+    return items[:limit]
+
+
+
 # ----------------------------
 # Routes
 # ----------------------------
@@ -200,3 +304,12 @@ def recent_messages(session_id: str, limit: int = 10):
     store = get_store()
     msgs = store.get_last_n(session_id, n=limit, chronological=True)
     return RecentMessagesResponse(session_id=session_id, messages=msgs)
+
+
+
+@app.get("/news/latest", response_model=NewsListResponse)
+def latest_news(limit: int = 20):
+    if limit < 1 or limit > 100:
+        raise HTTPException(status_code=400, detail="limit must be between 1 and 100")
+    items = fetch_latest_news(limit=limit)
+    return {"items": items}

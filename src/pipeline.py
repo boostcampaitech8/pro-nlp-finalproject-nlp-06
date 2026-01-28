@@ -57,6 +57,8 @@ def build_chunk_rows_for_article(
         "title": article.get("title", ""),
         "press": article.get("press", ""),
         "date": article.get("date", ""),
+        "date_iso": article.get("date_iso", ""),
+        "date_ts": int(article.get("date_ts", 0) or 0),
         "link": link,
         "summary": summary,
         "keywords": keywords_str,
