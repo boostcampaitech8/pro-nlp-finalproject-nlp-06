@@ -1,7 +1,8 @@
 /* Container */
 .chatbot-container {
   display: flex;
-  height: 100vh;
+  height: 100dvh; 
+  width: 100vw;
   overflow: hidden;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", sans-serif;
@@ -174,9 +175,11 @@
   background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
   position: relative;
 
-  /* 스크롤은 scroll-panel에서만 */
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
+
+  min-width: 0;  
+  min-height: 0; 
 }
 
 /* 추천 + 메시지를 같이 스크롤하는 컨테이너 */
@@ -185,6 +188,9 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding-bottom: 12px;
+  min-height: 0; 
+
+  width: 100%;   
 }
 
 .scroll-panel::-webkit-scrollbar {
@@ -241,10 +247,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-
-  /* 이전엔 chat-area가 스크롤 담당이었음. 이제 scroll-panel이 담당 */
   overflow: visible;
-
   transition: justify-content 0.3s ease;
 }
 
@@ -335,14 +338,13 @@
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
 }
 
-/* Messages Container - Top Aligned */
+/* Messages Container: 전체 폭 사용 */
 .messages-container {
   padding: 32px 24px;
-  max-width: 900px;
-  margin: 0 auto;
   width: 100%;
+  max-width: none;   /* 900px 제거 */
+  margin: 0;         /* 가운데 고정 제거 */
 
-  /* 혹시 기존에 overflow/height 지정이 생겼어도 스크롤 분리 방지 */
   overflow: visible;
   height: auto;
   max-height: none;
@@ -355,6 +357,7 @@
   margin-bottom: 24px;
   animation: slideIn 0.3s ease;
   align-items: flex-start;
+  background: transparent !important; /* 바깥 배경 섞임 방지 */
 }
 
 @keyframes slideIn {
@@ -381,6 +384,26 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
 }
 
+/* 유저/어시스턴트 row 정렬 강제 */
+.message.assistant-message {
+  justify-content: flex-start;
+}
+
+.message.user-message {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+
+/* 혹시 JSX가 .message에 user-message/assistant-message를 안 붙이고
+   바깥 wrapper에 붙이는 경우도 있어서 방어적으로 하나 더 */
+.user-message.message {
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+}
+.assistant-message.message {
+  justify-content: flex-start;
+}
+
 .user-message .message-avatar {
   background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
 }
@@ -389,16 +412,20 @@
   background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
 }
 
+/* bubble을 좌/우로 확실히 붙이기 */
 .message-bubble {
-  flex: 1;
-  max-width: 75%;
+  max-width: 72%;
+  min-width: 0;
+  flex: 0 1 auto; /* flex:1 때문에 늘어나면서 가운데처럼 보이는 것 방지 */
 }
 
-.user-message {
-  flex-direction: row-reverse;
+.assistant-message .message-bubble {
+  margin-right: auto;
+  text-align: left;
 }
 
 .user-message .message-bubble {
+  margin-left: auto;
   text-align: right;
 }
 
@@ -422,6 +449,7 @@
   word-wrap: break-word;
 }
 
+/* Loading */
 .loading-container {
   display: flex;
   gap: 12px;
@@ -466,9 +494,9 @@
   }
 }
 
-/* Input Container - Always at Bottom */
+/* Input Container: 전체 폭 + 항상 보이게 */
 .input-container {
-  padding: 20px 32px 24px;
+  padding: 20px 24px 24px;
   border-top: 1px solid #e5e7eb;
   background: linear-gradient(180deg, #ffffff 0%, #fafbfc 100%);
 }
@@ -476,8 +504,9 @@
 .input-form {
   display: flex;
   gap: 12px;
-  max-width: 900px;
-  margin: 0 auto;
+  width: 100%;
+  max-width: none;  /* 900px 제거 */
+  margin: 0;        /* 가운데 고정 제거 */
   align-items: center;
 }
 
@@ -491,6 +520,7 @@
   transition: all 0.2s;
   background-color: #ffffff;
   color: #1f2937;
+  min-width: 0;
 }
 
 .chat-input::placeholder {
@@ -594,7 +624,7 @@
   }
 
   .input-container {
-    padding: 16px 20px;
+    padding: 16px 16px 18px;
   }
 
   .chat-input {
@@ -640,7 +670,7 @@
 .stock-recs-header {
   display: flex;
   align-items: center;
-  justify-content: flex-start; /* 버튼 제거했으니 left 정렬 */
+  justify-content: flex-start;
   gap: 12px;
   margin-bottom: 10px;
 }
@@ -750,7 +780,7 @@
   pointer-events: none;
   transform: translateY(-4px);
   transition: opacity 0.12s ease, transform 0.12s ease;
-  white-space: pre-wrap; /* \n 유지 */
+  white-space: pre-wrap;
 }
 
 .stock-card:hover .stock-tooltip {
@@ -786,3 +816,235 @@
 .skeleton-line.w40 { width: 40%; }
 .skeleton-line.w60 { width: 60%; }
 .skeleton-line.w80 { width: 80%; }
+
+/* =========================
+   FIX: messages full width + alignment + remove frame
+   (append at end of css)
+   ========================= */
+
+/* 메시지 리스트가 가운데 고정폭으로 잡히는 것 강제 해제 */
+.messages-container {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 24px 16px !important; /* 추천 카드랑 비슷하게 좌우 16 */
+}
+
+/* 메시지 "한 줄(row)"은 항상 전체폭 */
+.message {
+  width: 100% !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 중요) 혹시 메시지를 감싸는 카드/프레임 div가 있다면 전부 제거
+   - 아래 class명이 실제와 달라도, 비슷한 wrapper가 있으면 대부분 이 셀렉터에 걸림 */
+.message-wrapper,
+.message-frame,
+.message-card,
+.chat-message,
+.chat-message-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* 유저는 오른쪽 끝으로, 어시스턴트는 왼쪽으로 */
+.message.user-message,
+.user-message.message {
+  justify-content: flex-end !important;
+}
+
+.message.assistant-message,
+.assistant-message.message {
+  justify-content: flex-start !important;
+}
+
+/* 말풍선 자체는 늘어나지 말고 내용만큼만 + 최대폭 제한 */
+.message-bubble {
+  flex: 0 1 auto !important;
+  max-width: min(820px, 72%) !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* 유저 말풍선을 더 오른쪽으로 “붙이기” */
+.user-message .message-bubble {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.assistant-message .message-bubble {
+  margin-right: auto !important;
+  margin-left: 0 !important;
+}
+
+/* “버튼처럼 보이는 회색 테두리/그림자” 제거 */
+.message-content {
+  border: none !important;
+  box-shadow: none !important; /* 카드처럼 떠보이는 효과 제거 */
+}
+
+/* (선택) 말풍선은 유지하되 깔끔하게 */
+.assistant-message .message-content {
+  background: #f3f4f6 !important;
+}
+
+.user-message .message-content {
+  /* 기존 그라데이션 유지 */
+}
+
+/* =========================
+   FINAL FIX (append at end)
+   - user bubble to far right
+   - input always visible (not cut)
+   ========================= */
+
+/* 상단 네비/브라우저 UI 때문에 100vh 잘리는 이슈 방지 */
+.chatbot-container {
+  height: 100dvh !important;
+}
+
+/* main-content는 스크롤/레이아웃 계산을 flex로 안정화 */
+.main-content {
+  height: 100% !important;
+  min-height: 0 !important;
+}
+
+/* 스크롤 영역: input 높이만큼 여유를 줘서 '겹침' 방지 */
+.scroll-panel {
+  padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+}
+
+/* 입력창은 항상 화면 아래에 보이도록 sticky */
+.input-container {
+  position: sticky !important;
+  bottom: 0 !important;
+  z-index: 50 !important;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom)) !important;
+}
+
+/* 입력줄도 전체폭으로(가운데 고정폭 방지) */
+.input-form {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* =========================
+   Message alignment
+   ========================= */
+
+/* 메시지 리스트 전체폭 */
+.messages-container {
+  max-width: none !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+/* 유저 메시지 "row"를 오른쪽 끝으로 강제 */
+.user-message {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: flex-end !important;   /* 핵심 */
+  align-items: flex-start !important;
+  gap: 12px !important;
+
+  /* row-reverse가 어딘가에서 안 먹는 경우가 있어서 강제 */
+  flex-direction: row !important;
+}
+
+/* 유저 아바타는 맨 오른쪽 */
+.user-message .message-avatar {
+  order: 2 !important;
+  margin-left: 12px !important;
+}
+
+/* 유저 말풍선은 아바타 왼쪽 + 오른쪽 끝에 붙게 */
+.user-message .message-bubble {
+  order: 1 !important;
+  margin-left: auto !important;   /* 오른쪽으로 밀기 */
+  margin-right: 0 !important;
+  max-width: min(820px, 72%) !important;
+}
+
+/* 챗봇(assistant)은 왼쪽 */
+.assistant-message {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+}
+
+/* 프레임/버튼처럼 보이는 회색 박스(있다면) 제거 */
+.message,
+.message * {
+  outline: none;
+}
+
+.message-content {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* =========================
+   HARD FIX: input not clipped
+   - make app fill viewport by fixed inset
+   - scroll only inside scroll-panel
+   ========================= */
+
+/* 0) 루트 높이/여백 정리 (안 하면 일부 환경에서 아래 잘림) */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+/* 1) 앱을 뷰포트에 고정해서 부모 clipping 영향 제거 */
+.chatbot-container {
+  position: fixed !important;
+  inset: 0 !important;          /* top/right/bottom/left = 0 */
+  height: auto !important;      /* 100vh/dvh보다 안전 */
+  width: 100vw !important;
+  overflow: hidden !important;
+}
+
+/* 2) main-content는 세로 flex로 고정 */
+.main-content {
+  height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 3) 스크롤은 여기만 */
+.scroll-panel {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+
+  /* 입력창 높이 + safe-area만큼 공간 확보 */
+  padding-bottom: calc(140px + env(safe-area-inset-bottom)) !important;
+}
+
+/* 4) 입력창은 하단에 고정(부모 안에서) */
+.input-container {
+  flex: 0 0 auto !important;
+  position: sticky !important;  /* fixed 말고 sticky (레이아웃 유지) */
+  bottom: 0 !important;
+  z-index: 999 !important;
+  padding-bottom: calc(24px + env(safe-area-inset-bottom)) !important;
+}
+
+/* 추천 카드 전체를 아래로 */
+.stock-recs {
+margin-top: 74px !important; /* ← 이 값으로 조절 */
+}
