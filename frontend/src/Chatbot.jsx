@@ -62,7 +62,7 @@ export default function Chatbot() {
 
         const newSession = {
           id: sessionId, // 백엔드 session_id와 동일하게
-          title: "새로운 채팅",
+          title: "새로운 챗",
           messages: [WELCOME_MESSAGE],
           createdAt: new Date().toISOString(),
         };
@@ -182,7 +182,7 @@ export default function Chatbot() {
       const sessionId = await createBackendSession();
       const newSession = {
         id: sessionId, // 백엔드 session_id를 그대로
-        title: "새로운 채팅",
+        title: "새로운 챗",
         messages: [WELCOME_MESSAGE],
         createdAt: new Date().toISOString(),
       };
@@ -238,7 +238,7 @@ export default function Chatbot() {
         <div className="sidebar-header">
           <button className="new-chat-button" onClick={handleNewChat}>
             <span className="plus-icon">+</span>
-            <span className="button-text">새 채팅</span>
+            <span className="button-text">새로운 챗</span>
           </button>
         </div>
 

@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
+import { Routes, Route, useNavigate, Outlet, NavLink } from "react-router-dom";
 
 import Chatbot from "./Chatbot";
 import News from "./News";
@@ -39,7 +39,7 @@ function LayoutWithNavbar() {
             }}
           >
             <span className="brand-icon">📈</span>
-            <span className="brand-text">stockQ</span>
+            <span className="brand-text">Stock Mate</span>
           </div>
           <div className="navbar-menu">
             <button
@@ -48,7 +48,7 @@ function LayoutWithNavbar() {
                 navigate("/chat");
               }}
             >
-              챗봇
+              챗
             </button>
             <button
               className="nav-link"
