@@ -10,6 +10,8 @@ from langchain_openai import ChatOpenAI
 from langgraph.graph import StateGraph, START, END
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
+from datetime import datetime  # 파일 상단에 이 임포트가 있는지 확인하세요!
+
 
 load_dotenv()
 
@@ -182,16 +184,23 @@ class FinancialAgent:
             return self._embeddings
         
     def get_vectorstore(self, db_name: str):
-        """ChromaDB 인스턴스를 캐싱하여 재사용"""
-        if db_name not in self._vectorstore_cache:
-            embeddings = self.get_embeddings()
-            db_path = os.path.join(self.chroma_base_dir, db_name)
-            
-            self._vectorstore_cache[db_name] = Chroma(
-                persist_directory=db_path,
-                embedding_function=embeddings
-            )
-        return self._vectorstore_cache[db_name]
+            """ChromaDB 인스턴스를 캐싱하여 재사용"""
+            if db_name not in self._vectorstore_cache:
+                embeddings = self.get_embeddings()
+                db_path = os.path.join(self.chroma_base_dir, db_name)
+                
+                # ✅ FIX: collection_name을 sqlite3에서 확인한 'langchain'으로 강제 고정
+                self._vectorstore_cache[db_name] = Chroma(
+                    persist_directory=db_path,
+                    embedding_function=embeddings,
+                    collection_name="langchain"  # <--- 여기서 'langchain'을 써야 데이터를 읽어옵니다!
+                )
+                
+                if self.debug:
+                    count = self._vectorstore_cache[db_name]._collection.count()
+                    print(f"[DEBUG] DB: {db_name} | 데이터 개수: {count}개 로드 완료")
+                    
+            return self._vectorstore_cache[db_name]
         
     def search_db(self, db_name: str, query: str, k: int = 3):
         """캐싱된 vectorstore를 사용하여 검색"""
@@ -513,18 +522,18 @@ class FinancialAgent:
 # 실행 메서드
 # ========================================
 
+
     def invoke(self, query: str) -> dict:
-        """
-        질문을 받아 Agent 실행
+        # 1. 현재 날짜 구하기 (예: 2026-01-26)
+        today_str = datetime.now().strftime("%Y-%m-%d")
         
-        Args:
-            query: 사용자 질문
-            
-        Returns:
-            실행 결과 딕셔너리 (response, category, sub_category 등)
-        """
+        # 2. 날짜와 기존 쿼리 합치기
+        # 예: "2026-01-26: 삼성전자 주가 전망 알려줘"
+        refined_query = f"[{today_str}] {query}"
+        
+        # 3. state에 넣기
         state = {
-            "query": query,
+            "query": refined_query,  # 이제 모든 노드가 날짜가 붙은 쿼리를 봅니다.
             "category": "",
             "sub_category": "",
             "debate_history": [],
@@ -532,6 +541,9 @@ class FinancialAgent:
             "response": "",
         }
         
+        if self.debug:
+            print(f"[Invoke] 날짜 포함 쿼리: {refined_query}")
+            
         result = self.app.invoke(state)
         return result
 
@@ -564,7 +576,6 @@ class FinancialAgent:
 # 기본 설정으로 전역 인스턴스 생성
 agent = FinancialAgent(
     # vLLM은 환경변수에서 자동 로드
-    embedding_model="jhgan/ko-sroberta-multitask",
     embedding_device="cuda",  # CPU 서버면 "cpu"로 변경
     chroma_base_dir=os.getenv("CHROMA_DIR", "./Chroma_db"),
     
