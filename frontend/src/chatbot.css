@@ -664,7 +664,8 @@
    Stock Recommendations
    ========================= */
 .stock-recs {
-  padding: 14px 16px 0 16px;
+  padding: 0px 16px 0 16px;
+  margin-top: -8px;
 }
 
 .stock-recs-header {
@@ -827,7 +828,7 @@
   width: 100% !important;
   max-width: none !important;
   margin: 0 !important;
-  padding: 24px 16px !important; /* 추천 카드랑 비슷하게 좌우 16 */
+  padding: 24px 0px !important; /* 추천 카드랑 비슷하게 좌우 16 */
 }
 
 /* 메시지 "한 줄(row)"은 항상 전체폭 */
@@ -948,31 +949,6 @@
   margin: 0 !important;
 }
 
-/* 유저 메시지 "row"를 오른쪽 끝으로 강제 */
-.user-message {
-  width: 100% !important;
-  display: flex !important;
-  justify-content: flex-end !important;   /* 핵심 */
-  align-items: flex-start !important;
-  gap: 12px !important;
-
-  /* row-reverse가 어딘가에서 안 먹는 경우가 있어서 강제 */
-  flex-direction: row !important;
-}
-
-/* 유저 아바타는 맨 오른쪽 */
-.user-message .message-avatar {
-  order: 2 !important;
-  margin-left: 12px !important;
-}
-
-/* 유저 말풍선은 아바타 왼쪽 + 오른쪽 끝에 붙게 */
-.user-message .message-bubble {
-  order: 1 !important;
-  margin-left: auto !important;   /* 오른쪽으로 밀기 */
-  margin-right: 0 !important;
-  max-width: min(820px, 72%) !important;
-}
 
 /* 챗봇(assistant)은 왼쪽 */
 .assistant-message {
@@ -1046,5 +1022,171 @@ html, body, #root {
 
 /* 추천 카드 전체를 아래로 */
 .stock-recs {
-margin-top: 74px !important; /* ← 이 값으로 조절 */
+margin-top: 20px !important; /* ← 이 값으로 조절 */
+}
+
+
+/* =========================
+   FIX: sidebar "새로운 챗" 버튼이 상단바에 가려지는 문제
+   - 상단 Navbar 높이만큼 앱을 아래로 내림
+   ========================= */
+
+/* 너의 상단바 높이에 맞춰 숫자만 조절 (예: 64px / 72px / 74px) */
+:root {
+  --app-top-offset: 74px;
+}
+
+/* 앱 전체를 top-offset만큼 아래로 */
+.chatbot-container {
+  position: fixed !important;
+  top: var(--app-top-offset) !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: auto !important;
+  width: 100vw !important;
+  overflow: hidden !important;
+}
+
+/* 사이드바도 컨테이너 높이를 꽉 채우게 */
+.sidebar {
+  height: 100% !important;
+  overflow: hidden !important;
+}
+
+/* 사이드바 상단(새로운 챗 버튼 영역)을 스크롤과 분리 + 항상 보이게 */
+.sidebar-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: linear-gradient(180deg, #f8f9fb 0%, #f0f2f5 100%);
+  border-bottom: 1px solid rgba(209, 213, 219, 0.6);
+}
+
+/* 채팅 리스트만 스크롤 */
+.chat-list {
+  overflow-y: auto !important;
+  min-height: 0 !important;
+}
+
+
+/* 메시지 컨테이너는 좌우 padding 0 (edge 정렬 핵심) */
+.messages-container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* 유저 메시지는 row-reverse로: (bubble) (avatar) 순서 → avatar가 맨 오른쪽 */
+.message.user-message,
+.user-message.message {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  flex-direction: row-reverse !important;
+  align-items: flex-start !important;
+}
+
+/* 유저 말풍선/아바타를 진짜 오른쪽 끝에 붙이기 */
+.user-message .message-bubble {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}
+
+.user-message .message-avatar {
+  margin-left: 0 !important;   /* order 강제 쓰던 흔적 제거 */
+  margin-right: 0 !important;
+}
+
+/* =========================
+   HARD RIGHT ALIGN (append at VERY end)
+   - user bubble + avatar to far right
+   ========================= */
+
+/* 메시지 영역에서 가운데 고정/최대폭/auto margin 다 무시 */
+.messages-container,
+.messages-container * {
+  box-sizing: border-box;
+}
+
+/* 메시지 리스트 좌우 padding 제거 (끝까지 붙이기) */
+.messages-container {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
+/* "메시지 한 줄(row)" 후보들을 전부 100%로 */
+.message,
+.chat-message,
+.chat-message-wrapper,
+.message-wrapper,
+.message-frame,
+.message-card {
+  width: 100% !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* 유저 row: 어떤 구조든 오른쪽 끝으로 보내기 */
+.user-message,
+.message.user-message,
+.user-message.message,
+[data-role="user"],
+[data-message-role="user"] {
+  width: 100% !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: flex-start !important;
+}
+
+/* 유저 row 안에서: 말풍선과 아바타의 순서를 강제로 "말풍선-아바타"로 */
+.user-message,
+.message.user-message,
+.user-message.message,
+[data-role="user"],
+[data-message-role="user"] {
+  flex-direction: row !important;         /* 일단 row로 통일 */
+  gap: 12px !important;
+}
+
+/* 유저 아바타를 맨 오른쪽으로 */
+.user-message .message-avatar,
+.message.user-message .message-avatar,
+.user-message.message .message-avatar,
+[data-role="user"] .message-avatar,
+[data-message-role="user"] .message-avatar {
+  order: 2 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* 유저 말풍선을 아바타 왼쪽 + 오른쪽 끝까지 밀기 */
+.user-message .message-bubble,
+.message.user-message .message-bubble,
+.user-message.message .message-bubble,
+[data-role="user"] .message-bubble,
+[data-message-role="user"] .message-bubble {
+  order: 1 !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  max-width: min(820px, 72%) !important;
+}
+
+/* 혹시 bubble이 아닌 content에만 width가 있는 구조면 이것도 밀어줌 */
+.user-message .message-content,
+.message.user-message .message-content,
+.user-message.message .message-content,
+[data-role="user"] .message-content,
+[data-message-role="user"] .message-content {
+  margin-left: auto !important;
+}
+
+:root {
+  --assistant-left-gutter: 16px; /* 원하는 값으로 조절 */
+}
+
+.message.assistant-message,
+.assistant-message.message,
+.assistant-message {
+  padding-left: var(--assistant-left-gutter) !important;
 }
