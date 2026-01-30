@@ -9,8 +9,10 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
+# Agent.py import
+from .Agent import app as agent_app, AgentState
+
 # 상대경로 import
-from .model_ollama import RagNewsChatService
 from redis_dir.redis_storage import RedisSessionStore
 from .chroma_store import get_collection
 
@@ -45,18 +47,23 @@ PROJECT_ROOT = Path(
 # 공통 경로 (pipeline / DAG / FastAPI 통일)
 # ----------------------------
 CHROMA_DIR = Path(
-    os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "chroma_news"))
+    os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "Chroma_db" / "News_chroma_db"))
 )
 CHROMA_COLLECTION = os.getenv(
     "CHROMA_COLLECTION", "naver_finance_news_chunks"
 )
 
 # ----------------------------
-# Ollama
+# vLLM 설정 (Ollama 대신)
 # ----------------------------
-OLLAMA_BASE_URL = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-OLLAMA_LLM_MODEL = os.getenv("OLLAMA_MODEL", "llama3")
-OLLAMA_EMBED_MODEL = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
+VLLM_BASE_URL = os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1")
+VLLM_MODEL = os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light")
+VLLM_API_KEY = os.getenv("VLLM_API_KEY", "vllm-key")
+
+# ----------------------------
+# HuggingFace Embedding 설정
+# ----------------------------
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask")
 
 # ----------------------------
 # Retrieval 튜닝
@@ -68,31 +75,6 @@ MAX_DISTANCE = float(os.getenv("MAX_DISTANCE", "0.7"))
 MIN_DOCS_AFTER_FILTER = int(os.getenv("MIN_DOCS_AFTER_FILTER", "12"))
 ENABLE_QUERY_REFINE = os.getenv("ENABLE_QUERY_REFINE", "false").lower() == "true"
 DEBUG = os.getenv("DEBUG", "true").lower() == "true"
-
-# ----------------------------
-# RAG 서비스 (lazy init)
-# ----------------------------
-_rag_service: Optional[RagNewsChatService] = None
-
-
-def get_rag_service() -> RagNewsChatService:
-    global _rag_service
-    if _rag_service is None:
-        _rag_service = RagNewsChatService(
-            collection_name=CHROMA_COLLECTION,
-            persist_directory=str(CHROMA_DIR),
-            llm_model=OLLAMA_LLM_MODEL,
-            embedding_model=OLLAMA_EMBED_MODEL,
-            ollama_base_url=OLLAMA_BASE_URL,
-            retrieval_k=RETRIEVAL_K,
-            top_articles=TOP_ARTICLES,
-            max_chunks_per_article=MAX_CHUNKS_PER_ARTICLE,
-            max_distance=MAX_DISTANCE,
-            min_docs_after_filter=MIN_DOCS_AFTER_FILTER,
-            enable_query_refine=ENABLE_QUERY_REFINE,
-            debug=DEBUG,
-        )
-    return _rag_service
 
 # ----------------------------
 # Redis Session Store (lazy init)
@@ -122,12 +104,14 @@ class ChatRequest(BaseModel):
 
 class ChatResponse(BaseModel):
     answer: str
-    used_db: bool
+    category: str = "unknown"
+    sub_category: str = ""
 
 class SessionChatResponse(BaseModel):
     session_id: str
     answer: str
-    used_db: bool
+    category: str = "unknown"
+    sub_category: str = ""
 
 
 class RecentMessagesResponse(BaseModel):
@@ -160,12 +144,11 @@ def _first_3_lines(text: str) -> List[str]:
 
 
 def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
-    # Chroma collection 열기
+    # [수정] 함수 정의에 있는 이름(embedding_model_name)과 정확히 맞춥니다.
     client, col = get_collection(
-        persist_dir=str(CHROMA_DIR),
+        persist_dir=Path("/data/ephemeral/home/pro-nlp-finalproject-nlp-06/Chroma_db/News_chroma_db"),
         collection_name=CHROMA_COLLECTION,
-        ollama_base_url=OLLAMA_BASE_URL,
-        ollama_embed_model=OLLAMA_EMBED_MODEL,
+        embedding_model_name=EMBEDDING_MODEL  # hf_embed_model이 아니라 이 이름이어야 합니다!
     )
 
     # Chroma 버전마다 limit/offset 지원이 다를 수 있어서 방어적으로 처리
@@ -261,20 +244,49 @@ def root():
         "project_root": str(PROJECT_ROOT),
         "chroma_dir": str(CHROMA_DIR),
         "chroma_collection": CHROMA_COLLECTION,
-        "ollama_base_url": OLLAMA_BASE_URL,
-        "ollama_llm_model": OLLAMA_LLM_MODEL,
-        "ollama_embed_model": OLLAMA_EMBED_MODEL,
+        "vllm_base_url": VLLM_BASE_URL,
+        "vllm_model": VLLM_MODEL,
+        "embedding_model": EMBEDDING_MODEL,
         "redis_host": os.getenv("REDIS_HOST", "localhost"),
         "redis_port": os.getenv("REDIS_PORT", "6379"),
     }
 
 
-#기존 
+# Agent.py 사용하는 채팅
 @app.post("/chat", response_model=ChatResponse)
 def chat(request: ChatRequest):
-    rag = get_rag_service()
-    answer, used_db = rag.answer(request.message)
-    return ChatResponse(answer=answer, used_db=used_db)
+    """
+    Agent.py의 LangGraph를 실행하여 사용자 질문에 답변
+    """
+    # 초기 상태 설정
+    state: AgentState = {
+        "query": request.message,
+        "category": "",
+        "sub_category": "",
+        "debate_history": [],
+        "debate_count": 0,
+        "response": "",
+    }
+    
+    try:
+        # Agent 그래프 실행
+        result = agent_app.invoke(state)
+        
+        # 응답 반환
+        return ChatResponse(
+            answer=result.get("response", "응답을 생성할 수 없습니다."),
+            category=result.get("category", "unknown"),
+            sub_category=result.get("sub_category", "")
+        )
+    
+    except Exception as e:
+        print(f"[ERROR] Agent 실행 중 오류 발생: {e}")
+        return ChatResponse(
+            answer=f"오류가 발생했습니다: {str(e)}",
+            category="error",
+            sub_category=""
+        )
+
 
 #새 채팅방(세션) 만들기
 @app.post("/session")
@@ -286,30 +298,68 @@ def create_session():
 
 
 
-# 세션 기반 채팅: "최근 5개 히스토리"를 프롬프트에 포함
+# 세션 기반 채팅: Agent.py 사용
 @app.post("/chat/{session_id}", response_model=SessionChatResponse)
 def chat_with_session(session_id: str, request: ChatRequest):
     store = get_store()
-    rag = get_rag_service()
 
-    # 0) 과거 대화 최근 5개를 먼저 가져오기 (현재 user 메시지 저장 전에!)
-    history = store.get_last_n(session_id, n=10, chronological=True)
+    history = store.get_last_n(session_id, n=3, chronological=True)
 
-    # 1) 사용자 메시지 저장
+    # 0) 과거 대화 최근 10개를 먼저 가져오기
+    if history:
+        # 모델이 이해하기 쉽게 역할을 명시해서 합쳐줍니다.
+        formatted_history = "\n".join([f"{m['role']}: {m['content']}" for m in history])
+        full_query = f"[이전 대화 내역]\n{formatted_history}\n\n[현재 질문]\n{request.message}"
+    else:
+        full_query = request.message
+
+    # 2) 사용자 메시지 저장 (순수한 질문만 저장해야 다음 턴에 안 꼬입니다)
     store.add_message(session_id, "user", request.message)
 
-    # 2) 히스토리 포함하여 답변 생성
-    answer, used_db = rag.answer_with_history(request.message, history)
+    # 2) Agent 상태 설정 (히스토리 포함)
+    state: AgentState = {
+        "query": full_query,
+        "category": "",
+        "sub_category": "",
+        "debate_history": history,  # 과거 대화 포함
+        "debate_count": 0,
+        "response": "",
+    }
 
-    # 3) 어시스턴트 메시지 저장
-    store.add_message(session_id, "assistant", answer)
+    try:
+        # Agent 그래프 실행
+        result = agent_app.invoke(state)
+        
+        answer = result.get("response", "응답을 생성할 수 없습니다.")
+        category = result.get("category", "unknown")
+        sub_category = result.get("sub_category", "")
+        
+        # 3) 어시스턴트 메시지 저장
+        store.add_message(session_id, "assistant", answer)
+        
+        return SessionChatResponse(
+            session_id=session_id,
+            answer=answer,
+            category=category,
+            sub_category=sub_category
+        )
+    
+    except Exception as e:
+        print(f"[ERROR] Agent 실행 중 오류 발생: {e}")
+        error_msg = f"오류가 발생했습니다: {str(e)}"
+        store.add_message(session_id, "assistant", error_msg)
+        
+        return SessionChatResponse(
+            session_id=session_id,
+            answer=error_msg,
+            category="error",
+            sub_category=""
+        )
 
-    return SessionChatResponse(session_id=session_id, answer=answer, used_db=used_db)
 
 
 
-
-#최근 N개 메시지 조회 (기본 5개)
+#최근 N개 메시지 조회 (기본 10개)
 @app.get("/chat/{session_id}/recent", response_model=RecentMessagesResponse)
 def recent_messages(session_id: str, limit: int = 10):
     if limit < 1 or limit > 200:
