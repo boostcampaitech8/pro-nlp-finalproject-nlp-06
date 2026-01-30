@@ -1,12 +1,13 @@
 from __future__ import annotations
 
 import os
+import requests # vLLM 헬스체크용
 from pathlib import Path
 from typing import Dict, List, Any
 
 from .crawler_naver_finance import crawl_last_hours_raw
-from .summarize_ollama import summarize_with_ollama, ollama_healthcheck
-from .keywords import extract_keywords_tfidf, refine_keywords_with_ollama
+from .summarize_vllm import summarize_with_vllm, vllm_healthcheck
+from .keywords import extract_keywords_tfidf, refine_keywords_with_vllm
 from .chunking import chunk_by_chars
 from .chroma_store import add_chunked_documents
 from .chroma_cleanup import cleanup_old_documents
@@ -95,9 +96,13 @@ def run_pipeline(
 ) -> Dict[str, Any]:
 
     # env 우선
-    chroma_dir = resolve_under_project(
-        os.getenv("CHROMA_DIR", "chroma_news")
+    base_chroma_dir = resolve_under_project(
+        os.getenv("CHROMA_DIR", "Chorma_db")
     )
+    
+    # [핵심 수정] 부모 디렉토리 아래에 'News_chroma_db' 폴더를 명시적으로 추가
+    chroma_dir = str(Path(base_chroma_dir) / "News_chroma_db")
+
     csv_output_dir = resolve_under_project(
         os.getenv("CSV_DIR", "csv_out")
     )
@@ -106,18 +111,22 @@ def run_pipeline(
     )
 
     # Ollama
-    summary_base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    summary_model = os.getenv("OLLAMA_MODEL", "llama3")
-    embed_base = os.getenv("OLLAMA_BASE_URL", "http://localhost:11434")
-    embed_model = os.getenv("OLLAMA_EMBED_MODEL", "nomic-embed-text")
+    vllm_base_url = os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1")
+    vllm_model = os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light")
+    vllm_api_key = os.getenv("VLLM_API_KEY", "vllm-key")
+
+    # Embedding 설정 (HuggingFace 로컬 모델)
+    embedding_model_name = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask")
 
     print("[pipeline] PROJECT_ROOT:", PROJECT_ROOT)
     print("[pipeline] chroma_dir:", chroma_dir)
     print("[pipeline] csv_output_dir:", csv_output_dir)
     print("[pipeline] chroma_collection:", chroma_collection)
+    print(f"[pipeline] Using vLLM Model: {vllm_model}")
+    print(f"[pipeline] Using Embedding: {embedding_model_name}")
 
-    if not ollama_healthcheck(base_url=summary_base, timeout=5):
-        raise RuntimeError(f"Ollama healthcheck failed: {summary_base}")
+    if not vllm_healthcheck(base_url=vllm_base_url, api_key=vllm_api_key):
+        raise RuntimeError(f"vLLM healthcheck failed: {vllm_base_url}")
 
     # 1) 크롤링
     articles = crawl_last_hours_raw(hours=hours, max_page=max_page)
@@ -132,23 +141,24 @@ def run_pipeline(
         if not content:
             continue
 
-        summary = summarize_with_ollama(
+        summary = summarize_with_vllm(
             text=content,
             title=a.get("title", ""),
-            base_url=summary_base,
-            model=summary_model,
+            base_url=vllm_base_url,
+            model=vllm_model,
+            api_key=vllm_api_key,
             timeout=90,
         )
 
+        # 키워드 정제 (vLLM 사용)
         candidates = extract_keywords_tfidf(content, top_k=40)
-        keywords = refine_keywords_with_ollama(
+        keywords = refine_keywords_with_vllm(
             title=a.get("title", ""),
             summary=summary,
             candidates=candidates,
-            base_url=summary_base,
-            model=summary_model,
-            min_k=1,
-            max_k=20,
+            base_url=vllm_base_url,
+            model=vllm_model,
+            api_key=vllm_api_key,
             timeout=60,
         )
 
@@ -184,8 +194,7 @@ def run_pipeline(
         chunk_rows,
         persist_dir=chroma_dir,
         collection_name=chroma_collection,
-        ollama_base_url=embed_base,
-        ollama_embed_model=embed_model,
+        embedding_model_name=embedding_model_name, # 인자명 변경
     )
 
     # 5) Cleanup
@@ -194,8 +203,7 @@ def run_pipeline(
             persist_dir=chroma_dir,
             collection_name=chroma_collection,
             days=cleanup_days,
-            ollama_base_url=embed_base,
-            ollama_embed_model=embed_model,
+            embedding_model_name=embedding_model_name, # 인자명 변경
         )
 
     return {"added_chunks": added, "csv_path": csv_path}

@@ -1,5 +1,6 @@
 import json
 import re
+import os
 from typing import List, Optional
 
 import requests
@@ -71,13 +72,14 @@ def _safe_parse_json_array(text: str) -> List[str]:
     return []
 
 
-def refine_keywords_with_ollama(
+def refine_keywords_with_vllm(
     *,
     title: str,
     summary: str,
     candidates: List[str],
-    base_url: str = "http://localhost:11434",
-    model: str = "llama3",
+    base_url: str = "http://127.0.0.1:8001/v1",
+    model: str = "skt/A.X-4.0-Light",
+    api_key: str = "vllm-key",
     min_k: int = 1,
     max_k: int = 20,
     timeout: int = 60,
@@ -130,26 +132,32 @@ def refine_keywords_with_ollama(
             {"role": "system", "content": system},
             {"role": "user", "content": user},
         ],
-        "stream": False,
-        "options": {
-            "temperature": 0.2,
-        },
+        "temperature": 0.1, # 키워드 추출은 정교해야 하므로 온도를 더 낮춤
+        "max_tokens": 512,
     }
 
-    r = requests.post(f"{base_url}/api/chat", json=payload, timeout=timeout)
-    r.raise_for_status()
-    data = r.json()
-    raw = ((data.get("message") or {}).get("content") or "").strip()
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {api_key}"
+    }
+
+
+    try:
+        r = requests.post(f"{base_url.rstrip('/')}/chat/completions", headers=headers, json=payload, timeout=timeout)
+        r.raise_for_status()
+        data = r.json()
+        raw = data['choices'][0]['message']['content'].strip()
+    except Exception as e:
+        print("vLLM 키워드 정제 요청 에러:", e)
+        return candidates[:min_k] # 에러 시 후보 앞부분이라도 반환
 
     refined = _safe_parse_json_array(raw)
 
-    # 후보 안에서만 선택 강제(LLM이 규칙을 어기면 필터링)
+    # 후보 검증 및 필터링
     cand_set = set(candidates)
-    refined = [k for k in refined if k in cand_set]
-
-    # dedup + 길이 제한
     seen = set()
     out = []
+    
     for k in refined:
         if k in seen:
             continue
