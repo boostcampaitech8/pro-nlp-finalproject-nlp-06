@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 import pendulum
 
 import chromadb
-from .ollama_embeddings import OllamaEmbeddingFunction
+from .hf_embeddings import HuggingFaceEmbeddingFunction
 
 KST = pendulum.timezone("Asia/Seoul")
 
@@ -22,14 +22,21 @@ def cleanup_old_documents(
     persist_dir: str,
     collection_name: str,
     days: int = 14,
-    # Ollama embeddings
-    ollama_base_url: str = "http://localhost:11434",
-    ollama_embed_model: str = "nomic-embed-text",
+    # [변경] HuggingFace 모델명 전달 (Ollama 인자 제거)
+    embedding_model_name: str = "jhgan/ko-sroberta-multitask",
 ):
+    """
+    설정된 기간(days)보다 오래된 뉴스를 ChromaDB에서 삭제합니다.
+    """
+    # 1. 클라이언트 및 컬렉션 로드 (동일한 임베딩 함수 사용 필수)
     client = chromadb.PersistentClient(path=persist_dir)
-    ef = OllamaEmbeddingFunction(base_url=ollama_base_url, model=ollama_embed_model)
-    col = client.get_collection(collection_name, embedding_function=ef)
-
+    ef = HuggingFaceEmbeddingFunction(model_name=embedding_model_name)
+    
+    try:
+        col = client.get_collection(collection_name, embedding_function=ef)
+    except Exception as e:
+        print(f"🧹 [Cleanup] 컬렉션을 찾을 수 없습니다: {e}")
+        return 0
     now = datetime.now(tz=KST)
     cutoff = now - timedelta(days=days)
 

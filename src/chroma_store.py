@@ -7,26 +7,32 @@ import math
 import chromadb
 from chromadb.errors import DuplicateIDError
 
-from .ollama_embeddings import OllamaEmbeddingFunction
+from .hf_embeddings import HuggingFaceEmbeddingFunction
 
-DEFAULT_PERSIST_DIR = "./chroma_news"
+DEFAULT_PERSIST_DIR = "./Chroma_db/News_chroma_db"
 DEFAULT_COLLECTION = "naver_finance_news_chunks"
 
 
 def get_collection(
     persist_dir: str = DEFAULT_PERSIST_DIR,
     collection_name: str = DEFAULT_COLLECTION,
-    # Ollama embeddings
-    ollama_base_url: str = "http://localhost:11434",
-    ollama_embed_model: str = "nomic-embed-text",
+    # [변경] Ollama 관련 인자 제거, HuggingFace 모델명 추가
+    embedding_model_name: str = "jhgan/ko-sroberta-multitask",
 ):
-    embedding_fn = OllamaEmbeddingFunction(base_url=ollama_base_url, model=ollama_embed_model)
+    # 로컬 HuggingFace 모델 로드
+    embedding_fn = HuggingFaceEmbeddingFunction(model_name=embedding_model_name)
 
     client = chromadb.PersistentClient(path=persist_dir)
+    
+    # 컬렉션 생성 또는 가져오기
     col = client.get_or_create_collection(
         name=collection_name,
         embedding_function=embedding_fn,
-        metadata={"source": "naver_finance_mainnews", "embeddings": "ollama", "embed_model": ollama_embed_model},
+        metadata={
+            "source": "naver_finance_mainnews", 
+            "embeddings": "huggingface", 
+            "embed_model": embedding_model_name
+        },
     )
     return client, col
 
@@ -61,9 +67,8 @@ def add_chunked_documents(
     chunked_rows: List[Dict],
     persist_dir: str = DEFAULT_PERSIST_DIR,
     collection_name: str = DEFAULT_COLLECTION,
-    # Ollama embeddings
-    ollama_base_url: str = "http://localhost:11434",
-    ollama_embed_model: str = "nomic-embed-text",
+    # [변경] HuggingFace 모델명 전달
+    embedding_model_name: str = "jhgan/ko-sroberta-multitask",
 ) -> int:
     """
     chunked_rows item 예:
@@ -85,8 +90,7 @@ def add_chunked_documents(
     client, col = get_collection(
         persist_dir=persist_dir,
         collection_name=collection_name,
-        ollama_base_url=ollama_base_url,
-        ollama_embed_model=ollama_embed_model,
+        embedding_model_name=embedding_model_name,
     )
 
     # 0) 입력 정리 + "배치 내" 중복 제거(가장 중요!)
