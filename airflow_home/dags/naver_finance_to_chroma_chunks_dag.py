@@ -23,9 +23,10 @@ CHROMA_DIR = os.environ["CHROMA_DIR"]
 CSV_DIR = os.environ["CSV_DIR"]
 CHROMA_COLLECTION = os.environ["CHROMA_COLLECTION"]
 
-OLLAMA_BASE_URL = os.environ["OLLAMA_BASE_URL"]
-OLLAMA_MODEL = os.environ["OLLAMA_MODEL"]
-OLLAMA_EMBED_MODEL = os.environ["OLLAMA_EMBED_MODEL"]
+VLLM_BASE_URL = os.environ["VLLM_BASE_URL"]
+VLLM_MODEL = os.environ["VLLM_MODEL"]
+VLLM_API_KEY = os.environ["VLLM_API_KEY"]
+EMBEDDING_MODEL = os.environ["EMBEDDING_MODEL"] # jhgan/ko-sroberta-multitask
 
 SCHEDULE = os.environ.get("PIPELINE_SCHEDULE", "0 * * * *")
 
@@ -37,7 +38,7 @@ with DAG(
     schedule=SCHEDULE,
     catchup=False,
     max_active_runs=1,
-    tags=["naver", "chroma", "ollama", "chunking", "kst"],
+    tags=["naver", "chroma", "vllm", "chunking", "kst"],
 ) as dag:
 
     run_pipeline = BashOperator(
