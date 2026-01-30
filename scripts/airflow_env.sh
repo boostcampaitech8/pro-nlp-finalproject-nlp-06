@@ -14,7 +14,7 @@ export AIRFLOW__CORE__DEFAULT_TIMEZONE="Asia/Seoul"
 
 # DAG에서 읽는 값들 기본 세팅
 export PIPELINE_PYTHON="/data/ephemeral/home/.venv/bin/python"
-export CHROMA_DIR="${CHROMA_DIR:-$PROJECT_ROOT/Chroma_DB}"
+export CHROMA_DIR="${CHROMA_DIR:-$PROJECT_ROOT/Chroma_db}"
 export CSV_DIR="${CSV_DIR:-$PROJECT_ROOT/csv_out}"
 export CHROMA_COLLECTION="${CHROMA_COLLECTION:-naver_finance_news_chunks}"
 # [변경] Ollama 설정을 vLLM 및 HF 설정으로 교체
