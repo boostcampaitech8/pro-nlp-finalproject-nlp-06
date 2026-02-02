@@ -46,9 +46,13 @@ PROJECT_ROOT = Path(
 # ----------------------------
 # 공통 경로 (pipeline / DAG / FastAPI 통일)
 # ----------------------------
-CHROMA_DIR = Path(
-    os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "Chroma_db" / "News_chroma_db"))
-)
+# CHROMA_DIR = Path(
+#     os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "Chroma_db" / "News_chroma_db"))
+# )
+
+CHROMA_DIR = Path(os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "Chroma_db"))).expanduser().resolve()
+CHROMA_NEWS_DIR = (CHROMA_DIR / "News_chroma_db").resolve()
+
 CHROMA_COLLECTION = os.getenv(
     "CHROMA_COLLECTION", "naver_finance_news_chunks"
 )
@@ -145,11 +149,20 @@ def _first_3_lines(text: str) -> List[str]:
 
 def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
     # [수정] 함수 정의에 있는 이름(embedding_model_name)과 정확히 맞춥니다.
+    # client, col = get_collection(
+    #     # persist_dir=Path("/data/ephemeral/home/pro-nlp-finalproject-nlp-06/Chroma_db/News_chroma_db"),
+    #     # persist_dir=Path("/data/ephemeral/home/project/Chroma_db/News_chroma_db"),
+    #     # persist_dir=CHROMA_DIR,
+    #     persist_dir=CHROMA_NEWS_DIR,
+    #     collection_name=CHROMA_COLLECTION,
+    #     embedding_model_name=EMBEDDING_MODEL  # hf_embed_model이 아니라 이 이름이어야 합니다!
+    # )
+
     client, col = get_collection(
-        persist_dir=Path("/data/ephemeral/home/pro-nlp-finalproject-nlp-06/Chroma_db/News_chroma_db"),
-        collection_name=CHROMA_COLLECTION,
-        embedding_model_name=EMBEDDING_MODEL  # hf_embed_model이 아니라 이 이름이어야 합니다!
-    )
+            persist_dir=CHROMA_NEWS_DIR,
+            collection_name=CHROMA_COLLECTION,
+            embedding_model_name=EMBEDDING_MODEL,
+        )
 
     # Chroma 버전마다 limit/offset 지원이 다를 수 있어서 방어적으로 처리
     try:
