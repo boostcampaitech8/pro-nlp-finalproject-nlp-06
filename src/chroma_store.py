@@ -53,6 +53,16 @@ def get_collection(
     return client, col
 
 
+def get_collection_no_embed(
+    persist_dir: str = DEFAULT_PERSIST_DIR,
+    collection_name: str = DEFAULT_COLLECTION,
+):
+    persist_dir = _normalize_dir(persist_dir)
+    client = chromadb.PersistentClient(path=persist_dir)
+    col = client.get_or_create_collection(name=collection_name)
+    return client, col
+
+
 def _batched(lst: List[str], batch_size: int) -> List[List[str]]:
     if batch_size <= 0:
         return [lst]

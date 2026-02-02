@@ -15,6 +15,7 @@ from .Agent import app as agent_app, AgentState
 # 상대경로 import
 from redis_dir.redis_storage import RedisSessionStore
 from .chroma_store import get_collection
+from .chroma_store import get_collection_no_embed
 
 app = FastAPI()
 
@@ -158,10 +159,15 @@ def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
     #     embedding_model_name=EMBEDDING_MODEL  # hf_embed_model이 아니라 이 이름이어야 합니다!
     # )
 
-    client, col = get_collection(
-            persist_dir=CHROMA_NEWS_DIR,
-            collection_name=CHROMA_COLLECTION,
-            embedding_model_name=EMBEDDING_MODEL,
+    # client, col = get_collection(
+    #         persist_dir=CHROMA_NEWS_DIR,
+    #         collection_name=CHROMA_COLLECTION,
+    #         embedding_model_name=EMBEDDING_MODEL,
+    #     )
+    
+    client, col = get_collection_no_embed(
+    persist_dir=CHROMA_NEWS_DIR,
+    collection_name=CHROMA_COLLECTION,
         )
 
     # Chroma 버전마다 limit/offset 지원이 다를 수 있어서 방어적으로 처리
