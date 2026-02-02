@@ -4,34 +4,50 @@ from __future__ import annotations
 from typing import Dict, List, Tuple
 import math
 
+import os
+from pathlib import Path
+from typing import Dict, List
+
 import chromadb
 from chromadb.errors import DuplicateIDError
 
 from .hf_embeddings import HuggingFaceEmbeddingFunction
 
-DEFAULT_PERSIST_DIR = "./Chroma_db/News_chroma_db"
+# DEFAULT_PERSIST_DIR = "./Chroma_db/News_chroma_db"
+# DEFAULT_COLLECTION = "naver_finance_news_chunks"
+
+THIS_FILE = Path(__file__).resolve()
+DEFAULT_PROJECT_ROOT = THIS_FILE.parents[1]  # project/
+
+PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT", str(DEFAULT_PROJECT_ROOT))).resolve()
+
+DEFAULT_PERSIST_DIR = str((PROJECT_ROOT / "Chroma_db" / "News_chroma_db").resolve())
 DEFAULT_COLLECTION = "naver_finance_news_chunks"
 
+
+def _normalize_dir(persist_dir: str | Path) -> str:
+    """Chroma path는 항상 resolve된 절대경로 문자열로 통일"""
+    p = Path(persist_dir).expanduser()
+    return str(p.resolve())
 
 def get_collection(
     persist_dir: str = DEFAULT_PERSIST_DIR,
     collection_name: str = DEFAULT_COLLECTION,
-    # [변경] Ollama 관련 인자 제거, HuggingFace 모델명 추가
     embedding_model_name: str = "jhgan/ko-sroberta-multitask",
 ):
-    # 로컬 HuggingFace 모델 로드
-    embedding_fn = HuggingFaceEmbeddingFunction(model_name=embedding_model_name)
+    # persist_dir = str(Path(persist_dir).expanduser().resoslve())
+    persist_dir = _normalize_dir(persist_dir)
 
+    embedding_fn = HuggingFaceEmbeddingFunction(model_name=embedding_model_name)
     client = chromadb.PersistentClient(path=persist_dir)
-    
-    # 컬렉션 생성 또는 가져오기
+
     col = client.get_or_create_collection(
         name=collection_name,
         embedding_function=embedding_fn,
         metadata={
-            "source": "naver_finance_mainnews", 
-            "embeddings": "huggingface", 
-            "embed_model": embedding_model_name
+            "source": "naver_finance_mainnews",
+            "embeddings": "huggingface",
+            "embed_model": embedding_model_name,
         },
     )
     return client, col

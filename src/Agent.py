@@ -6,9 +6,22 @@ from langgraph.graph import StateGraph, START, END
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
-from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv() # .env 파일 로드
+# .env 없앴음
+# from dotenv import load_dotenv
+# load_dotenv()
+
+# ------------------------------------------------------------
+# 상대경로(프로젝트 기준)로 DB 경로 통일
+# - src/Agent.py 기준으로 project/ 찾기
+# - main.py / pipeline.py 와 같은 규칙(= PROJECT_ROOT, CHROMA_DIR env 우선)
+# ------------------------------------------------------------
+THIS_FILE = Path(__file__).resolve()
+DEFAULT_PROJECT_ROOT = THIS_FILE.parents[1]  # project/
+PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT", str(DEFAULT_PROJECT_ROOT))).resolve()
+
+CHROMA_DIR = Path(os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "Chroma_db"))).resolve()
 
 
 # 1. 상태 정의 (State)
@@ -25,7 +38,7 @@ class AgentState(TypedDict):
 llm = ChatOpenAI(
     base_url=os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1"),
     model=os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light"),
-    api_key=os.getenv("VLLM_API_KEY", "vllm-key")
+    api_key=os.getenv("VLLM_API_KEY", "vllm-key"),
 )
 
 # --- ChromaDB 전역 캐싱 (메모리 절약) ---
@@ -33,25 +46,30 @@ llm = ChatOpenAI(
 _vectorstore_cache = {}
 _embeddings = None  # 임베딩 모델도 한 번만 로드
 
+
 def get_embeddings():
     """임베딩 모델을 GPU에서 한 번만 로드"""
     global _embeddings
     if _embeddings is None:
         print(f"[INFO] 임베딩 모델 로드 중 (GPU 사용)...")
         _embeddings = HuggingFaceEmbeddings(
-            model_name="jhgan/ko-sroberta-multitask",
-            model_kwargs={'device': 'cuda'},  # GPU 사용
-            encode_kwargs={'device': 'cuda', 'batch_size': 32}
+            model_name=os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask"),
+            model_kwargs={"device": os.getenv("EMBEDDING_DEVICE", "cuda")},  # 기본 cuda
+            encode_kwargs={
+                "device": os.getenv("EMBEDDING_DEVICE", "cuda"),
+                "batch_size": int(os.getenv("EMBEDDING_BATCH_SIZE", "32")),
+            },
         )
     return _embeddings
 
+
 def get_vectorstore(db_name: str, collection_name: str = None):
     """ChromaDB 인스턴스를 캐싱하여 재사용 (뉴스 DB 예외 처리 포함)"""
-    
+
     # 1. 뉴스 DB인 경우 컬렉션 이름을 자동으로 설정
     if collection_name is None:
         if db_name == "News_chroma_db":
-            collection_name = "naver_finance_news_chunks"
+            collection_name = os.getenv("CHROMA_NEWS_COLLECTION", "naver_finance_news_chunks")
         else:
             collection_name = "langchain"
 
@@ -60,19 +78,25 @@ def get_vectorstore(db_name: str, collection_name: str = None):
 
     if cache_key not in _vectorstore_cache:
         print(f"[INFO] ChromaDB 로드 중: {db_name} (Collection: {collection_name})")
-        
+
         embeddings = get_embeddings()
-        
-        # [주의] 아까 우리를 괴롭혔던 경로! 절대 경로로 하는 것이 가장 안전합니다.
-        project_root = "/data/ephemeral/home/pro-nlp-finalproject-nlp-06"
-        db_path = os.path.join(project_root, "Chroma_db", db_name)
+
+        # 절대경로 하드코딩 제거 → PROJECT_ROOT/CHROMA_DIR 기준 상대경로로 통일
+        # project_root = "/data/ephemeral/home/pro-nlp-finalproject-nlp-06"
+        # db_path = os.path.join(project_root, "Chroma_db", db_name)
+        db_path = (CHROMA_DIR / db_name).resolve()
+
+        # 디버그 찍고 싶으면 켜도 됨
+        print("[DEBUG] PROJECT_ROOT:", PROJECT_ROOT)
+        print("[DEBUG] CHROMA_DIR:", CHROMA_DIR)
+        print("[DEBUG] db_path:", str(db_path))
 
         _vectorstore_cache[cache_key] = Chroma(
-            persist_directory=db_path, 
+            persist_directory=str(db_path),
             embedding_function=embeddings,
-            collection_name=collection_name
+            collection_name=collection_name,
         )
-        
+
     return _vectorstore_cache[cache_key]
 
 
@@ -82,12 +106,12 @@ def search_db(db_name: str, query: str, k: int = 3):
     try:
         vectorstore = get_vectorstore(db_name)
         results = vectorstore.similarity_search(query, k=k)
-        
+
         # 검색 성공 시 결과 출력
         if results:
             print(f"\n[SEARCH SUCCESS] DB: {db_name}, 검색어: '{query}', 결과 개수: {len(results)}")
             print("-" * 80)
-            
+
             for idx, doc in enumerate(results, 1):  # 검색된 개수만큼만
                 if "Vocab" in db_name:
                     term = doc.page_content
@@ -100,9 +124,9 @@ def search_db(db_name: str, query: str, k: int = 3):
                     print(f"[{idx}] 제목: {title}")
                     print(f"    내용: {content[:100]}")  # 100자까지만
                 print()
-            
+
             print("-" * 80)
-        
+
         # 포맷팅된 컨텍스트 생성
         formatted_context = []
         for doc in results:
@@ -114,9 +138,9 @@ def search_db(db_name: str, query: str, k: int = 3):
                 title = doc.metadata.get("title", "제목 없음")
                 content = doc.page_content
                 formatted_context.append(f"제목: {title}\n내용: {content}")
-        
+
         return formatted_context
-    
+
     except Exception as e:
         print(f"[ERROR] DB 검색 실패 ({db_name}): {e}")
         return []
@@ -144,14 +168,14 @@ Assistant:
 
 def vocab_node(state: AgentState):
     print("\n[NODE] vocab_node 실행 중...")
-    context = search_db("Vocab_chroma_db", state['query'], k=1)
+    context = search_db("Vocab_chroma_db", state["query"], k=1)
     res = llm.invoke(f"문맥: {context}\n질문: {state['query']}에 대해 설명해줘.").content
     return {"response": res}
 
 
 def news_node(state: AgentState):
     print("\n[NODE] news_node 실행 중...")
-    context = search_db("News_chroma_db", state['query'], k=3)
+    context = search_db("News_chroma_db", state["query"], k=3)
     res = llm.invoke(f"뉴스: {context}\n질문: {state['query']} 분석해줘.").content
     return {"response": res}
 
@@ -175,28 +199,28 @@ Assistant:
 
 def stock_report_node(state: AgentState):
     print("\n[NODE] stock_report_node 실행 중...")
-    context = search_db("Company_report_chroma_db", state['query'], k=3)
+    context = search_db("Company_report_chroma_db", state["query"], k=3)
     res = llm.invoke(f"종목(회사) 리포트: {context}\n질문: {state['query']} 분석해줘.").content
     return {"response": res}
 
 
 def industry_report_node(state: AgentState):
     print("\n[NODE] industry_report_node 실행 중...")
-    context = search_db("Industry_report_chroma_db", state['query'], k=3)
+    context = search_db("Industry_report_chroma_db", state["query"], k=3)
     res = llm.invoke(f"산업 리포트: {context}\n질문: {state['query']} 분석해줘.").content
     return {"response": res}
 
 
 def market_report_node(state: AgentState):
     print("\n[NODE] market_report_node 실행 중...")
-    context = search_db("MarketConditions_report_chroma_db", state['query'], k=3)
+    context = search_db("MarketConditions_report_chroma_db", state["query"], k=3)
     res = llm.invoke(f"시황 리포트: {context}\n질문: {state['query']} 분석해줘.").content
     return {"response": res}
 
 
 def economy_report_node(state: AgentState):
     print("\n[NODE] economy_report_node 실행 중...")
-    context = search_db("Economy_report_chroma_db", state['query'], k=3)
+    context = search_db("Economy_report_chroma_db", state["query"], k=3)
     res = llm.invoke(f"경제 리포트: {context}\n질문: {state['query']} 분석해줘.").content
     return {"response": res}
 
@@ -204,9 +228,9 @@ def economy_report_node(state: AgentState):
 def short_term_agent(state: AgentState):
     print("\n[AGENT] short_term_agent 실행 중...")
     context = (
-        search_db("MarketConditions_report_chroma_db", state['query'], 1) +
-        search_db("Company_report_chroma_db", state['query'], 1) +
-        search_db("News_chroma_db", state['query'], 1)
+        search_db("MarketConditions_report_chroma_db", state["query"], 1)
+        + search_db("Company_report_chroma_db", state["query"], 1)
+        + search_db("News_chroma_db", state["query"], 1)
     )
     history = "\n".join(state["debate_history"])
     res = llm.invoke(
@@ -221,8 +245,8 @@ def short_term_agent(state: AgentState):
 def long_term_agent(state: AgentState):
     print("\n[AGENT] long_term_agent 실행 중...")
     context = (
-        search_db("Industry_report_chroma_db", state['query'], 1) +
-        search_db("Economy_report_chroma_db", state['query'], 1)
+        search_db("Industry_report_chroma_db", state["query"], 1)
+        + search_db("Economy_report_chroma_db", state["query"], 1)
     )
     history = "\n".join(state["debate_history"])
     res = llm.invoke(
@@ -231,7 +255,7 @@ def long_term_agent(state: AgentState):
 
     return {
         "debate_history": [f"장기: {res}"],
-        "debate_count": state["debate_count"] + 1
+        "debate_count": state["debate_count"] + 1,
     }
 
 
@@ -244,7 +268,7 @@ def finalize_prediction(state: AgentState):
 
 def chat_node(state: AgentState):
     print("\n[NODE] chat_node 실행 중...")
-    res = llm.invoke(state['query']).content
+    res = llm.invoke(state["query"]).content
     return {"response": res}
 
 
@@ -273,16 +297,16 @@ def main_routing_logic(state: AgentState) -> Literal[
     "vocab", "news", "report_router_node", "short_term_agent", "chat"
 ]:
     cat = state["category"]
-    if "vocab" in cat: 
+    if "vocab" in cat:
         print(f"[ROUTING] main_router -> vocab")
         return "vocab"
-    if "report" in cat: 
+    if "report" in cat:
         print(f"[ROUTING] main_router -> report_router_node")
         return "report_router_node"
-    if "news" in cat: 
+    if "news" in cat:
         print(f"[ROUTING] main_router -> news")
         return "news"
-    if "prediction" in cat: 
+    if "prediction" in cat:
         print(f"[ROUTING] main_router -> short_term_agent")
         return "short_term_agent"
     print(f"[ROUTING] main_router -> chat (기본값)")
@@ -299,7 +323,7 @@ workflow.add_conditional_edges(
         "report_router_node": "report_router_node",
         "short_term_agent": "short_term_agent",
         "chat": "chat",
-    }
+    },
 )
 
 
@@ -307,13 +331,13 @@ def report_routing_logic(state: AgentState) -> Literal[
     "stock_report", "industry_report", "market_report", "economy_report"
 ]:
     sub = state["sub_category"]
-    if "stock" in sub: 
+    if "stock" in sub:
         print(f"[ROUTING] report_router -> stock_report")
         return "stock_report"
-    if "industry" in sub: 
+    if "industry" in sub:
         print(f"[ROUTING] report_router -> industry_report")
         return "industry_report"
-    if "market" in sub: 
+    if "market" in sub:
         print(f"[ROUTING] report_router -> market_report")
         return "market_report"
     print(f"[ROUTING] report_router -> economy_report (기본값)")
@@ -328,7 +352,7 @@ workflow.add_conditional_edges(
         "industry_report": "industry_report",
         "market_report": "market_report",
         "economy_report": "economy_report",
-    }
+    },
 )
 
 
@@ -349,7 +373,7 @@ workflow.add_conditional_edges(
     {
         "short_term_agent": "short_term_agent",
         "finalize_prediction": "finalize_prediction",
-    }
+    },
 )
 
 # --- 종료 엣지 ---
@@ -363,6 +387,7 @@ workflow.add_edge("finalize_prediction", END)
 workflow.add_edge("chat", END)
 
 app = workflow.compile()
+
 
 def run_chatbot():
     print("=" * 50)
