@@ -6,6 +6,8 @@ from langgraph.graph import StateGraph, START, END
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
+from langchain_naver import ChatClovaX
+
 from dotenv import load_dotenv
 
 load_dotenv() # .env 파일 로드
@@ -22,11 +24,19 @@ class AgentState(TypedDict):
 
 
 # LLM 설정 (vLLM 서빙 모델 연동)
-llm = ChatOpenAI(
+router_llm = ChatOpenAI(
     base_url=os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1"),
     model=os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light"),
     api_key=os.getenv("VLLM_API_KEY", "vllm-key")
 )
+
+CLOVA_STUDIO_API_KEY = os.getenv("CLOVA_STUDIO_API_KEY")
+answer_llm = ChatClovaX(
+    model="HCX-007",
+    api_key=CLOVA_STUDIO_API_KEY,
+    max_tokens= 16384
+)
+
 
 # --- ChromaDB 전역 캐싱 (메모리 절약) ---
 
@@ -133,11 +143,11 @@ def main_router(state: AgentState):
 - report (산업, 경제, 종목(기업), 시황에 대한 질문 또는 리포트 분석)
 - news (뉴스 분석, 최근 뉴스 질문)
 - prediction (기업 주가 예측)
-- chat (일반 대화, 인사말, 농담 등)
+- chat (일반 대화, 인사말, 농담, 가벼운 대화 등)
 출력은 vocab, report, news, prediction, chat 5가지 중 하나로만 반드시 출력해.
 Assistant:
 """
-    category = llm.invoke(prompt).content.strip().lower()
+    category = router_llm.invoke(prompt).content.strip().lower()
     print(f"[ROUTER] 선택된 카테고리: {category}")
     return {"category": category}
 
@@ -145,14 +155,14 @@ Assistant:
 def vocab_node(state: AgentState):
     print("\n[NODE] vocab_node 실행 중...")
     context = search_db("Vocab_chroma_db", state['query'], k=1)
-    res = llm.invoke(f"문맥: {context}\n질문: {state['query']}에 대해 설명해줘.").content
+    res = answer_llm.invoke(f"문맥: {context}\n질문: {state['query']}에 대해 설명해줘.").content
     return {"response": res}
 
 
 def news_node(state: AgentState):
     print("\n[NODE] news_node 실행 중...")
     context = search_db("News_chroma_db", state['query'], k=3)
-    res = llm.invoke(f"뉴스: {context}\n질문: {state['query']} 분석해줘.").content
+    res = answer_llm.invoke(f"뉴스: {context}\n질문: {state['query']} 뉴스를 보고 질문에 대해 답변해줘.").content
     return {"response": res}
 
 
@@ -168,7 +178,7 @@ def report_router_node(state: AgentState):
 출력은 stock, industry, market, economy 4가지 중 하나로만 반드시 출력해.
 Assistant:
 """
-    sub_category = llm.invoke(prompt).content.strip().lower()
+    sub_category = router_llm.invoke(prompt).content.strip().lower()
     print(f"[ROUTER] 선택된 서브카테고리: {sub_category}")
     return {"sub_category": sub_category}
 
@@ -176,28 +186,28 @@ Assistant:
 def stock_report_node(state: AgentState):
     print("\n[NODE] stock_report_node 실행 중...")
     context = search_db("Company_report_chroma_db", state['query'], k=3)
-    res = llm.invoke(f"종목(회사) 리포트: {context}\n질문: {state['query']} 분석해줘.").content
+    res = answer_llm.invoke(f"종목(회사) 리포트: {context}\n질문: {state['query']} 리포트를 보고 질문에 대해 답변해줘").content
     return {"response": res}
 
 
 def industry_report_node(state: AgentState):
     print("\n[NODE] industry_report_node 실행 중...")
     context = search_db("Industry_report_chroma_db", state['query'], k=3)
-    res = llm.invoke(f"산업 리포트: {context}\n질문: {state['query']} 분석해줘.").content
+    res = answer_llm.invoke(f"산업 리포트: {context}\n질문: {state['query']} 리포트를 보고 질문에 대해 답변해줘.").content
     return {"response": res}
 
 
 def market_report_node(state: AgentState):
     print("\n[NODE] market_report_node 실행 중...")
     context = search_db("MarketConditions_report_chroma_db", state['query'], k=3)
-    res = llm.invoke(f"시황 리포트: {context}\n질문: {state['query']} 분석해줘.").content
+    res = answer_llm.invoke(f"시황 리포트: {context}\n질문: {state['query']} 리포트를 보고 질문에 대해 답변해줘.").content
     return {"response": res}
 
 
 def economy_report_node(state: AgentState):
     print("\n[NODE] economy_report_node 실행 중...")
     context = search_db("Economy_report_chroma_db", state['query'], k=3)
-    res = llm.invoke(f"경제 리포트: {context}\n질문: {state['query']} 분석해줘.").content
+    res = answer_llm.invoke(f"경제 리포트: {context}\n질문: {state['query']} 리포트를 보고 질문에 대해 답변해줘.").content
     return {"response": res}
 
 
@@ -209,10 +219,10 @@ def short_term_agent(state: AgentState):
         search_db("News_chroma_db", state['query'], 1)
     )
     history = "\n".join(state["debate_history"])
-    res = llm.invoke(
-        f"단기 전문가.\n문맥: {context}\n이전 토론:\n{history}\n단기 전망 제시."
+    res = router_llm.invoke(
+        f"당신은 단기 주식 예측 전문가입니다. 질문에 대해 생각한 뒤 단기 전망을 제시하세요. \n질문: {state['query']}\n문맥: {context}\n이전 토론:\n{history}\n단기 전망 제시"
     ).content
-
+    print(res)
     return {
         "debate_history": [f"단기: {res}"],
     }
@@ -225,10 +235,10 @@ def long_term_agent(state: AgentState):
         search_db("Economy_report_chroma_db", state['query'], 1)
     )
     history = "\n".join(state["debate_history"])
-    res = llm.invoke(
-        f"장기 전문가.\n문맥: {context}\n이전 토론:\n{history}\n반박 및 장기 관점 제시."
+    res = router_llm.invoke(
+        f"당신은 장기 주식 예측 전문가입니다. 질문에 대해 생각한 뒤 장기 전망을 제시하세요.\n질문: {state['query']}\n문맥: {context}\n이전 토론:\n{history}\n장기 관점 제시."
     ).content
-
+    print(res)
     return {
         "debate_history": [f"장기: {res}"],
         "debate_count": state["debate_count"] + 1
@@ -238,13 +248,13 @@ def long_term_agent(state: AgentState):
 def finalize_prediction(state: AgentState):
     print("\n[NODE] finalize_prediction 실행 중...")
     history = "\n".join(state["debate_history"])
-    res = llm.invoke(f"토론 요약 및 최종 주가 예측 결론 도출:\n{history}").content
+    res = answer_llm.invoke(f"당신은 주식 예측 전문가입니다. 단기예측 전문가와 장기 예측 전문가의 토론을 보고 최종 결론을 도출하세요.:\n{history}").content
     return {"response": res}
 
 
 def chat_node(state: AgentState):
     print("\n[NODE] chat_node 실행 중...")
-    res = llm.invoke(state['query']).content
+    res = answer_llm.invoke(state['query']).content
     return {"response": res}
 
 
