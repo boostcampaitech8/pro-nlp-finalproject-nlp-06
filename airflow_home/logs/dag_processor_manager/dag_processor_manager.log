@@ -846,3 +846,553 @@ File Path                                                                       
 /data/ephemeral/home/project/airflow_home/dags/naver_finance_to_chroma_chunks_dag.py                           1           0  0.10s           2026-01-23T04:13:58
 ================================================================================
 [2026-01-23T13:14:04.635+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:09:48.506+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:09:48.509+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:09:48.509+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:09:48.509+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:09:48.511+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:09:49.009+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.31s           2026-02-03T05:09:48
+================================================================================
+[2026-02-03T14:15:25.724+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:15:25.926+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:15:25.926+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:15:25.927+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:15:25.927+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:15:25.928+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:15:26.069+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:15:26
+================================================================================
+[2026-02-03T14:21:12.027+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:21:12.231+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:21:12.231+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:21:12.231+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:21:12.231+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:21:12.233+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:21:12.371+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:21:12
+================================================================================
+[2026-02-03T14:21:43.239+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:21:43
+================================================================================
+[2026-02-03T14:22:13.382+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:22:13
+================================================================================
+[2026-02-03T14:22:43.550+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:22:43
+================================================================================
+[2026-02-03T14:23:13.720+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:23:13
+================================================================================
+[2026-02-03T14:23:43.888+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:23:43
+================================================================================
+[2026-02-03T14:24:14.055+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:24:14
+================================================================================
+[2026-02-03T14:24:44.223+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:24:44
+================================================================================
+[2026-02-03T14:25:14.391+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:25:14
+================================================================================
+[2026-02-03T14:25:44.560+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:25:44
+================================================================================
+[2026-02-03T14:26:12.258+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:26:12.259+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:26:14.729+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:26:14
+================================================================================
+[2026-02-03T14:26:44.898+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:26:44
+================================================================================
+[2026-02-03T14:27:15.067+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:27:15
+================================================================================
+[2026-02-03T14:27:31.054+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:28:20.101+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:28:20.102+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:28:20.102+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:28:20.103+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:28:20.104+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:28:20.586+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.31s           2026-02-03T05:28:20
+================================================================================
+[2026-02-03T14:28:51.484+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.12s           2026-02-03T05:28:51
+================================================================================
+[2026-02-03T14:29:12.055+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:33:07.078+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:33:07.079+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:33:07.080+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:33:07.080+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:33:07.082+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:33:07.483+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.21s           2026-02-03T05:33:07
+================================================================================
+[2026-02-03T14:33:27.187+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:34:32.329+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:34:32.330+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:34:32.330+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:34:32.331+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:34:32.332+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:34:32.832+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.31s           2026-02-03T05:34:32
+================================================================================
+[2026-02-03T14:35:03.621+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:35:03
+================================================================================
+[2026-02-03T14:35:33.871+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:35:33
+================================================================================
+[2026-02-03T14:36:04.117+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:36:04
+================================================================================
+[2026-02-03T14:36:34.397+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:36:34
+================================================================================
+[2026-02-03T14:37:04.684+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:37:04
+================================================================================
+[2026-02-03T14:37:34.975+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:37:34
+================================================================================
+[2026-02-03T14:38:05.255+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:38:05
+================================================================================
+[2026-02-03T14:44:12.993+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:44:13.197+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:44:13.197+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:44:13.197+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:44:13.198+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:44:13.199+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:44:13.337+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:44:13
+================================================================================
+[2026-02-03T14:50:05.591+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:50:05.798+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:50:05.798+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:50:05.798+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:50:05.799+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:50:05.800+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:50:05.940+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:50:05
+================================================================================
+[2026-02-03T14:50:36.892+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:50:36
+================================================================================
+[2026-02-03T14:51:07.065+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:51:07
+================================================================================
+[2026-02-03T14:51:37.234+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:51:37
+================================================================================
+[2026-02-03T14:52:07.402+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:52:07
+================================================================================
+[2026-02-03T14:52:37.571+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:52:37
+================================================================================
+[2026-02-03T14:53:07.741+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:53:07
+================================================================================
+[2026-02-03T14:53:37.909+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:53:37
+================================================================================
+[2026-02-03T14:54:08.041+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:54:08
+================================================================================
+[2026-02-03T14:54:38.210+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:54:38
+================================================================================
+[2026-02-03T14:55:05.814+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:55:05.815+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:55:08.382+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T05:55:08
+================================================================================
+[2026-02-03T14:55:31.523+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T14:58:39.990+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T14:58:39.991+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T14:58:39.992+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T14:58:39.992+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:58:39.994+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T14:58:40.499+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.31s           2026-02-03T05:58:40
+================================================================================
+[2026-02-03T15:04:45.441+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T15:04:45.644+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T15:04:45.644+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T15:04:45.645+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T15:04:45.645+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:04:45.646+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:04:45.787+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:04:45
+================================================================================
+[2026-02-03T15:05:16.507+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:05:16
+================================================================================
+[2026-02-03T15:05:46.687+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:05:46
+================================================================================
+[2026-02-03T15:06:16.874+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:06:16
+================================================================================
+[2026-02-03T15:06:47.044+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:06:47
+================================================================================
+[2026-02-03T15:07:17.216+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:07:17
+================================================================================
+[2026-02-03T15:07:47.389+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:07:47
+================================================================================
+[2026-02-03T15:08:17.563+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:08:17
+================================================================================
+[2026-02-03T15:08:47.737+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:08:47
+================================================================================
+[2026-02-03T15:09:17.908+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:09:17
+================================================================================
+[2026-02-03T15:09:45.670+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:09:45.671+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:09:48.079+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:09:48
+================================================================================
+[2026-02-03T15:10:18.147+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.20s           2026-02-03T06:09:59
+================================================================================
+[2026-02-03T15:10:48.212+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:10:27
+================================================================================
+[2026-02-03T15:11:00.910+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T15:11:15.721+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T15:11:15.721+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T15:11:15.721+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T15:11:15.722+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:11:15.723+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:11:16.108+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.21s           2026-02-03T06:11:15
+================================================================================
+[2026-02-03T15:11:47.049+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:11:47
+================================================================================
+[2026-02-03T15:16:48.140+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15
+[2026-02-03T15:16:48.342+0900] {manager.py:487} INFO - Processing files using up to 1 processes at a time 
+[2026-02-03T15:16:48.342+0900] {manager.py:488} INFO - Process each file at most once every 30 seconds
+[2026-02-03T15:16:48.343+0900] {manager.py:489} INFO - Checking for new files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags every 300 seconds
+[2026-02-03T15:16:48.343+0900] {manager.py:758} INFO - Searching for files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:16:48.344+0900] {manager.py:761} INFO - There are 1 files in /data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags
+[2026-02-03T15:16:48.486+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:16:48
+================================================================================
+[2026-02-03T15:17:18.790+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:17:18
+================================================================================
+[2026-02-03T15:17:49.494+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:17:49
+================================================================================
+[2026-02-03T15:18:19.765+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:18:19
+================================================================================
+[2026-02-03T15:18:49.933+0900] {manager.py:889} INFO - 
+================================================================================
+DAG File Processing Stats
+
+File Path                                                                                                            PID    Runtime      # DAGs    # Errors  Last Runtime    Last Run
+-------------------------------------------------------------------------------------------------------------------  -----  ---------  --------  ----------  --------------  -------------------
+/data/ephemeral/home/finalproject/pro-nlp-finalproject-nlp-06/airflow_home/dags/tft_collecting_and_inference_dag.py                           1           0  0.10s           2026-02-03T06:18:49
+================================================================================
+[2026-02-03T15:18:58.423+0900] {manager.py:470} INFO - Exiting gracefully upon receiving signal 15

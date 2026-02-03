@@ -12,6 +12,9 @@ import ta
 
 from dotenv import load_dotenv
 
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", "")
+TFT_PATH = os.path.join(PROJECT_ROOT, 'tft')
+DATA_PATH = os.path.join(PROJECT_ROOT, 'tft/data')
 
 # -------------------------------- #
 # OHLCV 수집: mojito(한국투자증권 API) #
@@ -27,13 +30,17 @@ def fetch_adjusted_prices(
     start_date/end_date: 'YYYYMMDD'
     mojito에서 adj_price=True로 일봉(수정주가) OHLCV 수집
     """
+    symbol_norm = str(symbol).strip()
+    if symbol_norm.isdigit():
+        symbol_norm = symbol_norm.zfill(6)
+
     all_parsed_data = []
     current_end_date = end_date
 
     while True:
         try:
             resp = broker.fetch_ohlcv(
-                symbol=symbol,
+                symbol=symbol_norm,
                 timeframe='D',
                 start_day=start_date,
                 end_day=current_end_date,
@@ -41,7 +48,7 @@ def fetch_adjusted_prices(
             )
 
             if resp.get('msg1') == '초당 거래건수를 초과하였습니다.':
-                print(f"Rate limit hit for {name} ({symbol}). Retrying...")
+                print(f"Rate limit hit for {name} ({symbol_norm}). Retrying...")
                 time.sleep(1)
                 continue
 
@@ -53,7 +60,7 @@ def fetch_adjusted_prices(
             for item in daily_data:
                 batch_data.append({
                     'Date': item['stck_bsop_date'],
-                    'Code': symbol,
+                    'Code': symbol_norm,
                     'Name': name,
                     'Open': int(item['stck_oprc']),
                     'High': int(item['stck_hgpr']),
@@ -236,9 +243,9 @@ def update_features_recent_window(df: pd.DataFrame, lookback_rows: int = 200) ->
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--master_csv", type=str, default=os.path.join("./data", "kospi200_merged_2021_2025.csv"))
-    parser.add_argument("--output_csv", type=str, default=os.path.join("./data", "kospi200_merged_2021_2025_updated.csv"))
-    parser.add_argument("--env_path", type=str, default=os.path.join(os.getcwd(), "api.env"))
+    parser.add_argument("--master_csv", type=str, default=os.path.join(DATA_PATH, "kospi200_merged_2021_2025_v2.csv"))
+    parser.add_argument("--output_csv", type=str, default=os.path.join(DATA_PATH, "kospi200_merged_2021_2025_updated.csv"))
+    parser.add_argument("--env_path", type=str, default=os.path.join(TFT_PATH, "api.env"))
     parser.add_argument("--lookback_rows", type=int, default=200)  # 기술지표 재계산 구간(종목별 최근 N행)
     parser.add_argument("--sleep", type=float, default=0.3)        # API 호출 간 sleep
     parser.add_argument("--no_bfill", action="store_true")         # 데이터 누수 우려 시 bfill 끄기
@@ -250,11 +257,11 @@ def main():
 
     df_master = pd.read_csv(args.master_csv, dtype={"Code": str})
     df_master["Date"] = pd.to_datetime(df_master["Date"])
-    df_master["Code"] = df_master["Code"].astype(str)
+    df_master["Code"] = df_master["Code"].astype(str).str.zfill(6)
 
     # Code/Name/Sector를 기존 DF에서 확보
     base_info = df_master[["Code", "Name", "Sector"]].drop_duplicates("Code").copy()
-    base_info["Code"] = base_info["Code"].astype(str)
+    base_info["Code"] = base_info["Code"].astype(str).str.zfill(6)
 
     last_dt = df_master["Date"].max().date()
 

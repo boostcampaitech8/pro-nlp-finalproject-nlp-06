@@ -5,11 +5,15 @@ import pandas as pd
 import json
 import argparse
 
+from tft_loss import HorizonWeightedQuantileLoss
 from pandas.tseries.offsets import CustomBusinessDay
 from pytorch_forecasting import TemporalFusionTransformer, TimeSeriesDataSet
 
-DATA_PATH = './data'
-MODEL_PATH = './models'
+PROJECT_ROOT = os.getenv("PROJECT_ROOT", "")
+# DATA_PATH = './data'
+DATA_PATH = os.path.join(PROJECT_ROOT, 'tft/data')
+# MODEL_PATH = './model'
+MODEL_PATH = os.path.join(PROJECT_ROOT, 'tft/model')
 
 def restore_price(base_price, log_returns):
     """
@@ -145,12 +149,12 @@ def main():
     as_of_date = df['Date'].max()
     future_dates = pd.date_range(
         start=as_of_date + krx_business_day,
-        periods=5, # 5일
+        periods=3, # 3일
         freq=krx_business_day
     ).normalize()
 
     print(f"[INFO] as_of_date: {as_of_date.strftime('%Y-%m-%d')}")
-    print(f"[INFO] 생성된 미래 5일: {future_dates.tolist()}")
+    print(f"[INFO] 생성된 미래 3일: {future_dates.tolist()}")
 
     all_dates = pd.DatetimeIndex(df['Date'].unique()).append(pd.DatetimeIndex(future_dates)).unique().sort_values()
     date2idx = pd.Series(range(len(all_dates)), index=all_dates)
@@ -214,7 +218,7 @@ def main():
 
     # Model 불러오기
     best_tft = TemporalFusionTransformer.load_from_checkpoint(
-        os.path.join(MODEL_PATH, "pu9snzwg/checkpoints/epoch=13-step=24668.ckpt")
+        os.path.join(MODEL_PATH, "epoch=5-step=10716.ckpt")
     )
     best_tft.to(device)
     best_tft.eval()
@@ -238,8 +242,8 @@ def main():
     print(f"[INFO] Inference Data Loaded: {len(inference_ds)}")
 
     # Data Loader 생성
-    batch_size = 256
-    num_workers = 8
+    batch_size = 64
+    num_workers = 0
 
     inference_dataloader = inference_ds.to_dataloader(
         train=False,
@@ -452,7 +456,7 @@ def main():
         recommendations["highest_upside"] = {
             "code": best_up[1],
             "name": best_up[2],
-            "horizon_days": 5,
+            "horizon_days": 3,
             "expected_return": round(float(best_up[0]) * 100.0, 4),
             "metric": "5d cumulative median return"
         }
@@ -461,7 +465,7 @@ def main():
         recommendations["stable_positive"] = {
             "code": best_stable[2],
             "name": best_stable[3],
-            "horizon_days": 5,
+            "horizon_days": 3,
             "expected_return": round(float(best_stable[1]) * 100.0, 4),
             "risk_spread": round(float(best_stable[0]) * 100.0, 4),
             "metric": "min(5d cumulative upper-lower spread) among positive-return"
@@ -469,7 +473,7 @@ def main():
     
     payload = {
         "as_of_date": as_of_date.strftime("%Y-%m-%d"),
-        "horizon_days": 5,
+        "horizon_days": 3,
         "recommendations": recommendations,
         "results": final_results
     }
