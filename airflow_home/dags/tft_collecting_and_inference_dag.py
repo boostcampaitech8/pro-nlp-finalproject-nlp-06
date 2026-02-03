@@ -24,7 +24,7 @@ HOLIDAY_CSV = os.getenv("HOLIDAY_CSV", "")
 ARTIFACT_DIR = os.getenv("ARTIFACT_DIR", "")
 MODEL_CKPT = os.getenv("MODEL_CKPT", "")
 
-SCHEDULE = os.getenv("TFT_SCHEDULE", "40 15 * * *")
+SCHEDULE = os.getenv("TFT_SCHEDULE", "0 7 * * *")
 
 with DAG(
     dag_id="kospi200_tft_daily_kst",
