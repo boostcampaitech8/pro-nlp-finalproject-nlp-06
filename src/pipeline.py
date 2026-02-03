@@ -111,16 +111,13 @@ def run_pipeline(
     save_csv: bool = True,
 ) -> Dict[str, Any]:
 
-    # env 우선
-    base_chroma_dir = resolve_under_project(
-        os.getenv("CHROMA_DIR", "Chroma_db")
-    )
-
     
     # [핵심 수정] 부모 디렉토리 아래에 'News_chroma_db' 폴더를 명시적으로 추가
     # chroma_dir = str(Path(base_chroma_dir) / "News_chroma_db")
     # 최종 news DB 경로
-    chroma_dir = str((Path(base_chroma_dir) / "News_chroma_db").resolve())
+    chroma_dir = resolve_under_project(
+    os.getenv("CHROMA_DIR", "Chroma_db/News_chroma_db")
+    )
 
     csv_output_dir = resolve_under_project(
         os.getenv("CSV_DIR", "csv_out")

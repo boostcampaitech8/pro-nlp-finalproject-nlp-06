@@ -1190,3 +1190,7 @@ margin-top: 20px !important; /* ← 이 값으로 조절 */
 .assistant-message {
   padding-left: var(--assistant-left-gutter) !important;
 }
+
+.loading-container {
+  padding-left: var(--assistant-left-gutter) !important;
+}

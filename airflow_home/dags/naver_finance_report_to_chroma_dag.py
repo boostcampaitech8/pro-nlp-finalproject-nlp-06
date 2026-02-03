@@ -19,16 +19,16 @@ default_args = {
 PROJECT_ROOT = os.environ["PROJECT_ROOT"]
 PY310_PYTHON = os.environ["PIPELINE_PYTHON"]
 
-CHROMA_DIR = os.environ["CHROMA_DIR"]
+CHROMA_DIR = os.environ["PDF_CHROMA_DIR"]
 CSV_DIR = os.environ["CSV_DIR"]
-CHROMA_COLLECTION = 'langchain'
+CHROMA_COLLECTION = os.environ["PDF_CHROMA_COLLECTION"]
 
 VLLM_BASE_URL = os.environ["VLLM_BASE_URL"]
 VLLM_MODEL = os.environ["VLLM_MODEL"]
 VLLM_API_KEY = os.environ["VLLM_API_KEY"]
 EMBEDDING_MODEL = os.environ["EMBEDDING_MODEL"] # jhgan/ko-sroberta-multitask
 
-SCHEDULE = os.environ.get("PIPELINE_SCHEDULE", "0 12 * * *")
+SCHEDULE = os.environ.get("PDF_PIPELINE_SCHEDULE", "0 12 * * *")
 
 with DAG(
     dag_id="naver_finance_report_to_chroma_kst",

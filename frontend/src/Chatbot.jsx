@@ -35,6 +35,15 @@ export default function Chatbot() {
     return data.session_id;
   }
 
+  async function deleteBackendSession(sessionId) {
+    const res = await fetch(`${API_BASE}/session/${sessionId}`, { method: "DELETE" });
+    if (!res.ok) {
+      // 404면 이미 삭제된 세션일 수도 있어서 여기서 throw 할지 정책 선택
+      throw new Error("Failed to delete session");
+    }
+    return true;
+  }
+
   async function fetchStockRecs() {
     setStockRecsLoading(true);
     setStockRecsError(null);
@@ -176,10 +185,7 @@ export default function Chatbot() {
             s.id === prev.chat.currentSessionId
               ? {
                   ...s,
-                  messages: [
-                    ...s.messages,
-                    { role: "assistant", content: "서버 오류가 발생했습니다." },
-                  ],
+                  messages: [...s.messages, { role: "assistant", content: "서버 오류가 발생했습니다." }],
                 }
               : s
           ),
@@ -187,6 +193,71 @@ export default function Chatbot() {
       }));
     } finally {
       setLoading(false);
+    }
+  };
+
+  // 챗방 삭제 (X 버튼)
+  const handleDeleteSession = async (sessionId) => {
+    // (선택) 실수 방지 confirm
+    // if (!window.confirm("이 챗방을 삭제할까요?")) return;
+
+    try {
+      await deleteBackendSession(sessionId);
+    } catch (e) {
+      console.error(e);
+      // 백엔드 삭제 실패 시 UI도 유지하고 싶으면 return
+      return;
+    }
+
+    // 1) 프론트 상태에서 제거 + currentSessionId 재설정
+    const deletingCurrent = chat.currentSessionId === sessionId;
+    const remaining = chat.sessions.filter((s) => s.id !== sessionId);
+
+    if (remaining.length > 0) {
+      const nextId = deletingCurrent ? remaining[0].id : chat.currentSessionId;
+
+      setState((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          sessions: prev.chat.sessions.filter((s) => s.id !== sessionId),
+          currentSessionId: nextId,
+        },
+      }));
+
+      // localStorage 정리/갱신
+      const savedCurrent = localStorage.getItem(STORAGE_KEY_CURRENT);
+      if (savedCurrent === sessionId) {
+        localStorage.setItem(STORAGE_KEY_CURRENT, nextId);
+      }
+      return;
+    }
+
+    // 2) 남은 세션이 없으면 새 세션 만들기(항상 1개 유지)
+    try {
+      const newId = await createBackendSession();
+      const newSession = {
+        id: newId,
+        title: "새로운 챗",
+        messages: [WELCOME_MESSAGE],
+        createdAt: new Date().toISOString(),
+      };
+
+      setState((prev) => ({
+        ...prev,
+        chat: {
+          ...prev.chat,
+          sessions: [newSession],
+          currentSessionId: newId,
+        },
+      }));
+
+      localStorage.setItem(STORAGE_KEY_CURRENT, newId);
+    } catch (e) {
+      console.error(e);
+      // 여기까지 실패하면 UI에 세션이 0개가 될 수 있는데,
+      // 현재 구조상 useEffect 초기화가 있으니 새로고침으로 복구되긴 함.
+      localStorage.removeItem(STORAGE_KEY_CURRENT);
     }
   };
 
@@ -238,13 +309,24 @@ export default function Chatbot() {
             >
               <div className="chat-icon">💬</div>
               <span className="chat-title">{session.title}</span>
+
+              {/* X 버튼 */}
+              <button
+                className="delete-button"
+                title="챗방 삭제"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteSession(session.id);
+                }}
+              >
+                ×
+              </button>
             </div>
           ))}
         </div>
       </aside>
 
       <main className="main-content">
-        {/* 여기만 스크롤 되게 만들기 (추천+메시지가 함께 스크롤됨) */}
         <div className="scroll-panel">
           <section className="stock-recs">
             <div className="stock-recs-header">
@@ -323,7 +405,9 @@ export default function Chatbot() {
                 {loading && (
                   <div className="loading-container">
                     <div className="loading-dots">
-                      <span></span><span></span><span></span>
+                      <span></span>
+                      <span></span>
+                      <span></span>
                     </div>
                   </div>
                 )}
@@ -334,7 +418,6 @@ export default function Chatbot() {
           </div>
         </div>
 
-        {/* 입력창은 스크롤 밖(항상 아래) */}
         <div className="input-container">
           <form onSubmit={handleSend} className="input-form">
             <input
@@ -344,7 +427,11 @@ export default function Chatbot() {
               placeholder="궁금한 점을 물어보세요..."
               disabled={loading || !currentSession}
             />
-            <button type="submit" className="send-button" disabled={loading || !input.trim() || !currentSession}>
+            <button
+              type="submit"
+              className="send-button"
+              disabled={loading || !input.trim() || !currentSession}
+            >
               <span className="send-icon">↑</span>
             </button>
           </form>

@@ -6,7 +6,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import List, Dict, Any, Optional
 
-import redis as redislib 
+import redis as redislib
 
 
 @dataclass
@@ -15,7 +15,7 @@ class RedisConfig:
     port: int = int(os.getenv("REDIS_PORT", "6379"))
     db: int = int(os.getenv("REDIS_DB", "0"))
     ttl_seconds: int = int(os.getenv("SESSION_TTL_SECONDS", str(60 * 60 * 24)))  # 24h
-    keep_messages: int = int(os.getenv("SESSION_KEEP_MESSAGES", "200")) # 세션당 보관 메시지 수
+    keep_messages: int = int(os.getenv("SESSION_KEEP_MESSAGES", "200"))  # 세션당 보관 메시지 수
 
 
 class RedisSessionStore:
@@ -43,11 +43,9 @@ class RedisSessionStore:
     def create_session(self, session_id: str) -> None:
         now = datetime.now(timezone.utc).isoformat()
 
-        # meta는 Hash로 (가벼운 정보)
         self.r.hset(self._meta_key(session_id), mapping={"created_at": now, "updated_at": now})
         self.r.expire(self._meta_key(session_id), self.config.ttl_seconds)
 
-        # messages list는 존재만 시켜두고 TTL 걸어둠 (선택)
         self.r.expire(self._messages_key(session_id), self.config.ttl_seconds)
 
     def touch(self, session_id: str) -> None:
@@ -55,6 +53,18 @@ class RedisSessionStore:
         self.r.hset(self._meta_key(session_id), "updated_at", now)
         self.r.expire(self._meta_key(session_id), self.config.ttl_seconds)
         self.r.expire(self._messages_key(session_id), self.config.ttl_seconds)
+
+    # 세션 삭제 (메타 + 메시지 전부 삭제)
+    def delete_session(self, session_id: str) -> bool:
+        meta_k = self._meta_key(session_id)
+        msg_k = self._messages_key(session_id)
+
+        exists = bool(self.r.exists(meta_k) or self.r.exists(msg_k))
+        if not exists:
+            return False
+
+        self.r.delete(meta_k, msg_k)
+        return True
 
     # ----------------------------
     # Messages
@@ -67,21 +77,16 @@ class RedisSessionStore:
         }
         k = self._messages_key(session_id)
 
-        # 최신 메시지를 앞에 쌓기
         self.r.lpush(k, json.dumps(msg, ensure_ascii=False))
-
-        # 세션당 최근 keep_messages개만 유지
         self.r.ltrim(k, 0, self.config.keep_messages - 1)
-
-        # TTL 연장
         self.touch(session_id)
 
     def get_last_n(self, session_id: str, n: int = 10, chronological: bool = True) -> List[Dict[str, Any]]:
         k = self._messages_key(session_id)
-        raw = self.r.lrange(k, 0, max(0, n - 1))  # 최신 n개
+        raw = self.r.lrange(k, 0, max(0, n - 1))
         msgs = [json.loads(x) for x in raw]
         if chronological:
-            msgs.reverse()  # 과거 -> 최신
+            msgs.reverse()
         return msgs
 
     def ping(self) -> bool:
