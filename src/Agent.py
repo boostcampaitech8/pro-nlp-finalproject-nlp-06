@@ -7,6 +7,7 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
 from langchain_naver import ChatClovaX
+from datetime import datetime
 
 from dotenv import load_dotenv
 
@@ -141,7 +142,7 @@ def main_router(state: AgentState):
 아래 중 하나만 정확히 선택:
 - vocab (경제/통계 용어 질문)
 - report (산업, 경제, 종목(기업), 시황에 대한 질문 또는 리포트 분석)
-- news (뉴스 분석, 최근 뉴스 질문)
+- news (뉴스 분석, 최근 뉴스 질문. 최근 상황에 대한 질문, 리포트 보다는 뉴스를 참조하면 더 정확한 정보를 찾을 수 있을 때)
 - prediction (기업 주가 예측)
 - chat (일반 대화, 인사말, 농담, 가벼운 대화 등)
 출력은 vocab, report, news, prediction, chat 5가지 중 하나로만 반드시 출력해.
@@ -161,7 +162,7 @@ def vocab_node(state: AgentState):
 
 def news_node(state: AgentState):
     print("\n[NODE] news_node 실행 중...")
-    context = search_db("News_chroma_db", state['query'], k=3)
+    context = search_db("News_chroma_db", state['query'], k=10)
     res = answer_llm.invoke(f"뉴스: {context}\n질문: {state['query']} 뉴스를 보고 질문에 대해 답변해줘.").content
     return {"response": res}
 
@@ -170,7 +171,7 @@ def report_router_node(state: AgentState):
     print("\n[ROUTER] report_router_node 실행 중...")
     prompt = f"""
 질문: {state['query']}
-아래 중 하나만 정확히 선택:
+질문에 답하기 위해 제공할 수 있는 정보는 다음과 같다.
 - stock (종목, 또는 회사)
 - industry (산업, 특정 산업 동향)
 - market (시황, 현재 시장 상황)
@@ -384,6 +385,11 @@ def run_chatbot():
         if user_input.lower() in ["exit", "quit", "q"]:
             print("\n종료합니다.")
             break
+
+        today_str = datetime.now().strftime("%Y-%m-%d")
+        query_with_date = f"[오늘 날짜 : {today_str}] {user_input}"
+        
+        print(f"[INFO] 날짜가 추가된 쿼리: {query_with_date}")  # ✅ 디버깅용 출력
 
         # 초기 상태
         state = {

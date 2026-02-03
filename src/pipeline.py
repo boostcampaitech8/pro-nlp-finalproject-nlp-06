@@ -64,9 +64,25 @@ def build_chunk_rows_for_article(
         "summary": summary,
         "keywords": keywords_str,
     }
-
+    date_str = article.get("date", "").strip()
+    title = article.get("title", "").strip()
+        
     rows: List[Dict] = []
     for i, (chunk_text, start_idx, end_idx) in enumerate(chunks):
+
+        for chunk_text, start_idx, end_idx in chunks:
+            # ✅ 청크 앞에 날짜와 제목 붙이기
+            header_parts = []
+            if date_str:
+                header_parts.append(f"[{date_str}]")
+            if title:
+                header_parts.append(f"[제목: {title}]")
+            
+            if header_parts:
+                chunk_with_header = " ".join(header_parts) + "\n" + chunk_text
+            else:
+                chunk_with_header = chunk_text
+                
         rows.append(
             {
                 "id": f"{link}#chunk_{i}",
