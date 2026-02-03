@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# set -euo pipefail
 
 # source로 실행되는 파일에서는 $0가 쉘이 될 수 있으니 BASH_SOURCE 사용
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -23,3 +23,11 @@ export VLLM_MODEL="${VLLM_MODEL:-skt/A.X-4.0-Light}"
 export VLLM_API_KEY="${VLLM_API_KEY:-vllm-key}"
 export EMBEDDING_MODEL="${EMBEDDING_MODEL:-jhgan/ko-sroberta-multitask}"
 export PIPELINE_SCHEDULE="${PIPELINE_SCHEDULE:-0 * * * *}" 
+
+# [추가] TFT Airflow Environment Variables
+export TFT_PYTHON="${TFT_PYTHON:-$PROJECT_ROOT/../.venv/bin/python}"
+export STOCK_CSV="$PROJECT_ROOT/tft/data/kospi200_merged_2021_2025_v2.csv"
+export HOLIDAY_CSV="$PROJECT_ROOT/tft/data/krx_close.csv"
+export ARTIFACT_DIR="$PROJECT_ROOT/tft/result"
+export MODEL_CKPT="$PROJECT_ROOT/model/epoch=5-step=10716.ckpt"
+export TFT_SCHEDULE="${TFT_SCHEDULE:-0 7 * * *}"
