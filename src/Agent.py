@@ -1,17 +1,31 @@
+# --- 그래프 구성 ---
 import operator
-import os
-import ast
-import json
 from typing import Annotated, List, Literal, TypedDict
 from langchain_openai import ChatOpenAI
-from langchain_naver import ChatClovaX
 from langgraph.graph import StateGraph, START, END
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_community.vectorstores import Chroma
-from dotenv import load_dotenv
+import os
+from langchain_naver import ChatClovaX
 from datetime import datetime
+import ast
+import json
+from dotenv import load_dotenv
+from pathlib import Path
 
-load_dotenv()
+load_dotenv() # .env 파일 로드
+
+# ------------------------------------------------------------
+# 상대경로(프로젝트 기준)로 DB 경로 통일
+# - src/Agent.py 기준으로 project/ 찾기
+# - main.py / pipeline.py 와 같은 규칙(= PROJECT_ROOT, CHROMA_DIR env 우선)
+# ------------------------------------------------------------
+THIS_FILE = Path(__file__).resolve()
+DEFAULT_PROJECT_ROOT = THIS_FILE.parents[1]  # project/
+PROJECT_ROOT = Path(os.getenv("PROJECT_ROOT", str(DEFAULT_PROJECT_ROOT))).resolve()
+
+CHROMA_DIR = Path(os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "Chroma_db"))).resolve()
+
 
 # 1. 상태 정의 (State)
 class AgentState(TypedDict):
@@ -25,44 +39,53 @@ class AgentState(TypedDict):
     response: str
     # Prediction 관련 추가
     target_companies: List[str]  # 추출된 기업명 리스트
-    tft_data: List[dict]         # TFT 데이터
+    tft_data: List[dict]   
 
-# LLM 설정 - Router용 (경량 모델)
+
+# LLM 설정 (vLLM 서빙 모델 연동)
 router_llm = ChatOpenAI(
     base_url=os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1"),
     model=os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light"),
-    api_key=os.getenv("VLLM_API_KEY", "vllm-key")
+    api_key=os.getenv("VLLM_API_KEY", "vllm-key"),
 )
 
-# LLM 설정 - Answer용 (고성능 모델)
 CLOVA_STUDIO_API_KEY = os.getenv("CLOVA_STUDIO_API_KEY")
 answer_llm = ChatClovaX(
     model="HCX-007",
     api_key=CLOVA_STUDIO_API_KEY,
-    max_tokens=16384
+    max_tokens= 16384
 )
 
-# --- ChromaDB 및 임베딩 설정 (기존 코드 유지) ---
+
+# --- ChromaDB 전역 캐싱 (메모리 절약) ---
+
 _vectorstore_cache = {}
-_embeddings = None
+_embeddings = None  # 임베딩 모델도 한 번만 로드
+
 
 def get_embeddings():
+    """임베딩 모델을 GPU에서 한 번만 로드"""
     global _embeddings
     if _embeddings is None:
+        print(f"[INFO] 임베딩 모델 로드 중 (GPU 사용)...")
         _embeddings = HuggingFaceEmbeddings(
-            model_name="jhgan/ko-sroberta-multitask",
-            model_kwargs={'device': 'cpu'},
-            encode_kwargs={'device': 'cpu', 'batch_size': 32}
+            model_name=os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask"),
+            model_kwargs={"device": os.getenv("EMBEDDING_DEVICE", "cuda")},  # 기본 cuda
+            encode_kwargs={
+                "device": os.getenv("EMBEDDING_DEVICE", "cuda"),
+                "batch_size": int(os.getenv("EMBEDDING_BATCH_SIZE", "32")),
+            },
         )
     return _embeddings
 
+
 def get_vectorstore(db_name: str, collection_name: str = None):
     """ChromaDB 인스턴스를 캐싱하여 재사용 (뉴스 DB 예외 처리 포함)"""
-    
+
     # 1. 뉴스 DB인 경우 컬렉션 이름을 자동으로 설정
     if collection_name is None:
         if db_name == "News_chroma_db":
-            collection_name = "naver_finance_news_chunks"
+            collection_name = os.getenv("CHROMA_NEWS_COLLECTION", "naver_finance_news_chunks")
         else:
             collection_name = "langchain"
 
@@ -71,32 +94,40 @@ def get_vectorstore(db_name: str, collection_name: str = None):
 
     if cache_key not in _vectorstore_cache:
         print(f"[INFO] ChromaDB 로드 중: {db_name} (Collection: {collection_name})")
-        
+
         embeddings = get_embeddings()
-        
-        # [주의] 아까 우리를 괴롭혔던 경로! 절대 경로로 하는 것이 가장 안전합니다.
-        project_root = "/data/ephemeral/home/pro-nlp-finalproject-nlp-06"
-        db_path = os.path.join(project_root, "Chroma_db", db_name)
+
+        # 절대경로 하드코딩 제거 → PROJECT_ROOT/CHROMA_DIR 기준 상대경로로 통일
+        # project_root = "/data/ephemeral/home/pro-nlp-finalproject-nlp-06"
+        # db_path = os.path.join(project_root, "Chroma_db", db_name)
+        db_path = (CHROMA_DIR / db_name).resolve()
+
+        # 디버그 찍고 싶으면 켜도 됨
+        print("[DEBUG] PROJECT_ROOT:", PROJECT_ROOT)
+        print("[DEBUG] CHROMA_DIR:", CHROMA_DIR)
+        print("[DEBUG] db_path:", str(db_path))
 
         _vectorstore_cache[cache_key] = Chroma(
-            persist_directory=db_path, 
+            persist_directory=str(db_path),
             embedding_function=embeddings,
-            collection_name=collection_name
+            collection_name=collection_name,
         )
-        
+
     return _vectorstore_cache[cache_key]
 
+
+# --- 검색 함수 (개선) ---
 def search_db(db_name: str, query: str, k: int = 3):
     """캐싱된 vectorstore를 사용하여 검색"""
     try:
         vectorstore = get_vectorstore(db_name)
         results = vectorstore.similarity_search(query, k=k)
-        
+
         # 검색 성공 시 결과 출력
         if results:
             print(f"\n[SEARCH SUCCESS] DB: {db_name}, 검색어: '{query}', 결과 개수: {len(results)}")
             print("-" * 80)
-            
+
             for idx, doc in enumerate(results, 1):  # 검색된 개수만큼만
                 if "Vocab" in db_name:
                     term = doc.page_content
@@ -109,9 +140,9 @@ def search_db(db_name: str, query: str, k: int = 3):
                     print(f"[{idx}] 제목: {title}")
                     print(f"    내용: {content[:100]}")  # 100자까지만
                 print()
-            
+
             print("-" * 80)
-        
+
         # 포맷팅된 컨텍스트 생성
         formatted_context = []
         for doc in results:
@@ -123,16 +154,15 @@ def search_db(db_name: str, query: str, k: int = 3):
                 title = doc.metadata.get("title", "제목 없음")
                 content = doc.page_content
                 formatted_context.append(f"제목: {title}\n내용: {content}")
-        
+
         return formatted_context
-    
+
     except Exception as e:
         print(f"[ERROR] DB 검색 실패 ({db_name}): {e}")
         return []
 
 
 # --- 노드 정의 ---
-
 def main_router(state: AgentState):
     print("\n[ROUTER] main_router 실행 중 (단일 선택)...")
     prompt = f"""
@@ -324,7 +354,7 @@ Assistant:"""
     print(f"[추출된 기업명]: {target_companies}")
     
     # TFT 추론 결과 로드 (실제 경로로 수정 필요)
-    tft_json_path = os.getenv("TFT_INFERENCE_JSON", "./tft_inference_results.json")
+    tft_json_path = os.getenv("TFT_INFERENCE_JSON", "./inference_results.json")
     try:
         with open(tft_json_path, 'r', encoding='utf-8') as f:
             inference_json = json.load(f)
@@ -431,7 +461,7 @@ def macro_agent_node(state: AgentState):
     
     return {"debate_history": [f"[Macro Agent - 거시경제 관점]\n{res}"]}
 
-def finalize_prediction_with_graph(state: AgentState):
+def finalize_prediction(state: AgentState):
     """5단계: 그래프 생성 및 최종 답변 통합"""
     print("\n[NODE] finalize_prediction_with_graph 실행...")
     
@@ -486,11 +516,6 @@ def finalize_prediction_with_graph(state: AgentState):
         "response": final_response,
     }
 
-def finalize_prediction(state: AgentState):
-    print("\n[NODE] finalize_prediction 실행...")
-    history = "\n\n".join(state["debate_history"])
-    # 최종 결과물 리스트에 추가
-    return {"results": [f"[주가 예측 토론 합계]\n{history}"]}
 
 def chat_node(state: AgentState):
     """일반 대화 - 바로 최종 답변 반환 (aggregator 거치지 않음)"""
@@ -526,7 +551,6 @@ workflow.add_node("stock_report", stock_report_node)
 workflow.add_node("industry_report", industry_report_node)
 workflow.add_node("market_report", market_report_node)
 workflow.add_node("economy_report", economy_report_node)
-workflow.add_node("finalize_prediction", finalize_prediction)
 workflow.add_node("chat", chat_node)
 workflow.add_node("final_aggregator", final_aggregator)
 
@@ -534,7 +558,7 @@ workflow.add_node("extract_companies", extract_companies_node)
 workflow.add_node("quant_agent", quant_agent_node)
 workflow.add_node("research_agent", research_agent_node)
 workflow.add_node("macro_agent", macro_agent_node)
-workflow.add_node("finalize_prediction_with_graph", finalize_prediction_with_graph)
+workflow.add_node("finalize_prediction_with_graph", finalize_prediction)
 
 workflow.add_edge(START, "main_router")
 
@@ -576,10 +600,6 @@ workflow.add_conditional_edges(
 )
 
 # 예측 루프
-def debate_routing_logic(state: AgentState):
-    if state["debate_count"] >= 1: # 1회 토론 후 종료 (단기/장기 각각 1번씩)
-        return "finalize_prediction"
-    return "short_term_agent"
 
 workflow.add_edge("extract_companies", "quant_agent")
 workflow.add_edge("quant_agent", "research_agent")
