@@ -302,7 +302,12 @@ def economy_report_node(state: AgentState):
 
 # 예측 에이전트 
 def extract_companies_node(state: AgentState):
-    system_prompt = "질문에서 언급된 기업명을 모두 추출하여 리스트 형태로 출력하세요."
+    system_prompt = """당신은 한국 금융 텍스트에서 기업명을 정확하게 찾아내는 **'엔티티 추출 전문가'**입니다. 다음 지침에 따라 질문에서 기업명만 정확히 추출하세요.
+
+1. **영문 대문자**: SK, LG, KT, POSCO 등 영문이 포함된 기업은 대문자 표기를 우선시합니다.
+2. **산업군 키워드**: 이름 뒤에 '전자', '생명', '화학', '바이오', '증권' 등이 붙어 있다면 하나의 기업명으로 묶어서 추출하세요.
+3. **불필요한 요소 제거**: 기업명 뒤에 붙은 조사(가, 는, 의, 에 등)와 문장 부호는 반드시 제거하고 순수 기업명만 리스트에 담으세요.
+4. **결과 형식**: 오직 파이썬 리스트 형태(예: ['기업A', '기업B'])로만 출력하며, 설명이나 추가 텍스트는 절대 포함하지 마세요."""
     user_prompt = f"질문: {state['query']}\n\n예시:\n- 질문: '삼성전자와 SK하이닉스 주가 예측해줘' → ['삼성전자', 'SK하이닉스']\n- 질문: '현대차 내일 얼마나 오를까?' → ['현대차']\n\n출력은 반드시 리스트 형태로만 출력하세요.\nAssistant:"
     
     res = router_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content.strip()
