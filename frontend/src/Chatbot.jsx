@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./chatbot.css";
 import { useAppState } from "./appState";
+import ReactMarkdown from 'react-markdown'
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000";
 
@@ -167,7 +168,7 @@ export default function Chatbot() {
                     {
                       role: "assistant",
                       content:
-                        data.answer + (data.used_db ? " (뉴스 DB 사용)" : " (일반지식 기반)"),
+                        data.answer,
                     },
                   ],
                 }
@@ -398,7 +399,7 @@ export default function Chatbot() {
                   >
                     <div className="message-avatar">{m.role === "user" ? "👤" : "🤖"}</div>
                     <div className="message-bubble">
-                      <div className="message-content">{m.content}</div>
+                      <div className="message-content"><ReactMarkdown>{m.content}</ReactMarkdown></div>
                     </div>
                   </div>
                 ))}
