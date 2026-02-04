@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import os
 from pathlib import Path
 from typing import Optional, List, Dict, Any
@@ -77,6 +78,14 @@ MAX_DISTANCE = float(os.getenv("MAX_DISTANCE", "0.7"))
 MIN_DOCS_AFTER_FILTER = int(os.getenv("MIN_DOCS_AFTER_FILTER", "12"))
 ENABLE_QUERY_REFINE = os.getenv("ENABLE_QUERY_REFINE", "false").lower() == "true"
 DEBUG = os.getenv("DEBUG", "true").lower() == "true"
+
+# ----------------------------
+# (NEW) TFT Model Directory
+# ----------------------------
+TFT_PATH = Path(
+    os.getenv("TFT_RESULT_DIR", str(PROJECT_ROOT / "tft"))
+)
+ANALYSIS_FILE_PATH = TFT_PATH / "result" / "inference_results.json"
 
 # ----------------------------
 # Redis Session Store (lazy init)
@@ -360,37 +369,108 @@ def latest_news(limit: int = 20):
     items = fetch_latest_news(limit=limit)
     return {"items": items}
 
+# ------------------------------
+# (NEW) TFT Helper Functions
+# ------------------------------
+
+def load_tft_result(file_path: Path) -> list[StockRecOut]:
+    """
+    JSON 파일을 읽어서 StockRecOut Object의 list로 반환
+    """
+    print(file_path)
+    if not file_path.exists():
+        print("no file exists")
+        return None
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            print(f"path: {file_path}")
+            return json.load(f)
+    except json.JSONDecodeError:
+        print(f"[ERROR] Error decoding JSON from {file_path}")
+        return None
+
+def stock_recommendation() -> list[StockRecOut]:
+    """
+    load_tft_result()를 호출하여 추천 종목 리스트 반환
+    """
+    data = load_tft_result(ANALYSIS_FILE_PATH)
+
+    if not data:
+        return []
+    
+    raw_recs = data.get("recommendations", {})
+    raw_results = data.get("results", [])
+
+    results_by_code = {}
+    for item in raw_results:
+        code = (item.get("code") or "").strip()
+        if code:
+            results_by_code[code] = item
+    
+    price_map = {
+        item.get("code"): item.get("base_close", 0.0) for item in raw_results
+    }
+
+    processed_list = []
+
+    for strategy_key, rec_data in raw_recs.items():
+        # code = rec_data.get("code")
+        code = (rec_data.get("code") or "").strip()
+        if not code:
+            continue
+
+        headline_text = strategy_key.replace("_", " ").title()
+
+        risk_val = rec_data.get("risk_spread")
+        if risk_val is not None:
+            try:
+                risk_text = f"변동성 지표: {risk_val:.2f}"
+            except (TypeError, ValueError):
+                risk_text = "시장 변동성에 유의 필요"
+        else:
+            risk_text = "시장 변동성에 유의 필요"
+        # risk_text = f"변동성 지표: {risk_val:.2f}" if risk_val else "시장 변동성에 유의 필요"
+
+        result = results_by_code.get(code) or {}
+        base_close = result.get("base_close", 0.0) or 0.0
+
+        top_vars = result.get("top_variables") or []
+        var_parts = []
+
+        for v in top_vars[:3]:
+            name = v.get("name")
+            weight = v.get("weight")
+            if not name or weight is None:
+                continue
+            try:
+                w = float(weight)
+            except (TypeError, ValueError):
+                continue
+            var_parts.append(f"{name}({w:.3f})")
+        
+        if var_parts:
+            why_text = "주요 영향 변수: " + ", ".join(var_parts)
+        else:
+            metric = rec_data.get("metric")
+            why_text = f"Metric: {metric}" if metric else "모델 추론 근거 요약 정보가 부족합니다."
+
+        stock = StockRecOut(
+            symbol=code,
+            name=rec_data.get("name"),
+            market="KRX",
+            price=float(base_close) if base_close is not None else 0.0,
+            change_pct=rec_data.get("expected_return", 0.0),
+            headline=headline_text,
+            why=why_text,
+            risk=risk_text
+        )
+        processed_list.append(stock)
+    
+    print(processed_list)
+
+    return processed_list
 
 @app.get("/stocks/recommendations", response_model=StockRecListOut)
 def get_stock_recommendations(limit: int = Query(2, ge=1, le=10)):
-    sample = [
-        StockRecOut(
-            symbol="AAPL",
-            name="Apple Inc.",
-            market="NASDAQ",
-            price=198.12,
-            change_pct=1.24,
-            headline="현금흐름/자사주 매입 기반의 방어적 빅테크",
-            why=(
-                "• 실적 변동성이 상대적으로 낮고, 서비스 매출 비중이 커서 수익 구조가 안정적입니다.\n"
-                "• 강한 현금흐름을 바탕으로 자사주 매입/배당을 지속해 주주환원 여력이 큽니다.\n"
-                "• 단기 변동성(금리/기술주 조정)에도 포트폴리오 코어로 편입하기 좋습니다."
-            ),
-            risk="밸류에이션(멀티플) 부담 시 조정 폭이 커질 수 있음",
-        ),
-        StockRecOut(
-            symbol="MSFT",
-            name="Microsoft",
-            market="NASDAQ",
-            price=431.55,
-            change_pct=0.78,
-            headline="클라우드 + AI 수요의 구조적 수혜",
-            why=(
-                "• Azure 성장과 기업용 소프트웨어 구독 매출로 장기 성장성이 탄탄합니다.\n"
-                "• AI 도입(업무 자동화/코파일럿) 확산이 매출 업사이드로 연결될 가능성이 있습니다.\n"
-                "• 경기 둔화 국면에서도 엔터프라이즈 락인 효과가 강합니다."
-            ),
-            risk="클라우드 성장률 둔화/경쟁 심화 시 모멘텀 약화 가능",
-        ),
-    ]
-    return {"items": sample[:limit]}
+    rec_items = stock_recommendation()
+    return {"items": rec_items[:limit]}
