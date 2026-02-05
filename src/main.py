@@ -18,6 +18,9 @@ from redis_dir.redis_storage import RedisSessionStore
 from .chroma_store import get_collection
 from .chroma_store import get_collection_no_embed
 
+# TFT
+from tft.tft_feature_map import FEATURE_META
+
 app = FastAPI()
 
 # ----------------------------
@@ -222,6 +225,13 @@ def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
     return items[:limit]
 
 
+class ForecastOut(BaseModel):
+    horizon_days: int
+    dates: list[str]
+    q10: list[int]
+    q50: list[int]
+    q90: list[int]
+
 class StockRecOut(BaseModel):
     symbol: str                 # 예: AAPL
     name: str                   # 예: Apple Inc.
@@ -234,6 +244,7 @@ class StockRecOut(BaseModel):
     headline: str               # 카드에 보이는 한 줄 추천 문구
     why: str                    # hover 시 노출되는 상세 이유
     risk: str | None = None  # 리스크 한줄(선택)
+    forecast: ForecastOut | None = None
 
 class StockRecListOut(BaseModel):
     items: List[StockRecOut]
@@ -376,7 +387,47 @@ def latest_news(limit: int = 20):
 # (NEW) TFT Helper Functions
 # ------------------------------
 
-def load_tft_result(file_path: Path) -> list[StockRecOut]:
+def _to_int(value: Any) -> int | None:
+    try:
+        if value is None:
+            return None
+        return int(round(float(value)))
+    except (TypeError, ValueError):
+        return None
+    
+def _extract_forecast(result: dict[str, Any], horizon_days: int = 3) -> ForecastOut | None:
+    raw = result.get("forecasts") or []
+    if len(raw) < horizon_days:
+        return None
+
+    dates: list[str] = []
+    q10: list[int] = []
+    q50: list[int] = []
+    q90: list[int] = []
+
+    for row in raw[:horizon_days]:
+        d = str(row.get("date") or "").strip()
+        lo = _to_int(row.get("price_lower"))
+        med = _to_int(row.get("price"))
+        hi = _to_int(row.get("price_upper"))
+
+        if not d or lo is None or med is None or hi is None:
+            return None
+
+        dates.append(d)
+        q10.append(lo)
+        q50.append(med)
+        q90.append(hi)
+
+    return ForecastOut(
+        horizon_days=horizon_days,
+        dates=dates,
+        q10=q10,
+        q50=q50,
+        q90=q90,
+    )
+
+def load_tft_result(file_path: Path) -> dict[str, Any] | None:
     """
     JSON 파일을 읽어서 StockRecOut Object의 list로 반환
     """
@@ -409,10 +460,6 @@ def stock_recommendation() -> list[StockRecOut]:
         code = (item.get("code") or "").strip()
         if code:
             results_by_code[code] = item
-    
-    price_map = {
-        item.get("code"): item.get("base_close", 0.0) for item in raw_results
-    }
 
     processed_list = []
 
@@ -470,17 +517,16 @@ def stock_recommendation() -> list[StockRecOut]:
                 prev_close = int(round(float(base_close)))
             except (TypeError, ValueError):
                 prev_close = None
-        
+
+        # 5. Horizon Days
+        horizon_days = int(
+            rec_data.get("horizon_days")
+            or data.get("horizon_days")
+            or 3
+        )
         predicted_price: int | None = None
-        forecasts = result.get("forecasts") or []
-        if forecasts:
-            first = forecasts[0] or {}
-            p = first.get("price")
-            if p is not None:
-                try:
-                    predicted_price = int(round(float(p)))
-                except (TypeError, ValueError):
-                    predicted_price = None
+        forecast_obj = _extract_forecast(result, horizon_days=horizon_days)
+        predicted_price = forecast_obj.q50[0] if forecast_obj and forecast_obj.q50 else None
 
         name = (rec_data.get("name") or result.get("name") or code)
 
@@ -495,7 +541,8 @@ def stock_recommendation() -> list[StockRecOut]:
             change_pct=rec_data.get("expected_return", 0.0),
             headline=headline_text,
             why=why_text,
-            risk=risk_text
+            risk=risk_text,
+            forecast=forecast_obj
         )
         processed_list.append(stock)
     
