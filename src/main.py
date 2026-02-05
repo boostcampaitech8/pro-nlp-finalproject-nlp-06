@@ -19,7 +19,7 @@ from .chroma_store import get_collection
 from .chroma_store import get_collection_no_embed
 
 # TFT
-from tft.tft_feature_map import FEATURE_META
+from tft.tft_feature_map import FEATURE_META, STRATEGY_TEXT_MAP
 
 app = FastAPI()
 
@@ -429,6 +429,7 @@ def _extract_forecast(result: dict[str, Any], horizon_days: int = 3) -> Forecast
 
 def _build_why_text(
         top_vars: list[dict],
+        strategy_key: str,
         metric: str | None = None,
         top_k: int = 3
 ) -> str:
@@ -443,20 +444,23 @@ def _build_why_text(
             continue
         parsed.append((name, weight))
     
+    selection_sentence = STRATEGY_TEXT_MAP.get(strategy_key)
+    if not selection_sentence:
+        selection_sentence = metric or "모델 예측 점수를 바탕으로 선정된 종목입니다."
+
     if not parsed:
-        if metric:
-            return f"추천 기준: {metric}\n모델이 산출한 변수 중요도 정보가 부족합니다."
-        return "모델이 산출한 변수 중요도 정보가 부족합니다."
+        return (
+            f"선정 이유: {selection_sentence}\n"
+            "변수 중요도 정보가 충분하지 않아, 상세 영향 변수는 제공되지 않았습니다."
+        )
     
     parsed.sort(key=lambda x: abs(x[1]), reverse=True)
     topk = parsed[:top_k]
-
     denom = sum(abs(w) for _, w in topk) or 1.0
 
     lines = []
-    if metric:
-        lines.append(f"선정 기준: {metric}")
-    lines.append("주요 영향 변수(상위):")
+    lines.append(f"선정 이유: {selection_sentence}\n")
+    lines.append("예측에 크게 반영된 변수(상위)")
     for raw_name, w in topk:
         meta = FEATURE_META.get(raw_name, {})
         label = meta.get("label", raw_name)
@@ -499,27 +503,56 @@ def _build_risk_text(
             if prev_close and prev_close > 0:
                 downside_pct = (q10_d3 / float(prev_close) - 1.0) * 100.0
 
-            if band_pct is not None:
-                if band_pct < 4:
-                    grade = "낮음"
-                elif band_pct < 8:
-                    grade = "보통"
-                else:
-                    grade = "높음"
+            if band_pct is None:
+                grade = "판단 어려움"
+            elif band_pct < 4:
+                grade = "낮은 편"
+            elif band_pct < 8:
+                grade = "보통"
+            else:
+                grade = "큰 편"
+            
+            parts = []
+            parts.append(
+                f"D+3 예상 가격 범위는 약 {int(round(q10_d3)):,}원 ~ {int(round(q90_d3)):,}원입니다."
+            )
+            parts.append(
+                f"중앙값은 {int(round(q50_d3)):,}원이며, 예측 폭은 "
+                f"{band_pct:.2f}%로 변동성은 {grade}입니다." if band_pct is not None
+                else "예측 폭 정보를 계산하기 어려워 변동성 판단이 제한적입니다."
+            )
 
-                if downside_pct is not None:
-                    return (
-                        f"리스크 {grade}: D+3 예측구간 폭(q10~q90) {band_pct:.2f}%, "
-                        f"하방 시나리오 {downside_pct:+.2f}%"
+            if downside_pct is not None:
+                if downside_pct < 0:
+                    parts.append(
+                        f"보수적으로 보면 전일 종가 대비 최대 {abs(downside_pct):.2f}% "
+                        "하락 가능성도 염두에 두는 것이 좋습니다."
                     )
-                return f"리스크 {grade}: D+3 예측구간 폭(q10~q90) {band_pct:.2f}%"
+                else:
+                    parts.append(
+                        "보수적 시나리오(q10)에서도 전일 종가 대비 상승으로 예측됩니다."
+                    )
+            return " ".join(parts)
     except Exception:
         pass
 
     # fallback: 기존 risk_spread 사용
-    risk_spread = risk_spread_raw
-    if risk_spread is not None:
-        return f"리스크 참고치(내부 지표): {risk_spread:.2f}"
+    try:
+        if risk_spread_raw is not None:
+            rs = float(risk_spread_raw)
+            if rs < 2:
+                grade = "낮은 편"
+            elif rs < 5:
+                grade = "보통"
+            else:
+                grade = "큰 편"
+            return (
+                f"내부 리스크 지표는 {rs:.2f}%이며, 변동성은 {grade}입니다. "
+                "값이 클수록 예측 범위가 넓어 실제 결과의 흔들림이 커질 수 있습니다."
+            )
+    except (TypeError, ValueError):
+        pass
+
     return "예측구간 기반 리스크 정보가 부족합니다."
 
 
@@ -619,6 +652,7 @@ def stock_recommendation() -> list[StockRecOut]:
         metric = rec_data.get("metric")
         why_text = _build_why_text(
             top_vars=top_vars,
+            strategy_key=strategy_key,
             metric=metric,
             top_k=3
         )

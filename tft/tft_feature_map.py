@@ -54,3 +54,8 @@ FEATURE_META: dict[str, dict[str, str]] = {
     "USD_KRW_Change": {"label": "원달러 환율 변화율", "desc": "환율 민감도"},
     "WTI_Oil_Change": {"label": "WTI 유가 변화율", "desc": "원자재/인플레/비용 영향"},
 }
+
+STRATEGY_TEXT_MAP: dict[str, str] = {
+    "highest_upside": "다음 거래일(1일) 기준으로 상승 여력이 가장 크다고 예측된 종목입니다.",
+    "stable_positive": "향후 3거래일 동안 보수적 구간(q10)의 누적값이 가장 큰 종목으로, 상대적으로 안정적인 종목입니다."
+}

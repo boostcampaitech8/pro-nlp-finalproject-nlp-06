@@ -376,9 +376,9 @@ def main():
     print("[INFO] Formatting results to JSON...")
 
     # 종목 추천
-    # (1) 5일 누적 예상 수익률이 최대
+    # (1) 다음 1거래일 상승률(median)이 가장 높은 종목
     best_up = None
-    # (2) 5일 누적 예상 수익률 > 0인 동시에 불확실성이 가장 작은 종목
+    # (2) 3일 누적 q10(lower) 수익률이 가장 높은 종목
     best_stable = None
 
     for idx, row in index.iterrows():
@@ -402,25 +402,46 @@ def main():
         pct_upper = (np.expm1(lr_upper) * 100.0).astype(np.float64)
 
         # 5일 누적 예상 수익률 (median, lower, upper)
-        cum_lr_median = float(np.sum(lr_median))
-        cum_ret_median = float(np.expm1(cum_lr_median))
+        # cum_lr_median = float(np.sum(lr_median))
+        # cum_ret_median = float(np.expm1(cum_lr_median))
 
-        cum_lr_lower = float(np.sum(lr_lower))
-        cum_ret_lower = float(np.expm1(cum_lr_lower))
+        # cum_lr_lower = float(np.sum(lr_lower))
+        # cum_ret_lower = float(np.expm1(cum_lr_lower))
 
-        cum_lr_upper = float(np.sum(lr_upper))
-        cum_ret_upper = float(np.expm1(cum_lr_upper))
+        # cum_lr_upper = float(np.sum(lr_upper))
+        # cum_ret_upper = float(np.expm1(cum_lr_upper))
 
-        risk_spread = float(cum_ret_upper - cum_ret_lower)
-        if best_up is None or cum_ret_median > best_up[0]:
-            best_up = (cum_ret_median, str(code).zfill(6), stock_name)
+        # risk_spread = float(cum_ret_upper - cum_ret_lower)
+        # if best_up is None or cum_ret_median > best_up[0]:
+        #     best_up = (cum_ret_median, str(code).zfill(6), stock_name)
 
-        if cum_ret_median > 0:
-            if best_stable is None:
-                best_stable = (risk_spread, cum_ret_median, str(code).zfill(6), stock_name)
-            else:
-                if (risk_spread < best_stable[0]) or (risk_spread == best_stable[0] and cum_ret_median > best_stable[1]):
-                    best_stable = (risk_spread, cum_ret_median, str(code).zfill(6), stock_name)
+        # if cum_ret_median > 0:
+        #     if best_stable is None:
+        #         best_stable = (risk_spread, cum_ret_median, str(code).zfill(6), stock_name)
+        #     else:
+        #         if (risk_spread < best_stable[0]) or (risk_spread == best_stable[0] and cum_ret_median > best_stable[1]):
+        #             best_stable = (risk_spread, cum_ret_median, str(code).zfill(6), stock_name)
+
+        code_str = str(code).zfill(6)
+        h = 3
+        lr_m_h = np.asarray(lr_median[:h], dtype=np.float64)
+        lr_l_h = np.asarray(lr_lower[:h], dtype=np.float64)
+        lr_u_h = np.asarray(lr_upper[:h], dtype=np.float64)
+
+        next_day_ret = float(np.expm1(float(lr_m_h[0])))
+        next_day_spread = float(np.expm1(float(lr_u_h[0])) - np.expm1(float(lr_l_h[0])))
+
+        if (best_up is None) or (next_day_ret > best_up[0]):
+            best_up = (next_day_ret, next_day_spread, code_str, stock_name)
+        
+        q10_cum_ret_3d = float(np.expm1(float(np.sum(lr_l_h))))
+        med_cum_ret_3d = float(np.expm1(float(np.sum(lr_m_h))))
+        up_cum_ret_3d = float(np.expm1(float(np.sum(lr_u_h))))
+        spread_3d = float(up_cum_ret_3d - q10_cum_ret_3d)
+
+        if (best_stable is None) or (q10_cum_ret_3d > best_stable[0]) \
+            or (q10_cum_ret_3d == best_stable[0] and med_cum_ret_3d > best_stable[1]):
+            best_stable = (q10_cum_ret_3d, med_cum_ret_3d, spread_3d, code_str, stock_name)
 
         daily_forecasts = []
         for i, date_str in enumerate(date_strings):
@@ -454,21 +475,39 @@ def main():
     recommendations = {}
     if best_up is not None:
         recommendations["highest_upside"] = {
-            "code": best_up[1],
-            "name": best_up[2],
+            "code": best_up[2],
+            "name": best_up[3],
             "horizon_days": 3,
             "expected_return": round(float(best_up[0]) * 100.0, 4),
-            "metric": "5d cumulative median return"
+            "metric": "highest next-day median return"
         }
+    else:
+        recommendations["highest_upside"] = {
+            "code": None,
+            "name": None,
+            "horizon_days": 3,
+            "expected_return": None,
+            "metric": "highest next-day median return"
+        }
+
     
     if best_stable is not None:
         recommendations["stable_positive"] = {
-            "code": best_stable[2],
-            "name": best_stable[3],
+            "code": best_stable[3],
+            "name": best_stable[4],
             "horizon_days": 3,
             "expected_return": round(float(best_stable[1]) * 100.0, 4),
-            "risk_spread": round(float(best_stable[0]) * 100.0, 4),
-            "metric": "min(5d cumulative upper-lower spread) among positive-return"
+            "risk_spread": round(float(best_stable[2]) * 100.0, 4),
+            "metric": "maximize 3d cumulative q10 return"
+        }
+    else:
+        recommendations["stable_positive"] = {
+            "code": None,
+            "name": None,
+            "horizon_days": 3,
+            "expected_return": None,
+            "risk_spread": None,
+            "metric": "maximize 3d cumulative q10 return"
         }
     
     payload = {
