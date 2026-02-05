@@ -225,12 +225,15 @@ def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
 class StockRecOut(BaseModel):
     symbol: str                 # 예: AAPL
     name: str                   # 예: Apple Inc.
-    market: Optional[str] = None  # 예: NASDAQ
-    price: Optional[float] = None # 예시
-    change_pct: Optional[float] = None # 예시
+    market: str | None = None  # 예: NASDAQ
+    # price: float | None = None # 예시
+    prev_close: int | None = None
+    current_price: int | None = None
+    predicted_price: int | None = None
+    change_pct: float | None = None # 예시
     headline: str               # 카드에 보이는 한 줄 추천 문구
     why: str                    # hover 시 노출되는 상세 이유
-    risk: Optional[str] = None  # 리스크 한줄(선택)
+    risk: str | None = None  # 리스크 한줄(선택)
 
 class StockRecListOut(BaseModel):
     items: List[StockRecOut]
@@ -419,8 +422,10 @@ def stock_recommendation() -> list[StockRecOut]:
         if not code:
             continue
 
+        # 1. Headline 생성
         headline_text = strategy_key.replace("_", " ").title()
 
+        # 2. Risk Value
         risk_val = rec_data.get("risk_spread")
         if risk_val is not None:
             try:
@@ -432,8 +437,8 @@ def stock_recommendation() -> list[StockRecOut]:
         # risk_text = f"변동성 지표: {risk_val:.2f}" if risk_val else "시장 변동성에 유의 필요"
 
         result = results_by_code.get(code) or {}
-        base_close = result.get("base_close", 0.0) or 0.0
 
+        # 3. Interpretability
         top_vars = result.get("top_variables") or []
         var_parts = []
 
@@ -454,11 +459,39 @@ def stock_recommendation() -> list[StockRecOut]:
             metric = rec_data.get("metric")
             why_text = f"Metric: {metric}" if metric else "모델 추론 근거 요약 정보가 부족합니다."
 
+        # 4. Prices
+        base_close = result.get("base_close", 0.0) or 0.0
+        prev_close: int | None
+
+        if base_close is None:
+            prev_close = None
+        else:
+            try:
+                prev_close = int(round(float(base_close)))
+            except (TypeError, ValueError):
+                prev_close = None
+        
+        predicted_price: int | None = None
+        forecasts = result.get("forecasts") or []
+        if forecasts:
+            first = forecasts[0] or {}
+            p = first.get("price")
+            if p is not None:
+                try:
+                    predicted_price = int(round(float(p)))
+                except (TypeError, ValueError):
+                    predicted_price = None
+
+        name = (rec_data.get("name") or result.get("name") or code)
+
         stock = StockRecOut(
             symbol=code,
-            name=rec_data.get("name"),
+            name=name,
             market="KRX",
-            price=float(base_close) if base_close is not None else 0.0,
+            # price=float(base_close) if base_close is not None else 0.0,
+            prev_close=prev_close,
+            current_price=None,
+            predicted_price=predicted_price,
             change_pct=rec_data.get("expected_return", 0.0),
             headline=headline_text,
             why=why_text,

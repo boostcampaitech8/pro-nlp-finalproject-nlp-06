@@ -358,14 +358,29 @@ export default function Chatbot() {
                     <div className="stock-name">{x.name}</div>
 
                     <div className="stock-metrics">
-                      {typeof x.price === "number" && (
-                        <span className="stock-price">${x.price.toFixed(2)}</span>
+                      {typeof x.prev_close === "number" && (
+                        <div className="stock-metric">
+                            <span className="stock-label">전일</span>
+                            <span className="stock-price">￦{x.prev_close.toLocaleString("ko-KR")}</span>
+                        </div>
                       )}
-                      {typeof x.change_pct === "number" && (
-                        <span className={`stock-change ${x.change_pct >= 0 ? "up" : "down"}`}>
-                          {x.change_pct >= 0 ? "+" : ""}
-                          {x.change_pct.toFixed(2)}%
-                        </span>
+                      {typeof x.current_price === "number" && (
+                        <div className="stock-metric">
+                            <span className="stock-label">현재</span>
+                            <span className="stock-price">￦{x.current_price.toLocaleString("ko-KR")}</span>
+                        </div>
+                      )}
+                      {typeof x.predicted_price === "number" && (
+                        <div className="stock-metric">
+                            <span className="stock-label">예측</span>
+                            <span className="stock-price">￦{x.predicted_price.toLocaleString("ko-KR")}</span>
+                            {typeof x.change_pct === "number" && (
+                                <span className={`stock-change ${x.change_pct >= 0 ? "up" : "down"}`}>
+                                    {x.change_pct >= 0 ? "+" : ""}
+                                    {x.change_pct.toFixed(2)}%
+                                </span>
+                            )}
+                        </div>
                       )}
                     </div>
 
