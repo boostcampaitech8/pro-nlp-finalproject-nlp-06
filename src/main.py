@@ -427,6 +427,109 @@ def _extract_forecast(result: dict[str, Any], horizon_days: int = 3) -> Forecast
         q90=q90,
     )
 
+def _build_why_text(
+        top_vars: list[dict],
+        metric: str | None = None,
+        top_k: int = 3
+) -> str:
+    """
+    top_variables 바탕으로 추천 이유 문구 생성
+    """
+    parsed = []
+    for v in top_vars or []:
+        name = (v.get("name") or "").strip()
+        weight = v.get("weight")
+        if not name or weight is None:
+            continue
+        parsed.append((name, weight))
+    
+    if not parsed:
+        if metric:
+            return f"추천 기준: {metric}\n모델이 산출한 변수 중요도 정보가 부족합니다."
+        return "모델이 산출한 변수 중요도 정보가 부족합니다."
+    
+    parsed.sort(key=lambda x: abs(x[1]), reverse=True)
+    topk = parsed[:top_k]
+
+    denom = sum(abs(w) for _, w in topk) or 1.0
+
+    lines = []
+    if metric:
+        lines.append(f"선정 기준: {metric}")
+    lines.append("주요 영향 변수(상위):")
+    for raw_name, w in topk:
+        meta = FEATURE_META.get(raw_name, {})
+        label = meta.get("label", raw_name)
+        desc = meta.get("desc", "모델 예측에 반영된 입력 변수")
+        share = abs(w) / denom * 100.0
+        lines.append(f"- {label} ({share:.1f}%): {desc}")
+    # lines.append("※ 중요도는 예측에 대한 상대적 기여도이며, 가격 방향의 인과를 직접 의미하지 않습니다.")
+
+    return "\n".join(lines)
+
+def _build_risk_text(
+    prev_close: int | None,
+    forecast_obj,   # ForecastOut | None
+    risk_spread_raw,
+) -> str:
+    """
+    리스크를 '예측구간 폭 + 하방 시나리오'로 설명
+    """
+    # forecast 기반 계산 우선
+    try:
+        if (
+            forecast_obj is not None
+            and forecast_obj.q10
+            and forecast_obj.q50
+            and forecast_obj.q90
+            and len(forecast_obj.q10) >= 3
+            and len(forecast_obj.q50) >= 3
+            and len(forecast_obj.q90) >= 3
+        ):
+            q10_d3 = float(forecast_obj.q10[2])
+            q50_d3 = float(forecast_obj.q50[2])
+            q90_d3 = float(forecast_obj.q90[2])
+
+            if q50_d3 > 0:
+                band_pct = (q90_d3 - q10_d3) / q50_d3 * 100.0
+            else:
+                band_pct = None
+
+            downside_pct = None
+            if prev_close and prev_close > 0:
+                downside_pct = (q10_d3 / float(prev_close) - 1.0) * 100.0
+
+            if band_pct is not None:
+                if band_pct < 4:
+                    grade = "낮음"
+                elif band_pct < 8:
+                    grade = "보통"
+                else:
+                    grade = "높음"
+
+                if downside_pct is not None:
+                    return (
+                        f"리스크 {grade}: D+3 예측구간 폭(q10~q90) {band_pct:.2f}%, "
+                        f"하방 시나리오 {downside_pct:+.2f}%"
+                    )
+                return f"리스크 {grade}: D+3 예측구간 폭(q10~q90) {band_pct:.2f}%"
+    except Exception:
+        pass
+
+    # fallback: 기존 risk_spread 사용
+    risk_spread = risk_spread_raw
+    if risk_spread is not None:
+        return f"리스크 참고치(내부 지표): {risk_spread:.2f}"
+    return "예측구간 기반 리스크 정보가 부족합니다."
+
+
+def _build_headline(strategy_key: str, expected_return_raw: Any) -> str:
+    strategy = strategy_key.replace("_", " ").title()
+    er = expected_return_raw
+    if er is None:
+        return strategy
+    return f"{strategy} · 3일 기대수익 {er:+.2f}%"
+
 def load_tft_result(file_path: Path) -> dict[str, Any] | None:
     """
     JSON 파일을 읽어서 StockRecOut Object의 list로 반환
@@ -485,28 +588,7 @@ def stock_recommendation() -> list[StockRecOut]:
 
         result = results_by_code.get(code) or {}
 
-        # 3. Interpretability
-        top_vars = result.get("top_variables") or []
-        var_parts = []
-
-        for v in top_vars[:3]:
-            name = v.get("name")
-            weight = v.get("weight")
-            if not name or weight is None:
-                continue
-            try:
-                w = float(weight)
-            except (TypeError, ValueError):
-                continue
-            var_parts.append(f"{name}({w:.3f})")
-        
-        if var_parts:
-            why_text = "주요 영향 변수: " + ", ".join(var_parts)
-        else:
-            metric = rec_data.get("metric")
-            why_text = f"Metric: {metric}" if metric else "모델 추론 근거 요약 정보가 부족합니다."
-
-        # 4. Prices
+        # 3. Prices
         base_close = result.get("base_close", 0.0) or 0.0
         prev_close: int | None
 
@@ -529,6 +611,24 @@ def stock_recommendation() -> list[StockRecOut]:
         predicted_price = forecast_obj.q50[0] if forecast_obj and forecast_obj.q50 else None
 
         name = (rec_data.get("name") or result.get("name") or code)
+
+        # 4. Interpretability
+        top_vars = result.get("top_variables") or []
+
+        # 4-1. why_text
+        metric = rec_data.get("metric")
+        why_text = _build_why_text(
+            top_vars=top_vars,
+            metric=metric,
+            top_k=3
+        )
+
+        # 4-2. risk_text
+        risk_text = _build_risk_text(
+            prev_close=prev_close,
+            forecast_obj=forecast_obj,
+            risk_spread_raw=rec_data.get("risk_spread")
+        )        
 
         stock = StockRecOut(
             symbol=code,

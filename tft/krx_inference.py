@@ -176,7 +176,7 @@ def main():
 
     static_info = df_60days.drop_duplicates('Code').set_index('Code')[['Name', 'Sector']].to_dict('index')
 
-    print(f"생성된 미래 5일: {future_dates.tolist()}")
+    print(f"생성된 미래 3일: {future_dates.tolist()}")
 
     # Future Data 생성
     codes = df_60days['Code'].unique()
