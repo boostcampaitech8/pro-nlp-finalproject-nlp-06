@@ -48,3 +48,6 @@ export HOLIDAY_CSV="$PROJECT_ROOT/tft/data/krx_close.csv"
 export ARTIFACT_DIR="$PROJECT_ROOT/tft/result"
 export MODEL_CKPT="$PROJECT_ROOT/model/epoch=5-step=10716.ckpt"
 export TFT_SCHEDULE="${TFT_SCHEDULE:-0 7 * * *}"
+
+# [추가] Agent.py에서 불러올 json 파일 경로 설정하기
+export TFT_INFERENCE_JSON="$PROJECT_ROOT/tft/result/inference_results.json"
