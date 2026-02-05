@@ -112,8 +112,18 @@
 }
 
 .chat-icon {
-  font-size: 16px;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  line-height: 0;
+
+  color: #334155;
+  background: #eef2ff;
+  border: 1px solid #dbe4ff;
 }
 
 .chat-title {
@@ -374,14 +384,13 @@
 .message-avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
   flex-shrink: 0;
-  background-color: #f3f4f6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
 }
 
 /* 유저/어시스턴트 row 정렬 강제 */
@@ -1283,3 +1292,51 @@ margin-top: 20px !important; /* ← 이 값으로 조절 */
 }
 .stock-chart-legend .dot.med{ background:#2563eb; }
 .stock-chart-legend .dot.band{ background:rgba(59,130,246,0.25); }
+
+
+/* SVG Avatar Icon */
+
+.message-avatar svg {
+  width: 18px;
+  height: 18px;
+  color: #ffffff;          /* 아이콘 색 */
+  stroke-width: 2.2;       /* 선 두께 */
+  display: block;
+}
+
+/* role 별 배경 */
+.user-message .message-avatar,
+.message-avatar.user-avatar {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+}
+
+.assistant-message .message-avatar,
+.message-avatar.assistant-avatar {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+}
+
+/* Chat Icon */
+
+.new-chat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+.new-chat-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.chat-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.chat-item.active .chat-icon {
+  color: #ffffff;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  border-color: transparent;
+}
