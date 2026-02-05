@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./chatbot.css";
 import { useAppState } from "./appState";
 import ReactMarkdown from 'react-markdown'
-import { Bot, UserRound, MessageSquare, Plus } from "lucide-react"
+import { Bot, UserRound, MessageSquare, Plus, SendHorizontal, Loader2 } from "lucide-react"
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000";
 
@@ -407,6 +407,7 @@ export default function Chatbot() {
                         )}
                     </div>
                   </div>
+
                 );
               })}
             </div>
@@ -453,15 +454,21 @@ export default function Chatbot() {
               className="chat-input"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="궁금한 점을 물어보세요..."
+              placeholder="궁금한 점을 물어보세요!"
               disabled={loading || !currentSession}
             />
             <button
-              type="submit"
-              className="send-button"
-              disabled={loading || !input.trim() || !currentSession}
-            >
-              <span className="send-icon">↑</span>
+                type="submit"
+                className="send-button"
+                disabled={loading || !input.trim() || !currentSession}
+                aria-label={loading ? "전송 중" : "메시지 전송"}
+                title={loading ? "전송 중..." : "메시지 전송"}
+                >
+                {loading ? (
+                    <Loader2 size={18} className="send-spinner" />
+                ) : (
+                    <SendHorizontal size={18} />
+                )}
             </button>
           </form>
           <p className="input-disclaimer">

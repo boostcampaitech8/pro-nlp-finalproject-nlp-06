@@ -1,4 +1,5 @@
 import { Routes, Route, useNavigate, Outlet, NavLink } from "react-router-dom";
+import { LineChart } from "lucide-react";
 
 import Chatbot from "./Chatbot";
 import News from "./News";
@@ -38,7 +39,10 @@ function LayoutWithNavbar() {
               navigate("/");
             }}
           >
-            <span className="brand-icon">📈</span>
+            {/* <span className="brand-icon">📈</span> */}
+            <span className="brand-icon-svg" aria-hidden="true">
+              <LineChart size={20} strokeWidth={2.4} />
+            </span>
             <span className="brand-text">Stock Mate</span>
           </div>
           <div className="navbar-menu">
@@ -48,7 +52,7 @@ function LayoutWithNavbar() {
                 navigate("/chat");
               }}
             >
-              챗
+              Chat
             </button>
             <button
               className="nav-link"
@@ -56,7 +60,7 @@ function LayoutWithNavbar() {
                 navigate("/news");
               }}
             >
-              뉴스
+              News
             </button>
           </div>
         </div>

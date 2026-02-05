@@ -91,21 +91,28 @@ function News() {
                     </div>
                 </div>
 
-                <div className="news-preview">
-                  {(it.preview_lines || []).length ? (
-                    it.preview_lines.map((ln, i) => (
-                      <p key={i} className="news-preview-line">
-                        {ln}
-                      </p>
-                    ))
-                  ) : (
-                    <p className="news-preview-empty">미리보기 없음</p>
-                  )}
-                </div>
+                {/* 원문/요약 분리 섹션 */}
+                <div className="news-sections">
+                    <section className="news-block news-source-block">
+                        <div className="news-preview">
+                        {(it.preview_lines || []).length ? (
+                            it.preview_lines.map((ln, i) => (
+                            <p key={i} className="news-preview-line">
+                                {ln}
+                            </p>
+                            ))
+                        ) : (
+                            <p className="news-preview-empty">미리보기 없음</p>
+                        )}
+                        </div>
+                    </section>
 
-                <div className="news-summary">
-                  <strong className="news-summary-label">요약</strong>
-                  <p className="news-summary-text">{it.summary || "요약 없음"}</p>
+                    <section className="news-block news-summary-block">
+                        <div className="news-block-head">
+                        <span className="news-chip summary">AI 요약</span>
+                        </div>
+                        <p className="news-summary-text">{it.summary || "요약 없음"}</p>
+                    </section>
                 </div>
               </Card.Body>
             </Card>
