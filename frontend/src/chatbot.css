@@ -1221,6 +1221,7 @@ margin-top: 20px !important; /* ← 이 값으로 조절 */
 
 :root {
   --assistant-left-gutter: 16px; /* 원하는 값으로 조절 */
+  --user-right-gap: 12px;
 }
 
 .message.assistant-message,
@@ -1407,4 +1408,15 @@ margin-top: 20px !important; /* ← 이 값으로 조절 */
   color: #ffffff;
   background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   border-color: transparent;
+}
+
+.messages-container .message.user-message,
+.messages-container .user-message.message,
+.messages-container .user-message {
+  padding-right: var(--user-right-gap) !important;
+}
+
+.messages-container .user-message .message-bubble,
+.messages-container .message.user-message .message-bubble {
+  margin-right: 0 !important;
 }

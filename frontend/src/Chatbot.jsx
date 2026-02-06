@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./chatbot.css";
 import { useAppState } from "./appState";
 import ReactMarkdown from 'react-markdown'
-import { Bot, UserRound, MessageSquare, Plus, SendHorizontal, Loader2 } from "lucide-react"
+import { Bot, MessageSquare, Plus, SendHorizontal, Loader2 } from "lucide-react"
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000";
 
@@ -421,14 +421,16 @@ export default function Chatbot() {
                     key={idx}
                     className={`message ${m.role === "user" ? "user-message" : "assistant-message"}`}
                   >
-                    <div
-                    className={`message-avatar ${m.role === "user" ? "user-avatar" : "assistant-avatar"}`}
-                    aria-hidden="true"
-                    >
-                    {m.role === "user" ? <UserRound /> : <Bot />}
+                    {m.role === "assistant" && (
+                    <div className="message-avatar assistant-avatar" aria-hidden="true">
+                        <Bot />
                     </div>
+                    )}
+
                     <div className="message-bubble">
-                      <div className="message-content"><ReactMarkdown>{m.content}</ReactMarkdown></div>
+                    <div className="message-content">
+                        <ReactMarkdown>{m.content}</ReactMarkdown>
+                    </div>
                     </div>
                   </div>
                 ))}
