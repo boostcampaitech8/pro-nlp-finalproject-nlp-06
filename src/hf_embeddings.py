@@ -11,6 +11,7 @@ class HuggingFaceEmbeddingFunction:
     로컬 HuggingFace 모델을 사용하여 임베딩을 생성합니다.
     """
 
+    #임베딩 모델 수정
     def __init__(self, model_name: str = "jhgan/ko-sroberta-multitask", device: str = "cuda"):
         """
         model_name: 사용할 HuggingFace 모델명

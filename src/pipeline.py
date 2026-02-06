@@ -128,11 +128,11 @@ def run_pipeline(
 
     # Ollama
     vllm_base_url = os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1")
-    vllm_model = os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light")
+    vllm_model = os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light") #수정 
     vllm_api_key = os.getenv("VLLM_API_KEY", "vllm-key")
 
     # Embedding 설정 (HuggingFace 로컬 모델)
-    embedding_model_name = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask")
+    embedding_model_name = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask") #수정
 
     print("[pipeline] PROJECT_ROOT:", PROJECT_ROOT)
     print("[pipeline] chroma_dir:", chroma_dir)

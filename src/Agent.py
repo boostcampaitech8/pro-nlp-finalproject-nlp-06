@@ -46,7 +46,7 @@ class AgentState(TypedDict):
 # LLM 설정 (vLLM 서빙 모델 연동)
 router_llm = ChatOpenAI(
     base_url=os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1"),
-    model=os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light"),
+    model=os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light"), # 수정
     api_key=os.getenv("VLLM_API_KEY", "vllm-key"),
 )
 
@@ -70,7 +70,7 @@ def get_embeddings():
     if _embeddings is None:
         print(f"[INFO] 임베딩 모델 로드 중 (GPU 사용)...")
         _embeddings = HuggingFaceEmbeddings(
-            model_name=os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask"),
+            model_name=os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask"), #수정 
             model_kwargs={"device": os.getenv("EMBEDDING_DEVICE", "cuda")},  # 기본 cuda
             encode_kwargs={
                 "device": os.getenv("EMBEDDING_DEVICE", "cuda"),

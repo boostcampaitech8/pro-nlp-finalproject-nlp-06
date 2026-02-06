@@ -24,7 +24,7 @@ def cleanup_old_documents(
     persist_dir: str,
     collection_name: str,
     days: int = 14,
-    embedding_model_name: str = "jhgan/ko-sroberta-multitask",
+    embedding_model_name: str = "jhgan/ko-sroberta-multitask", # 수정 
 ):
 
     persist_dir = str(Path(persist_dir).expanduser().resolve())

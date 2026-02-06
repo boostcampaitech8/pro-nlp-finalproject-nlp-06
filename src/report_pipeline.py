@@ -444,8 +444,8 @@ if __name__ == "__main__":
     # 파이프라인 초기화
     pipeline = NaverReportPipeline(
         vllm_base_url="http://localhost:8001/v1",
-        vllm_model="skt/A.X-4.0-Light",
-        embedding_model="jhgan/ko-sroberta-multitask",
+        vllm_model="skt/A.X-4.0-Light", # 수정 
+        embedding_model="jhgan/ko-sroberta-multitask", # 수정
         chroma_base_dir="./Chroma_db",
         max_text_length=8000,      # PDF 8000자까지만 읽기
         summary_max_tokens=1024,   # 요약 최대 토큰

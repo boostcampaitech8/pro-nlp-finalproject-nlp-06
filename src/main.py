@@ -63,13 +63,13 @@ CHROMA_COLLECTION = os.getenv(
 # vLLM 설정 (Ollama 대신)
 # ----------------------------
 VLLM_BASE_URL = os.getenv("VLLM_BASE_URL", "http://127.0.0.1:8001/v1")
-VLLM_MODEL = os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light")
+VLLM_MODEL = os.getenv("VLLM_MODEL", "skt/A.X-4.0-Light") #수정 
 VLLM_API_KEY = os.getenv("VLLM_API_KEY", "vllm-key")
 
 # ----------------------------
 # HuggingFace Embedding 설정
 # ----------------------------
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask")
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask") #수정
 
 # ----------------------------
 # Retrieval 튜닝
