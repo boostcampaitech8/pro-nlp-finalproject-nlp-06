@@ -55,7 +55,7 @@ def summarize_with_vllm(
     text: str,
     title: str = "",
     base_url: str = "http://127.0.0.1:8001/v1",
-    model: str = "skt/A.X-4.0-Light",
+    model: str = "skt/A.X-4.0-Light", #수정 
     api_key: str = "vllm-key",
     timeout: int = 90,
 ) -> str:

@@ -35,9 +35,9 @@ export OLLAMA_EMBED_MODEL="${OLLAMA_EMBED_MODEL:-nomic-embed-text}"
 
 # [변경] Ollama 설정을 vLLM 및 HF 설정으로 교체
 export VLLM_BASE_URL="${VLLM_BASE_URL:-http://127.0.0.1:8001/v1}"
-export VLLM_MODEL="${VLLM_MODEL:-skt/A.X-4.0-Light}"
+export VLLM_MODEL="${VLLM_MODEL:-skt/A.X-4.0-Light}" #수정
 export VLLM_API_KEY="${VLLM_API_KEY:-vllm-key}"
-export EMBEDDING_MODEL="${EMBEDDING_MODEL:-jhgan/ko-sroberta-multitask}"
+export EMBEDDING_MODEL="${EMBEDDING_MODEL:-jhgan/ko-sroberta-multitask}" #수정
 
 # [추가] TFT Airflow Environment Variables
 # TFT_PYTHON 경로는 가상환경 경로에 맞게 설정하기
