@@ -112,8 +112,18 @@
 }
 
 .chat-icon {
-  font-size: 16px;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  line-height: 0;
+
+  color: #334155;
+  background: #eef2ff;
+  border: 1px solid #dbe4ff;
 }
 
 .chat-title {
@@ -374,14 +384,13 @@
 .message-avatar {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
+  border-radius: 999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
   flex-shrink: 0;
-  background-color: #f3f4f6;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.28);
 }
 
 /* 유저/어시스턴트 row 정렬 강제 */
@@ -432,13 +441,13 @@
 .user-message .message-content {
   background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   color: #ffffff;
-  border-radius: 18px 18px 4px 18px;
+  border-radius: 18px 18px 9px 18px;
 }
 
 .assistant-message .message-content {
   background-color: #f3f4f6;
   color: #1f2937;
-  border-radius: 18px 18px 18px 4px;
+  border-radius: 18px 18px 18px 9px;
 }
 
 .message-content {
@@ -513,11 +522,12 @@
 .chat-input {
   flex: 1;
   padding: 14px 20px;
-  border-radius: 24px;
+  border-radius: 14px;
   border: 2px solid #e5e7eb;
+  padding: 13px 16px;
   font-size: 15px;
   outline: none;
-  transition: all 0.2s;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   background-color: #ffffff;
   color: #1f2937;
   min-width: 0;
@@ -528,8 +538,8 @@
 }
 
 .chat-input:focus {
-  border-color: #6366f1;
-  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.12);
 }
 
 .chat-input:disabled {
@@ -538,16 +548,16 @@
 }
 
 .send-button {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  border: 1px solid transparent;
   background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
   color: #ffffff;
   cursor: pointer;
   font-weight: 600;
-  transition: all 0.2s;
-  display: flex;
+  transition: transform 0.16s ease, box-shadow 0.16s ease, filter 0.16s ease, opacity 0.16s ease;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
@@ -560,8 +570,9 @@
 }
 
 .send-button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.4);
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px rgba(79, 70, 229, 0.34);
+  filter: brightness(1.03);
 }
 
 .send-button:active:not(:disabled) {
@@ -569,9 +580,31 @@
 }
 
 .send-button:disabled {
-  background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%);
+  /* background: linear-gradient(135deg, #d1d5db 0%, #9ca3af 100%); */
+  background: #e5e7eb;
+  color: #9ca3af;
   cursor: not-allowed;
   box-shadow: none;
+  border-color: #d1d5db;
+}
+
+.send-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(255, 255, 255, 0.95),
+    0 0 0 6px rgba(79, 70, 229, 0.35);
+}
+
+.send-button .lucide {
+  stroke-width: 2.4;
+}
+
+.send-spinner {
+  animation: send-spin 0.9s linear infinite;
+}
+
+@keyframes send-spin {
+  to { transform: rotate(360deg); }
 }
 
 .input-disclaimer {
@@ -732,13 +765,17 @@
 
 .stock-metrics {
   display: flex;
-  align-items: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: baseline;
   gap: 8px;
+  white-space: nowrap;
   margin-top: 8px;
   font-size: 12px;
 }
 
 .stock-price {
+  white-space: nowrap;
   font-weight: 700;
 }
 
@@ -936,6 +973,7 @@
   max-width: none !important;
   width: 100% !important;
   margin: 0 !important;
+  gap: 10px;
 }
 
 /* =========================
@@ -1183,6 +1221,7 @@ margin-top: 20px !important; /* ← 이 값으로 조절 */
 
 :root {
   --assistant-left-gutter: 16px; /* 원하는 값으로 조절 */
+  --user-right-gap: 12px;
 }
 
 .message.assistant-message,
@@ -1193,4 +1232,191 @@ margin-top: 20px !important; /* ← 이 값으로 조절 */
 
 .loading-container {
   padding-left: var(--assistant-left-gutter) !important;
+}
+
+/* 말풍선 수정 */
+.user-message .message-content,
+.assistant-message .message-content {
+  padding: 12px 16px !important;     /* 위아래 동일 */
+  border-radius: 16px !important;
+  line-height: 1.55;
+}
+
+.message-content > :first-child {
+    margin-top: 0 !important;
+}
+.message-content > :last-child {
+  margin-bottom: 0 !important;
+}
+
+.message-content p,
+.message-content ul,
+.message-content ol,
+.message-content pre,
+.message-content blockquote,
+.message-content h1,
+.message-content h2,
+.message-content h3,
+.message-content h4,
+.message-content h5,
+.message-content h6 {
+  margin: 0 !important;
+}
+
+/* 요소 사이 간격만 통일해서 부여 */
+.message-content > * + * {
+  margin-top: 0.55em !important;
+}
+
+/* (선택) 리스트 들여쓰기 보정 */
+.message-content ul,
+.message-content ol {
+  padding-left: 1.2em;
+}
+
+/* (선택) 코드블록이 bubble 밖으로 넘치지 않게 */
+.message-content pre {
+  overflow-x: auto;
+}
+
+.stock-card-main{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.stock-info{
+  flex:1;
+  min-width:0;
+}
+
+.stock-chart-panel{
+  width:180px;
+  min-width:180px;
+}
+
+.stock-chart-box{
+  border:1px solid #e5e7eb;
+  border-radius:10px;
+  padding:4px;
+}
+
+.stock-chart-svg{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+.stock-chart-empty{
+  height:96px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  color:#94a3b8;
+}
+
+.q-band{
+  fill: rgba(59,130,246,0.15);
+}
+
+.q-low, .q-high{
+  fill:none;
+  stroke:#94a3b8;
+  stroke-width:1.2;
+  stroke-dasharray:3 2;
+}
+
+.q-med{
+  fill:none;
+  stroke:#2563eb;
+  stroke-width:1.8;
+}
+
+.q-med-point{
+  fill:#2563eb;
+}
+
+.q-label{
+  font-size:9px;
+  fill:#94a3b8;
+}
+
+.stock-chart-legend{
+  margin-top:4px;
+  display:flex;
+  gap:8px;
+  font-size:10px;
+  color:#64748b;
+}
+
+.stock-chart-legend .dot{
+  display:inline-block;
+  width:8px;
+  height:8px;
+  border-radius:999px;
+  margin-right:4px;
+  vertical-align:middle;
+}
+.stock-chart-legend .dot.med{ background:#2563eb; }
+.stock-chart-legend .dot.band{ background:rgba(59,130,246,0.25); }
+
+
+/* SVG Avatar Icon */
+
+.message-avatar svg {
+  width: 18px;
+  height: 18px;
+  color: #ffffff;          /* 아이콘 색 */
+  stroke-width: 2.2;       /* 선 두께 */
+  display: block;
+}
+
+/* role 별 배경 */
+.user-message .message-avatar,
+.message-avatar.user-avatar {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+}
+
+.assistant-message .message-avatar,
+.message-avatar.assistant-avatar {
+  background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+}
+
+/* Chat Icon */
+
+.new-chat-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+}
+.new-chat-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.chat-icon svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.chat-item.active .chat-icon {
+  color: #ffffff;
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 100%);
+  border-color: transparent;
+}
+
+.messages-container .message.user-message,
+.messages-container .user-message.message,
+.messages-container .user-message {
+  padding-right: var(--user-right-gap) !important;
+}
+
+.messages-container .user-message .message-bubble,
+.messages-container .message.user-message .message-bubble {
+  margin-right: 0 !important;
 }

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import "./chatbot.css";
 import { useAppState } from "./appState";
 import ReactMarkdown from 'react-markdown'
+import { Bot, MessageSquare, Plus, SendHorizontal, Loader2 } from "lucide-react"
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000";
 
@@ -271,59 +272,62 @@ export default function Chatbot() {
           <button
             className="new-chat-button"
             onClick={async () => {
-              const sessionId = await createBackendSession();
-              const newSession = {
+                const sessionId = await createBackendSession();
+                const newSession = {
                 id: sessionId,
                 title: "새로운 챗",
                 messages: [WELCOME_MESSAGE],
                 createdAt: new Date().toISOString(),
-              };
+                };
 
-              setState((prev) => ({
+                setState((prev) => ({
                 ...prev,
                 chat: {
-                  ...prev.chat,
-                  sessions: [newSession, ...prev.chat.sessions],
-                  currentSessionId: newSession.id,
+                    ...prev.chat,
+                    sessions: [newSession, ...prev.chat.sessions],
+                    currentSessionId: newSession.id,
                 },
-              }));
+                }));
 
-              localStorage.setItem(STORAGE_KEY_CURRENT, newSession.id);
+                localStorage.setItem(STORAGE_KEY_CURRENT, newSession.id);
             }}
-          >
-            <span className="plus-icon">+</span>
+            >
+            <span className="new-chat-icon" aria-hidden="true">
+                <Plus size={16} strokeWidth={2.5} />
+            </span>
             <span className="button-text">새로운 챗</span>
           </button>
         </div>
 
         <div className="chat-list">
-          {chat.sessions.map((session) => (
-            <div
-              key={session.id}
-              className={`chat-item ${session.id === chat.currentSessionId ? "active" : ""}`}
-              onClick={() =>
-                setState((prev) => ({
-                  ...prev,
-                  chat: { ...prev.chat, currentSessionId: session.id },
-                }))
-              }
-            >
-              <div className="chat-icon">💬</div>
-              <span className="chat-title">{session.title}</span>
+            {chat.sessions.map((session) => (
+                <div
+                key={session.id}
+                className={`chat-item ${session.id === chat.currentSessionId ? "active" : ""}`}
+                onClick={() =>
+                    setState((prev) => ({
+                    ...prev,
+                    chat: { ...prev.chat, currentSessionId: session.id },
+                    }))
+                }
+                >
+                <div className="chat-icon" aria-hidden="true">
+                    <MessageSquare size={14} strokeWidth={2.2} />
+                </div>
+                <span className="chat-title">{session.title}</span>
 
-              {/* X 버튼 */}
-              <button
-                className="delete-button"
-                title="챗방 삭제"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  handleDeleteSession(session.id);
-                }}
-              >
-                ×
-              </button>
-            </div>
-          ))}
+                <button
+                    className="delete-button"
+                    title="챗방 삭제"
+                    onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteSession(session.id);
+                    }}
+                >
+                    ×
+                </button>
+                </div>
+            ))}
         </div>
       </aside>
 
@@ -350,40 +354,60 @@ export default function Chatbot() {
 
                 return (
                   <div key={x.symbol} className="stock-card">
-                    <div className="stock-top">
-                      <div className="stock-symbol">{x.symbol}</div>
-                      <div className="stock-market">{x.market}</div>
+                    <div className="stock-card-main">
+                      <div className="stock-info">
+                        <div className="stock-top">
+                            <div className="stock-symbol">{x.symbol}</div>
+                            <div className="stock-market">{x.market}</div>
+                        </div>
+
+                        <div className="stock-name">{x.name}</div>
+
+                        <div className="stock-metrics">
+                            {typeof x.prev_close === "number" && (
+                            <div className="stock-metric">
+                                <span className="stock-label">전일</span>
+                                <span className="stock-price">￦{x.prev_close.toLocaleString("ko-KR")}</span>
+                            </div>
+                            )}
+
+                            {typeof x.predicted_price === "number" && (
+                            <div className="stock-metric">
+                                <span className="stock-label">예측</span>
+                                <span className="stock-price">￦{x.predicted_price.toLocaleString("ko-KR")}</span>
+                                {typeof x.change_pct === "number" && (
+                                <span className={`stock-change ${x.change_pct >= 0 ? "up" : "down"}`}>
+                                    {x.change_pct >= 0 ? "+" : ""}
+                                    {x.change_pct.toFixed(2)}%
+                                </span>
+                                )}
+                            </div>
+                            )}
+                        </div>
+
+                        <div className="stock-headline">{x.headline}</div>
+                      </div>
+
+                      {/* 오른쪽 그래프 */}
+                        <div className="stock-chart-panel">
+                        <QuantileMiniChart item={x} />
+                        </div>
                     </div>
-
-                    <div className="stock-name">{x.name}</div>
-
-                    <div className="stock-metrics">
-                      {typeof x.price === "number" && (
-                        <span className="stock-price">${x.price.toFixed(2)}</span>
-                      )}
-                      {typeof x.change_pct === "number" && (
-                        <span className={`stock-change ${x.change_pct >= 0 ? "up" : "down"}`}>
-                          {x.change_pct >= 0 ? "+" : ""}
-                          {x.change_pct.toFixed(2)}%
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="stock-headline">{x.headline}</div>
 
                     <div className="stock-tooltip">
-                      <div className="tooltip-title">추천 이유</div>
-                      <div className="tooltip-body">{x.why}</div>
-                      {x.risk && (
+                        <div className="tooltip-title">추천 이유</div>
+                        <div className="tooltip-body">{x.why}</div>
+                        {x.risk && (
                         <>
-                          <div className="tooltip-title" style={{ marginTop: 10 }}>
+                            <div className="tooltip-title" style={{ marginTop: 10 }}>
                             리스크
-                          </div>
-                          <div className="tooltip-body">{x.risk}</div>
+                            </div>
+                            <div className="tooltip-body">{x.risk}</div>
                         </>
-                      )}
+                        )}
                     </div>
                   </div>
+
                 );
               })}
             </div>
@@ -397,9 +421,16 @@ export default function Chatbot() {
                     key={idx}
                     className={`message ${m.role === "user" ? "user-message" : "assistant-message"}`}
                   >
-                    <div className="message-avatar">{m.role === "user" ? "👤" : "🤖"}</div>
+                    {m.role === "assistant" && (
+                    <div className="message-avatar assistant-avatar" aria-hidden="true">
+                        <Bot />
+                    </div>
+                    )}
+
                     <div className="message-bubble">
-                      <div className="message-content"><ReactMarkdown>{m.content}</ReactMarkdown></div>
+                    <div className="message-content">
+                        <ReactMarkdown>{m.content}</ReactMarkdown>
+                    </div>
                     </div>
                   </div>
                 ))}
@@ -425,15 +456,21 @@ export default function Chatbot() {
               className="chat-input"
               value={input}
               onChange={(e) => setInput(e.target.value)}
-              placeholder="궁금한 점을 물어보세요..."
+              placeholder="궁금한 점을 물어보세요!"
               disabled={loading || !currentSession}
             />
             <button
-              type="submit"
-              className="send-button"
-              disabled={loading || !input.trim() || !currentSession}
-            >
-              <span className="send-icon">↑</span>
+                type="submit"
+                className="send-button"
+                disabled={loading || !input.trim() || !currentSession}
+                aria-label={loading ? "전송 중" : "메시지 전송"}
+                title={loading ? "전송 중..." : "메시지 전송"}
+                >
+                {loading ? (
+                    <Loader2 size={18} className="send-spinner" />
+                ) : (
+                    <SendHorizontal size={18} />
+                )}
             </button>
           </form>
           <p className="input-disclaimer">
@@ -441,6 +478,134 @@ export default function Chatbot() {
           </p>
         </div>
       </main>
+    </div>
+  );
+}
+
+// Helper Functions: Graph 그리기
+
+function buildForecastSeries(item) {
+  const prev = Number.isFinite(item?.prev_close) ? item.prev_close : null;
+  if (!Number.isFinite(prev)) return null;
+
+  // 1. 백엔드에서 forecasts 배열 받아오
+  // [{ price, price_lower, price_upper }, ...] (3개)
+  if (Array.isArray(item?.forecasts) && item.forecasts.length >= 3) {
+    const fc = item.forecasts.slice(0, 3);
+    const med3 = fc.map((d) => d?.price);
+    const low3 = fc.map((d) => d?.price_lower);
+    const high3 = fc.map((d) => d?.price_upper);
+
+    if (
+      med3.every(Number.isFinite) &&
+      low3.every(Number.isFinite) &&
+      high3.every(Number.isFinite)
+    ) {
+      return {
+        labels: ["D0", "D+1", "D+2", "D+3"],
+        med: [prev, ...med3],
+        low: [prev, ...low3],
+        high: [prev, ...high3],
+      };
+    }
+  }
+
+  // 케이스 B: 백엔드가 q10/q50/q90 배열 제공
+  // { forecast: { q10:[...], q50:[...], q90:[...] } }
+  const q10 = item?.forecast?.q10;
+  const q50 = item?.forecast?.q50;
+  const q90 = item?.forecast?.q90;
+
+  if (
+    Array.isArray(q10) && q10.length >= 3 &&
+    Array.isArray(q50) && q50.length >= 3 &&
+    Array.isArray(q90) && q90.length >= 3
+  ) {
+    const low3 = q10.slice(0, 3);
+    const med3 = q50.slice(0, 3);
+    const high3 = q90.slice(0, 3);
+
+    if (
+      low3.every(Number.isFinite) &&
+      med3.every(Number.isFinite) &&
+      high3.every(Number.isFinite)
+    ) {
+      return {
+        labels: ["D0", "D+1", "D+2", "D+3"],
+        med: [prev, ...med3],
+        low: [prev, ...low3],
+        high: [prev, ...high3],
+      };
+    }
+  }
+
+  return null;
+}
+
+function pathFromPoints(points) {
+  return points
+    .map(([x, y], i) => `${i === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`)
+    .join(" ");
+}
+
+function QuantileMiniChart({ item, width = 170, height = 96 }) {
+  const series = buildForecastSeries(item);
+
+  if (!series) {
+    return <div className="stock-chart-empty">그래프 데이터 없음</div>;
+  }
+
+  const { med, low, high, labels } = series;
+
+  const values = [...med, ...low, ...high].filter(Number.isFinite);
+  const min = Math.min(...values);
+  const max = Math.max(...values);
+  const range = max - min || 1;
+
+  const pad = { l: 8, r: 8, t: 8, b: 18 };
+  const innerW = width - pad.l - pad.r;
+  const innerH = height - pad.t - pad.b;
+  const stepX = innerW / (med.length - 1);
+
+  const px = (i) => pad.l + i * stepX;
+  const py = (v) => pad.t + (1 - (v - min) / range) * innerH;
+
+  const medPts = med.map((v, i) => [px(i), py(v)]);
+  const lowPts = low.map((v, i) => [px(i), py(v)]);
+  const highPts = high.map((v, i) => [px(i), py(v)]);
+
+  const medPath = pathFromPoints(medPts);
+  const lowPath = pathFromPoints(lowPts);
+  const highPath = pathFromPoints(highPts);
+
+  // 상단(high) + 하단(low 역순)으로 밴드 생성
+  const bandPts = [...highPts, ...lowPts.slice().reverse()];
+  const bandPath =
+    `M ${bandPts[0][0].toFixed(2)} ${bandPts[0][1].toFixed(2)} ` +
+    bandPts.slice(1).map(([x, y]) => `L ${x.toFixed(2)} ${y.toFixed(2)}`).join(" ") +
+    " Z";
+
+  return (
+    <div className="stock-chart-box">
+      <svg className="stock-chart-svg" viewBox={`0 0 ${width} ${height}`} role="img" aria-label="forecast chart">
+        <path d={bandPath} className="q-band" />
+        <path d={lowPath} className="q-low" />
+        <path d={highPath} className="q-high" />
+        <path d={medPath} className="q-med" />
+
+        {medPts.map(([x, y], i) => (
+          <circle key={i} cx={x} cy={y} r="1.7" className="q-med-point" />
+        ))}
+
+        {/* x축 라벨 최소 표기 */}
+        <text x={px(0)} y={height - 4} className="q-label" textAnchor="middle">{labels[0]}</text>
+        <text x={px(3)} y={height - 4} className="q-label" textAnchor="middle">{labels[3]}</text>
+      </svg>
+
+      <div className="stock-chart-legend">
+        <span><i className="dot med" />q50</span>
+        <span><i className="dot band" />q10~q90</span>
+      </div>
     </div>
   );
 }

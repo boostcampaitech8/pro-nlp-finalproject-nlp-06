@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
 import Placeholder from "react-bootstrap/Placeholder";
+import "./news.css";
 
 const API_BASE = import.meta.env.VITE_API_BASE || "http://127.0.0.1:8000";
 
@@ -44,85 +44,80 @@ function News() {
   };
 
   return (
-    <div style={{ maxWidth: 980, margin: "0 auto", padding: "24px 16px" }}>
-      <h2 style={{ marginBottom: 16 }}>뉴스</h2>
+    <div className="news-page">
+      <h2 className="news-page-title">뉴스</h2>
 
-      {err ? (
-        <div style={{ marginBottom: 12, color: "crimson" }}>
-          불러오기 실패: {err}
-        </div>
-      ) : null}
+      {err ? <div className="news-error">불러오기 실패: {err}</div> : null}
 
       {loading ? (
-        <Card>
-          <Card.Body>
-            <Placeholder as={Card.Title} animation="glow">
-              <Placeholder xs={8} />
-            </Placeholder>
-            <Placeholder as={Card.Text} animation="glow">
-              <Placeholder xs={12} /> <Placeholder xs={11} /> <Placeholder xs={10} />
-            </Placeholder>
-            <Placeholder as={Card.Text} animation="glow">
-              <Placeholder xs={12} />
-            </Placeholder>
-          </Card.Body>
-        </Card>
-      ) : (
-        <ListGroup>
-          {items.map((it, idx) => (
-            <ListGroup.Item key={`${it.link}-${idx}`} style={{ padding: 0 }}>
-              <Card style={{ border: "none" }}>
-                <Card.Body>
-                  <div style={{ display: "flex", gap: 12, alignItems: "baseline" }}>
-                    <Card.Title style={{ margin: 0, fontSize: 18 }}>
-                      <span
-                        role="button"
-                        tabIndex={0}
-                        onClick={() => openNews(it.link)}
-                        onKeyDown={(e) => {
-                          if (e.key === "Enter") openNews(it.link);
-                        }}
-                        style={{
-                          cursor: "pointer",
-                          textDecoration: "underline",
-                        }}
-                        title="새 탭에서 열기"
-                      >
-                        {it.title}
-                      </span>
-                    </Card.Title>
-
-                    <div style={{ marginLeft: "auto", fontSize: 12, opacity: 0.75 }}>
-                      {it.press ? `${it.press} · ` : ""}
-                      {it.date || it.date_iso || ""}
-                    </div>
-                  </div>
-
-                  <div style={{ marginTop: 10, whiteSpace: "pre-line", lineHeight: 1.5 }}>
-                    {(it.preview_lines || []).length ? (
-                      it.preview_lines.map((ln, i) => (
-                        <div key={i}>{ln}</div>
-                      ))
-                    ) : (
-                      <div style={{ opacity: 0.7 }}>미리보기 없음</div>
-                    )}
-                  </div>
-
-                  <div
-                    style={{
-                      marginTop: 10,
-                      paddingTop: 10,
-                      borderTop: "1px solid rgba(0,0,0,0.08)",
-                      opacity: 0.9,
-                    }}
-                  >
-                    <strong>요약:</strong> {it.summary || "요약 없음"}
-                  </div>
-                </Card.Body>
-              </Card>
-            </ListGroup.Item>
+        <div className="news-grid">
+          {[0, 1, 2].map((n) => (
+            <Card key={n} className="news-card">
+              <Card.Body>
+                <Placeholder as={Card.Title} animation="glow">
+                  <Placeholder xs={8} />
+                </Placeholder>
+                <Placeholder as={Card.Text} animation="glow">
+                  <Placeholder xs={12} /> <Placeholder xs={11} /> <Placeholder xs={10} />
+                </Placeholder>
+                <Placeholder as={Card.Text} animation="glow">
+                  <Placeholder xs={12} />
+                </Placeholder>
+              </Card.Body>
+            </Card>
           ))}
-        </ListGroup>
+        </div>
+      ) : (
+        <div className="news-grid">
+          {items.map((it, idx) => (
+            <Card key={`${it.link || "no-link"}-${idx}`} className="news-card">
+              <Card.Body className="news-card-body">
+                <div className="news-card-header">
+                    <Card.Title className="news-title">{it.title || "제목 없음"}</Card.Title>
+                    <button
+                        type="button"
+                        className="news-open-btn"
+                        onClick={() => openNews(it.link)}
+                        disabled={!it.link}
+                        aria-label={`원문 보기: ${it.title || "뉴스"}`}
+                    >
+                        원문 보기
+                    </button>
+                    </div>
+                    <div className="news-meta-row">
+                    <div className="news-meta">
+                        {it.press ? `${it.press} · ` : ""}
+                        {it.date || it.date_iso || ""}
+                    </div>
+                </div>
+
+                {/* 원문/요약 분리 섹션 */}
+                <div className="news-sections">
+                    <section className="news-block news-source-block">
+                        <div className="news-preview">
+                        {(it.preview_lines || []).length ? (
+                            it.preview_lines.map((ln, i) => (
+                            <p key={i} className="news-preview-line">
+                                {ln}
+                            </p>
+                            ))
+                        ) : (
+                            <p className="news-preview-empty">미리보기 없음</p>
+                        )}
+                        </div>
+                    </section>
+
+                    <section className="news-block news-summary-block">
+                        <div className="news-block-head">
+                        <span className="news-chip summary">AI 요약</span>
+                        </div>
+                        <p className="news-summary-text">{it.summary || "요약 없음"}</p>
+                    </section>
+                </div>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
       )}
     </div>
   );

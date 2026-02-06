@@ -18,6 +18,9 @@ from redis_dir.redis_storage import RedisSessionStore
 from .chroma_store import get_collection
 from .chroma_store import get_collection_no_embed
 
+# TFT
+from tft.tft_feature_map import FEATURE_META, STRATEGY_TEXT_MAP
+
 app = FastAPI()
 
 # ----------------------------
@@ -222,15 +225,26 @@ def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
     return items[:limit]
 
 
+class ForecastOut(BaseModel):
+    horizon_days: int
+    dates: list[str]
+    q10: list[int]
+    q50: list[int]
+    q90: list[int]
+
 class StockRecOut(BaseModel):
     symbol: str                 # 예: AAPL
     name: str                   # 예: Apple Inc.
-    market: Optional[str] = None  # 예: NASDAQ
-    price: Optional[float] = None # 예시
-    change_pct: Optional[float] = None # 예시
+    market: str | None = None  # 예: NASDAQ
+    # price: float | None = None # 예시
+    prev_close: int | None = None
+    current_price: int | None = None
+    predicted_price: int | None = None
+    change_pct: float | None = None # 예시
     headline: str               # 카드에 보이는 한 줄 추천 문구
     why: str                    # hover 시 노출되는 상세 이유
-    risk: Optional[str] = None  # 리스크 한줄(선택)
+    risk: str | None = None  # 리스크 한줄(선택)
+    forecast: ForecastOut | None = None
 
 class StockRecListOut(BaseModel):
     items: List[StockRecOut]
@@ -373,7 +387,183 @@ def latest_news(limit: int = 20):
 # (NEW) TFT Helper Functions
 # ------------------------------
 
-def load_tft_result(file_path: Path) -> list[StockRecOut]:
+def _to_int(value: Any) -> int | None:
+    try:
+        if value is None:
+            return None
+        return int(round(float(value)))
+    except (TypeError, ValueError):
+        return None
+    
+def _extract_forecast(result: dict[str, Any], horizon_days: int = 3) -> ForecastOut | None:
+    raw = result.get("forecasts") or []
+    if len(raw) < horizon_days:
+        return None
+
+    dates: list[str] = []
+    q10: list[int] = []
+    q50: list[int] = []
+    q90: list[int] = []
+
+    for row in raw[:horizon_days]:
+        d = str(row.get("date") or "").strip()
+        lo = _to_int(row.get("price_lower"))
+        med = _to_int(row.get("price"))
+        hi = _to_int(row.get("price_upper"))
+
+        if not d or lo is None or med is None or hi is None:
+            return None
+
+        dates.append(d)
+        q10.append(lo)
+        q50.append(med)
+        q90.append(hi)
+
+    return ForecastOut(
+        horizon_days=horizon_days,
+        dates=dates,
+        q10=q10,
+        q50=q50,
+        q90=q90,
+    )
+
+def _build_why_text(
+        top_vars: list[dict],
+        strategy_key: str,
+        metric: str | None = None,
+        top_k: int = 3
+) -> str:
+    """
+    top_variables 바탕으로 추천 이유 문구 생성
+    """
+    parsed = []
+    for v in top_vars or []:
+        name = (v.get("name") or "").strip()
+        weight = v.get("weight")
+        if not name or weight is None:
+            continue
+        parsed.append((name, weight))
+    
+    selection_sentence = STRATEGY_TEXT_MAP.get(strategy_key)
+    if not selection_sentence:
+        selection_sentence = metric or "모델 예측 점수를 바탕으로 선정된 종목입니다."
+
+    if not parsed:
+        return (
+            f"선정 이유: {selection_sentence}\n"
+            "변수 중요도 정보가 충분하지 않아, 상세 영향 변수는 제공되지 않았습니다."
+        )
+    
+    parsed.sort(key=lambda x: abs(x[1]), reverse=True)
+    topk = parsed[:top_k]
+    denom = sum(abs(w) for _, w in topk) or 1.0
+
+    lines = []
+    lines.append(f"선정 이유: {selection_sentence}\n")
+    lines.append("예측에 크게 반영된 변수(상위)")
+    for raw_name, w in topk:
+        meta = FEATURE_META.get(raw_name, {})
+        label = meta.get("label", raw_name)
+        desc = meta.get("desc", "모델 예측에 반영된 입력 변수")
+        share = abs(w) / denom * 100.0
+        lines.append(f"- {label} ({share:.1f}%): {desc}")
+    # lines.append("※ 중요도는 예측에 대한 상대적 기여도이며, 가격 방향의 인과를 직접 의미하지 않습니다.")
+
+    return "\n".join(lines)
+
+def _build_risk_text(
+    prev_close: int | None,
+    forecast_obj,   # ForecastOut | None
+    risk_spread_raw,
+) -> str:
+    """
+    리스크를 '예측구간 폭 + 하방 시나리오'로 설명
+    """
+    # forecast 기반 계산 우선
+    try:
+        if (
+            forecast_obj is not None
+            and forecast_obj.q10
+            and forecast_obj.q50
+            and forecast_obj.q90
+            and len(forecast_obj.q10) >= 3
+            and len(forecast_obj.q50) >= 3
+            and len(forecast_obj.q90) >= 3
+        ):
+            q10_d3 = float(forecast_obj.q10[2])
+            q50_d3 = float(forecast_obj.q50[2])
+            q90_d3 = float(forecast_obj.q90[2])
+
+            if q50_d3 > 0:
+                band_pct = (q90_d3 - q10_d3) / q50_d3 * 100.0
+            else:
+                band_pct = None
+
+            downside_pct = None
+            if prev_close and prev_close > 0:
+                downside_pct = (q10_d3 / float(prev_close) - 1.0) * 100.0
+
+            if band_pct is None:
+                grade = "판단 어려움"
+            elif band_pct < 4:
+                grade = "낮은 편"
+            elif band_pct < 8:
+                grade = "보통"
+            else:
+                grade = "큰 편"
+            
+            parts = []
+            parts.append(
+                f"D+3 예상 가격 범위는 약 {int(round(q10_d3)):,}원 ~ {int(round(q90_d3)):,}원입니다."
+            )
+            parts.append(
+                f"중앙값은 {int(round(q50_d3)):,}원이며, 예측 폭은 "
+                f"{band_pct:.2f}%로 변동성은 {grade}입니다." if band_pct is not None
+                else "예측 폭 정보를 계산하기 어려워 변동성 판단이 제한적입니다."
+            )
+
+            if downside_pct is not None:
+                if downside_pct < 0:
+                    parts.append(
+                        f"보수적으로 보면 전일 종가 대비 최대 {abs(downside_pct):.2f}% "
+                        "하락 가능성도 염두에 두는 것이 좋습니다."
+                    )
+                else:
+                    parts.append(
+                        "보수적 시나리오(q10)에서도 전일 종가 대비 상승으로 예측됩니다."
+                    )
+            return " ".join(parts)
+    except Exception:
+        pass
+
+    # fallback: 기존 risk_spread 사용
+    try:
+        if risk_spread_raw is not None:
+            rs = float(risk_spread_raw)
+            if rs < 2:
+                grade = "낮은 편"
+            elif rs < 5:
+                grade = "보통"
+            else:
+                grade = "큰 편"
+            return (
+                f"내부 리스크 지표는 {rs:.2f}%이며, 변동성은 {grade}입니다. "
+                "값이 클수록 예측 범위가 넓어 실제 결과의 흔들림이 커질 수 있습니다."
+            )
+    except (TypeError, ValueError):
+        pass
+
+    return "예측구간 기반 리스크 정보가 부족합니다."
+
+
+def _build_headline(strategy_key: str, expected_return_raw: Any) -> str:
+    strategy = strategy_key.replace("_", " ").title()
+    er = expected_return_raw
+    if er is None:
+        return strategy
+    return f"{strategy} · 3일 기대수익 {er:+.2f}%"
+
+def load_tft_result(file_path: Path) -> dict[str, Any] | None:
     """
     JSON 파일을 읽어서 StockRecOut Object의 list로 반환
     """
@@ -406,10 +596,6 @@ def stock_recommendation() -> list[StockRecOut]:
         code = (item.get("code") or "").strip()
         if code:
             results_by_code[code] = item
-    
-    price_map = {
-        item.get("code"): item.get("base_close", 0.0) for item in raw_results
-    }
 
     processed_list = []
 
@@ -419,8 +605,10 @@ def stock_recommendation() -> list[StockRecOut]:
         if not code:
             continue
 
+        # 1. Headline 생성
         headline_text = strategy_key.replace("_", " ").title()
 
+        # 2. Risk Value
         risk_val = rec_data.get("risk_spread")
         if risk_val is not None:
             try:
@@ -432,37 +620,63 @@ def stock_recommendation() -> list[StockRecOut]:
         # risk_text = f"변동성 지표: {risk_val:.2f}" if risk_val else "시장 변동성에 유의 필요"
 
         result = results_by_code.get(code) or {}
+
+        # 3. Prices
         base_close = result.get("base_close", 0.0) or 0.0
+        prev_close: int | None
 
-        top_vars = result.get("top_variables") or []
-        var_parts = []
-
-        for v in top_vars[:3]:
-            name = v.get("name")
-            weight = v.get("weight")
-            if not name or weight is None:
-                continue
-            try:
-                w = float(weight)
-            except (TypeError, ValueError):
-                continue
-            var_parts.append(f"{name}({w:.3f})")
-        
-        if var_parts:
-            why_text = "주요 영향 변수: " + ", ".join(var_parts)
+        if base_close is None:
+            prev_close = None
         else:
-            metric = rec_data.get("metric")
-            why_text = f"Metric: {metric}" if metric else "모델 추론 근거 요약 정보가 부족합니다."
+            try:
+                prev_close = int(round(float(base_close)))
+            except (TypeError, ValueError):
+                prev_close = None
+
+        # 5. Horizon Days
+        horizon_days = int(
+            rec_data.get("horizon_days")
+            or data.get("horizon_days")
+            or 3
+        )
+        predicted_price: int | None = None
+        forecast_obj = _extract_forecast(result, horizon_days=horizon_days)
+        predicted_price = forecast_obj.q50[0] if forecast_obj and forecast_obj.q50 else None
+
+        name = (rec_data.get("name") or result.get("name") or code)
+
+        # 4. Interpretability
+        top_vars = result.get("top_variables") or []
+
+        # 4-1. why_text
+        metric = rec_data.get("metric")
+        why_text = _build_why_text(
+            top_vars=top_vars,
+            strategy_key=strategy_key,
+            metric=metric,
+            top_k=3
+        )
+
+        # 4-2. risk_text
+        risk_text = _build_risk_text(
+            prev_close=prev_close,
+            forecast_obj=forecast_obj,
+            risk_spread_raw=rec_data.get("risk_spread")
+        )        
 
         stock = StockRecOut(
             symbol=code,
-            name=rec_data.get("name"),
+            name=name,
             market="KRX",
-            price=float(base_close) if base_close is not None else 0.0,
+            # price=float(base_close) if base_close is not None else 0.0,
+            prev_close=prev_close,
+            current_price=None,
+            predicted_price=predicted_price,
             change_pct=rec_data.get("expected_return", 0.0),
             headline=headline_text,
             why=why_text,
-            risk=risk_text
+            risk=risk_text,
+            forecast=forecast_obj
         )
         processed_list.append(stock)
     
