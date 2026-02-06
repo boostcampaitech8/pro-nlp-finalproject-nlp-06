@@ -218,7 +218,7 @@ def main():
 
     # Model 불러오기
     best_tft = TemporalFusionTransformer.load_from_checkpoint(
-        os.path.join(MODEL_PATH, "epoch=2-step=4437.ckpt")
+        os.path.join(MODEL_PATH, "epoch=16-step=12580.ckpt")
     )
     best_tft.to(device)
     best_tft.eval()
