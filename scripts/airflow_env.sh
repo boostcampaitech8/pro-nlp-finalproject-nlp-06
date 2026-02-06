@@ -46,7 +46,7 @@ export TFT_PYTHON="${TFT_PYTHON:-$PROJECT_ROOT/../.venv/bin/python}"
 export STOCK_CSV="$PROJECT_ROOT/tft/data/kospi200_merged_2021_2025_updated.csv"
 export HOLIDAY_CSV="$PROJECT_ROOT/tft/data/krx_close.csv"
 export ARTIFACT_DIR="$PROJECT_ROOT/tft/result"
-export MODEL_CKPT="$PROJECT_ROOT/model/epoch=5-step=10716.ckpt"
+export MODEL_CKPT="$PROJECT_ROOT/model/epoch=2-step=4437.ckpt"
 export TFT_SCHEDULE="${TFT_SCHEDULE:-0 7 * * *}"
 
 # [추가] Agent.py에서 불러올 json 파일 경로 설정하기
