@@ -171,13 +171,13 @@ def calculate_features(df_group: pd.DataFrame):
     ).adx()
 
     # 13. Amihud Illiquidity (유동성 지표)
-    # df['Dollar_Volume'] = (close * volume).replace(0, np.nan)
-    # illiq_daily = df['Log_Return'].abs() / (df['Dollar_Volume'] + 1e-12)
+    df['Dollar_Volume'] = (close * volume).replace(0, np.nan)
+    illiq_daily = df['Log_Return'].abs() / (df['Dollar_Volume'] + 1e-12)
 
-    # df['Amihud_5'] = illiq_daily.rolling(window=5).mean()
-    # df['Amihud_20'] = illiq_daily.rolling(window=20).mean()
-    # df['Log_Amihud_5'] = np.log(df['Amihud_5'] + 1e-12)
-    # df['Log_Amihud_20'] = np.log(df['Amihud_20'] + 1e-12)
+    df['Amihud_5'] = illiq_daily.rolling(window=5).mean()
+    df['Amihud_20'] = illiq_daily.rolling(window=20).mean()
+    df['Log_Amihud_5'] = np.log(df['Amihud_5'] + 1e-12)
+    df['Log_Amihud_20'] = np.log(df['Amihud_20'] + 1e-12)
 
     return df
 
