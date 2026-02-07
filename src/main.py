@@ -69,7 +69,7 @@ VLLM_API_KEY = os.getenv("VLLM_API_KEY", "vllm-key")
 # ----------------------------
 # HuggingFace Embedding 설정
 # ----------------------------
-EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask") #수정
+EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL", "dragonkue/snowflake-arctic-embed-l-v2.0-ko") #수정
 
 # ----------------------------
 # Retrieval 튜닝
@@ -329,13 +329,18 @@ def chat_with_session(session_id: str, request: ChatRequest):
     store.add_message(session_id, "user", request.message)
 
     state: AgentState = {
-        "query": full_query,
+        "query": full_query,           # ✅ LLM용 (대화 이력 포함)
+        "user_input": request.message, # ✅ 벡터 검색용 (순수 입력만)
         "category": "",
-        "sub_category": "",
-        "debate_history": history,
+        "rag_categories": [],          # ✅ 추가 필요
+        "results": [],                 # ✅ 추가 필요
+        "debate_history": [],          # ✅ 빈 리스트로 초기화
         "debate_count": 0,
         "response": "",
+        "target_companies": [],        # ✅ 추가 필요
+        "tft_data": [],                # ✅ 추가 필요
     }
+
 
     try:
         result = agent_app.invoke(state)

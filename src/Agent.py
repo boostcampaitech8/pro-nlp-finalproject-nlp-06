@@ -32,7 +32,8 @@ CHROMA_DIR = Path(os.getenv("CHROMA_DIR", str(PROJECT_ROOT / "Chroma_db"))).reso
 class AgentState(TypedDict):
     query: str
     category: str              # 단일 선택으로 변경
-    rag_categories: List[str]  # RAG router에서 선택된 카테고리들
+    rag_categories: List[str]
+    user_input: str   # RAG router에서 선택된 카테고리들
     # 각 노드의 결과물을 통합하기 위한 리듀서 (리스트 합치기)
     results: Annotated[List[str], operator.add] 
     debate_history: Annotated[List[str], operator.add]
@@ -54,7 +55,7 @@ CLOVA_STUDIO_API_KEY = os.getenv("CLOVA_STUDIO_API_KEY")
 answer_llm = ChatClovaX(
     model="HCX-007",
     api_key=CLOVA_STUDIO_API_KEY,
-    max_tokens= 16384
+    max_tokens= 32000
 )
 
 
@@ -70,7 +71,7 @@ def get_embeddings():
     if _embeddings is None:
         print(f"[INFO] 임베딩 모델 로드 중 (GPU 사용)...")
         _embeddings = HuggingFaceEmbeddings(
-            model_name=os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask"), #수정 
+            model_name=os.getenv("EMBEDDING_MODEL", "dragonkue/snowflake-arctic-embed-l-v2.0-ko"), #수정 
             model_kwargs={"device": os.getenv("EMBEDDING_DEVICE", "cuda")},  # 기본 cuda
             encode_kwargs={
                 "device": os.getenv("EMBEDDING_DEVICE", "cuda"),
@@ -86,7 +87,7 @@ def get_vectorstore(db_name: str, collection_name: str = None):
     # 1. 뉴스 DB인 경우 컬렉션 이름을 자동으로 설정
     if collection_name is None:
         if db_name == "News_chroma_db":
-            collection_name = os.getenv("CHROMA_NEWS_COLLECTION", "naver_finance_news_chunks")
+            collection_name = os.getenv("CHROMA_COLLECTION", "naver_finance_news_chunks")
         else:
             collection_name = "langchain"
 
@@ -118,15 +119,15 @@ def get_vectorstore(db_name: str, collection_name: str = None):
 
 
 # --- 검색 함수 (개선) ---
-def search_db(db_name: str, query: str, k: int = 3):
+def search_db(db_name: str, user_input: str, k: int = 3):
     """캐싱된 vectorstore를 사용하여 검색"""
     try:
         vectorstore = get_vectorstore(db_name)
-        results = vectorstore.similarity_search(query, k=k)
+        results = vectorstore.similarity_search(user_input, k=k)
 
         # 검색 성공 시 결과 출력
         if results:
-            print(f"\n[SEARCH SUCCESS] DB: {db_name}, 검색어: '{query}', 결과 개수: {len(results)}")
+            print(f"\n[SEARCH SUCCESS] DB: {db_name}, 검색어: '{user_input}', 결과 개수: {len(results)}")
             print("-" * 80)
 
             for idx, doc in enumerate(results, 1):  # 검색된 개수만큼만
@@ -167,7 +168,7 @@ def search_db(db_name: str, query: str, k: int = 3):
 def main_router(state: AgentState):
     print("\n[ROUTER] main_router 실행 중...")
     system_prompt = "당신은 경제, 금융 챗봇을 위한 router입니다. 사용자의 입력에 대해 다음 3가지 중 하나로 분류하세요. [chat] : 일반 대화, 인삿말, 농담 등 [rag] : 검색 엔진. 뉴스와 경제관련 리포트, 용어 참조가 필요한 질문 [prediction] : 주가 예측, 산업 예측 등 예측에 대한 질문"
-    user_prompt = f"사용자: {state['query']}\n\n출력은 chat, rag, prediction 중 하나만 출력하세요. (리스트가 아닌 단일 문자열)\nAssistant:"
+    user_prompt = f"사용자: {state['user_input']}\n\n출력은 chat, rag, prediction 중 하나만 출력하세요. 질문은 rag, 주가 예측은 prediction이라고 판단하세요. (리스트가 아닌 단일 문자열)\nAssistant:"
     
     messages = [SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]
     res = router_llm.invoke(messages).content.strip().lower()
@@ -179,7 +180,7 @@ def main_router(state: AgentState):
 def rag_router_node(state: AgentState):
     print("\n[ROUTER] rag_router_node 실행...")
     system_prompt = "당신은 경제, 금융 챗봇을 위한 router입니다. 당신은 6가지 데이터베이스를 사용할 수 있습니다. - vocab (경제/통계 용어 사전), news (최신 뉴스), stock (종목/회사 리포트), industry (산업 리포트), market (시황 리포트), economy (경제 리포트)"
-    user_prompt = f"위 데이터베이스 중 질문과 관련된 모든 항목을 리스트 형식으로 골라주세요. (예: ['news', 'stock'], ['vocab', 'industry'], ['news', 'market', 'economy'])\n\n질문: {state['query']}\n\n출력은 반드시 6개 데이터베이스 중 필요한 데이터베이스 (한개, 또는 다중)를 골라 리스트 형태로 출력하세요.\nAssistant:"
+    user_prompt = f"리포트와 용어 관련 질문을 제외한 나머지 질문은 항상 뉴스와 관련되었다고 생각하세요.위 데이터베이스 중 질문과 관련된 모든 항목을 리스트 형식으로 골라주세요.  (예: ['news', 'stock'], ['vocab', 'industry'], ['news', 'market', 'economy'])\n\n질문: {state['user_input']}\n\n출력은 반드시 6개 데이터베이스 중 필요한 데이터베이스 (한개, 또는 다중)를 골라 리스트 형태로 출력하세요.\nAssistant:"
     
     messages = [SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]
     res = router_llm.invoke(messages).content.strip()
@@ -258,47 +259,36 @@ def build_quant_prompt(extracted_data):
 
 
 # RAG 노드들
+# RAG 노드들 - LLM 사용 안 함, 검색 결과만 저장
 def vocab_node(state: AgentState):
-    context = search_db("Vocab_chroma_db", state['query'], k=1)
-    system_prompt = "제공된 문맥을 바탕으로 경제 용어를 설명하세요."
-    user_prompt = f"문맥: {context}\n질문: {state['query']} 설명."
-    res = router_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content
-    return {"results": [f"[용어 사전 결과]\n{res}"]}
+    context = search_db("Vocab_chroma_db", state['user_input'], k=3)
+    formatted_result = "\n\n".join(context)
+    return {"results": [f"[용어 사전 검색 결과]\n{formatted_result}"]}
 
 def news_node(state: AgentState):
-    context = search_db("News_chroma_db", state['query'], k=10)
-    system_prompt = "제공된 뉴스 데이터를 바탕으로 질문을 분석하세요. 반드시 출처와 개시날짜를 포함해야 합니다."
-    user_prompt = f"뉴스: {context}\n질문: {state['query']} 분석. 출처/날짜 포함."
-    res = router_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content
-    return {"results": [f"[뉴스 분석 결과]\n{res}"]}
+    context = search_db("News_chroma_db", state['user_input'], k=3)
+    formatted_result = "\n\n".join(context)
+    return {"results": [f"[뉴스 검색 결과]\n{formatted_result}"]}
 
 def stock_report_node(state: AgentState):
-    context = search_db("Company_report_chroma_db", state['query'], k=3)
-    system_prompt = "종목 리포트 데이터를 기반으로 심층 분석을 수행하세요.반드시 출처와 개시날짜를 포함해야 합니다."
-    user_prompt = f"종목 리포트 기반 분석: {context}\n질문: {state['query']}"
-    res = router_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content
-    return {"results": [f"[종목 리포트 분석]\n{res}"]}
+    context = search_db("Company_report_chroma_db", state['user_input'], k=3)
+    formatted_result = "\n\n".join(context)
+    return {"results": [f"[종목 리포트 검색 결과]\n{formatted_result}"]}
 
 def industry_report_node(state: AgentState):
-    context = search_db("Industry_report_chroma_db", state['query'], k=3)
-    system_prompt = "산업 리포트 데이터를 기반으로 산업 동향을 분석하세요.반드시 출처와 개시날짜를 포함해야 합니다."
-    user_prompt = f"산업 리포트 기반 분석: {context}\n질문: {state['query']}"
-    res = router_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content
-    return {"results": [f"[산업 리포트 분석]\n{res}"]}
+    context = search_db("Industry_report_chroma_db", state['user_input'], k=3)
+    formatted_result = "\n\n".join(context)
+    return {"results": [f"[산업 리포트 검색 결과]\n{formatted_result}"]}
 
 def market_report_node(state: AgentState):
-    context = search_db("MarketConditions_report_chroma_db", state['query'], k=3)
-    system_prompt = "시황 리포트를 바탕으로 현재 시장 상황을 분석하세요.반드시 출처와 개시날짜를 포함해야 합니다."
-    user_prompt = f"시황 리포트 기반 분석: {context}\n질문: {state['query']}"
-    res = router_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content
-    return {"results": [f"[시황 리포트 분석]\n{res}"]}
+    context = search_db("MarketConditions_report_chroma_db", state['user_input'], k=3)
+    formatted_result = "\n\n".join(context)
+    return {"results": [f"[시황 리포트 검색 결과]\n{formatted_result}"]}
 
 def economy_report_node(state: AgentState):
-    context = search_db("Economy_report_chroma_db", state['query'], k=3)
-    system_prompt = "경제 리포트를 기반으로 거시 경제 흐름을 분석하세요.반드시 출처와 개시날짜를 포함해야 합니다."
-    user_prompt = f"경제 리포트 기반 분석: {context}\n질문: {state['query']}"
-    res = router_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content
-    return {"results": [f"[경제 리포트 분석]\n{res}"]}
+    context = search_db("Economy_report_chroma_db", state['user_input'], k=3)
+    formatted_result = "\n\n".join(context)
+    return {"results": [f"[경제 리포트 검색 결과]\n{formatted_result}"]}
 
 # 예측 에이전트 
 def extract_companies_node(state: AgentState):
@@ -315,7 +305,7 @@ def extract_companies_node(state: AgentState):
         target_companies = ast.literal_eval(res)
     except:
         target_companies = []
-    
+    print("추출 기업명 :", target_companies)
     tft_json_path = os.getenv("TFT_INFERENCE_JSON", "./inference_results.json")
     try:
         with open(tft_json_path, 'r', encoding='utf-8') as f:
@@ -347,9 +337,9 @@ def quant_agent_node(state: AgentState):
 
 def research_agent_node(state: AgentState):
     companies_str = ", ".join(state["target_companies"])
-    company_context = search_db("Company_report_chroma_db", state['query'], k=3)
-    industry_context = search_db("Industry_report_chroma_db", state['query'], k=3)
-    news_context = search_db("News_chroma_db", state['query'], k=5)
+    company_context = search_db("Company_report_chroma_db", state['user_input'], k=3)
+    industry_context = search_db("Industry_report_chroma_db", state['user_input'], k=3)
+    news_context = search_db("News_chroma_db", state['user_input'], k=5)
     
     system_prompt = "너는 기업 분석 리포트와 뉴스를 통해 중단기 전망을 제시하는 **Research Agent**야."
     user_prompt = f"### [분석 대상]\n기업: {companies_str}\n\n### [참고 자료]\n기업 리포트: {company_context}\n산업 리포트: {industry_context}\n최신 뉴스: {news_context}\n\n### [분석 요청]\n1. 최근 실적, 신규 사업, 경쟁 상황 파악\n2. 향후 3~6개월 관점 성장 가능성과 리스크 평가\n3. 중단기 매수/보유/매도 의견 제시\n\n질문: {state['query']}"
@@ -358,8 +348,8 @@ def research_agent_node(state: AgentState):
     return {"debate_history": [f"[Research Agent - 중단기 전망]\n{res}"]}
 
 def macro_agent_node(state: AgentState):
-    market_context = search_db("MarketConditions_report_chroma_db", state['query'], k=3)
-    economy_context = search_db("Economy_report_chroma_db", state['query'], k=3)
+    market_context = search_db("MarketConditions_report_chroma_db", state['user_input'], k=3)
+    economy_context = search_db("Economy_report_chroma_db", state['user_input'], k=3)
     
     system_prompt = "너는 거시경제와 시장 전반을 분석하는 **Macro Agent**야."
     user_prompt = f"### [참고 자료]\n시황 리포트: {market_context}\n경제 리포트: {economy_context}\n\n### [분석 요청]\n1. 거시경제 지표가 해당 종목/산업에 미치는 영향 분석\n2. 글로벌 경기 흐름과 국내 증시 전망 종합\n3. 거시적 관점 리스크 요인 제시\n\n질문: {state['query']}"
@@ -387,7 +377,9 @@ def finalize_prediction(state: AgentState):
    - 중요한 내용은 **굵게** 표시하고, 불렛포인트(•)를 사용하여 한눈에 들어오게 만드세요.
    - 마지막에는 반드시 한 줄로 "그래서 내일은 어떻게 하면 좋을지"에 대한 조언을 덧붙이세요.
 
-4. **객관성 유지**: 초보자가 오해하지 않도록, 투자의 책임은 본인에게 있으며 분석 결과는 참고용이라는 점을 따뜻하게 언급하세요."""
+4. **출처 정보의 완전성**: 분석에 활용된 모든 뉴스 기사와 리포트의 **[제목]**과 **[오늘 날짜]**를 본문 하단이나 인용구에 반드시 명시하여 정보의 신뢰성을 확보하세요.
+
+5. **객관성 유지**: 초보자가 오해하지 않도록, 투자의 책임은 본인에게 있으며 분석 결과는 참고용이라는 점을 따뜻하게 언급하세요."""
     user_prompt = f"### [Quant Agent의 다음날 주가 예측]\n{quant_result}\n\n### [Research Agent와 Macro Agent의 종합 분석]\n{combined_analysis}\n\n### [최종 답변 형식]\n1. Quant Agent 예측 요약\n2. 종합 투자 의견 (중단기 및 거시경제 관점 통합)\n\n질문: {state['query']}"
     
     res = answer_llm.invoke([SystemMessage(content=system_prompt), HumanMessage(content=user_prompt)]).content
@@ -409,7 +401,7 @@ def final_aggregator(state: AgentState):
 
 1. **초보자 맞춤형 설명**: 경제 전문 용어를 피하거나, 사용이 불가피할 경우 반드시 쉬운 비유를 들어 설명하세요. 문장은 짧고 간결하게 작성하여 가독성을 높입니다.
 2. **구조적 답변**: 정보를 단순히 나열하지 말고 '주요 현황', '전문가 분석 요약', '향후 전망' 등 논리적인 섹션으로 나누어 답변하세요.
-3. **출처 정보의 완전성**: 분석에 활용된 모든 뉴스 기사와 리포트의 **[제목]**과 **[게시 날짜]**를 본문 하단이나 인용구에 반드시 명시하여 정보의 신뢰성을 확보하세요.
+3. **출처 정보의 완전성**: 분석에 활용된 모든 뉴스 기사와 리포트의 **[제목]**과 **[게시 날짜]**를 본문 하단이나 인용구에 반드시 명시하여 정보의 신뢰성을 확보하세요. 게시 날짜는 사용자 질문의 오늘날짜이고 반드시 오늘 날짜를 출력하세요.
 4. **객관성 유지**: 여러 분석 결과가 충돌할 경우 이를 가감 없이 보여주되, 사용자가 판단을 내릴 수 있도록 중립적인 입장에서 통합하세요."""
     user_prompt = f"질문: {state['query']}\n\n분석 결과들:\n{combined_context}"
     
@@ -515,6 +507,7 @@ def run_chatbot():
         
         state = {
             "query": f"오늘 날짜 : [{datetime.now().strftime('%Y-%m-%d')}] {user_input}",
+            "user_input" : user_input,
             "category": "",  # 단일 선택으로 변경
             "rag_categories": [],
             "results": [],
