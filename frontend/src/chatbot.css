@@ -839,6 +839,49 @@
   opacity: 0.95;
 }
 
+/* Tooltip markdown */
+.tooltip-markdown > * {
+  margin: 0;
+}
+
+.tooltip-markdown > * + * {
+  margin-top: 6px;
+}
+
+.tooltip-markdown p {
+  line-height: 1.45;
+}
+
+.tooltip-markdown ul,
+.tooltip-markdown ol {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.tooltip-markdown li + li {
+  margin-top: 4px;
+}
+
+.tooltip-markdown code {
+  background: rgba(255, 255, 255, 0.14);
+  padding: 1px 4px;
+  border-radius: 4px;
+}
+
+.tooltip-markdown pre {
+  margin: 0;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.12);
+  overflow-x: auto;
+}
+
+.tooltip-markdown a {
+  color: #93c5fd;
+  text-decoration: underline;
+}
+
+
 /* Skeleton */
 .stock-card.skeleton {
   overflow: hidden;

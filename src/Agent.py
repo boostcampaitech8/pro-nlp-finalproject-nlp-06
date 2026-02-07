@@ -55,7 +55,8 @@ CLOVA_STUDIO_API_KEY = os.getenv("CLOVA_STUDIO_API_KEY")
 answer_llm = ChatClovaX(
     model="HCX-007",
     api_key=CLOVA_STUDIO_API_KEY,
-    max_tokens= 32000
+    max_tokens= 32000,
+    max_retries=20
 )
 
 

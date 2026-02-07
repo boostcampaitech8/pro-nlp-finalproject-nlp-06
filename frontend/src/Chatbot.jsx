@@ -396,15 +396,9 @@ export default function Chatbot() {
 
                     <div className="stock-tooltip">
                         <div className="tooltip-title">추천 이유</div>
-                        <div className="tooltip-body">{x.why}</div>
-                        {x.risk && (
-                        <>
-                            <div className="tooltip-title" style={{ marginTop: 10 }}>
-                            리스크
-                            </div>
-                            <div className="tooltip-body">{x.risk}</div>
-                        </>
-                        )}
+                        <div className="tooltip-body tooltip-markdown">
+                            <ReactMarkdown>{(x.why ?? "").replace(/\n/g, "  \n")}</ReactMarkdown>
+                        </div>
                     </div>
                   </div>
 

@@ -9,11 +9,27 @@ from tft_loss import HorizonWeightedQuantileLoss
 from pandas.tseries.offsets import CustomBusinessDay
 from pytorch_forecasting import TemporalFusionTransformer, TimeSeriesDataSet
 
+from pathlib import Path
+from dotenv import load_dotenv
+from langchain_naver import ChatClovaX
+
+load_dotenv()
+
+# PROJECT_ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = os.getenv("PROJECT_ROOT", "")
-# DATA_PATH = './data'
 DATA_PATH = os.path.join(PROJECT_ROOT, 'tft/data')
-# MODEL_PATH = './model'
 MODEL_PATH = os.path.join(PROJECT_ROOT, 'tft/model')
+CLOVA_STUDIO_API_KEY = os.getenv("CLOVA_STUDIO_API_KEY", "")
+
+answer_llm = ChatClovaX(
+    model="HCX-007",
+    api_key=CLOVA_STUDIO_API_KEY,
+    max_tokens=32000,
+    temperature=0.1,
+    seed=42,
+    timeout=30,
+    max_retries=20
+)
 
 def restore_price(base_price, log_returns):
     """
@@ -91,6 +107,123 @@ def _top_k_items(scores: dict[str, float], k: int) -> list[dict]:
     items = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:k]
     return [{"name": n, "weight": round(float(w), 6)} for n, w in items]
 
+def _format_top_vars(top_vars: list[dict], k: int = 3) -> str:
+    items = []
+    for v in (top_vars or [])[:k]:
+        name = str(v.get("name") or "").strip()
+        if not name:
+            continue
+        try:
+            w = float(v.get("weight", 0.0)) * 100.0
+        except (TypeError, ValueError):
+            w = 0.0
+        items.append(f"{name}({w:.1f}%)")
+    return ", ".join(items) if items else "없음"
+
+def _format_top_attn(top_attn: list[dict], k: int = 3) -> str:
+    items = []
+    for a in (top_attn or [])[:k]:
+        d = str(a.get("date") or "").strip()
+        if not d:
+            continue
+        try:
+            w = float(a.get("weight", 0.0)) * 100.0
+        except (TypeError, ValueError):
+            w = 0.0
+        items.append(f"{d}({w:.1f}%)")
+    return ", ".join(items) if items else "없음"
+
+def _generate_reason_with_hcx(
+        strategy_key: str,
+        rec_data: dict,
+        result_data: dict
+) -> str:
+    metric = rec_data.get("metric")
+    expected = rec_data.get("expected_return")
+    top_vars_text = _format_top_vars(result_data.get("top_variables"), k=3)
+    top_attn_text = _format_top_attn(result_data.get("top_attention"), k=3)
+
+    if strategy_key == "highest_upside":
+        strategy_name = "공격적 수익 추구 (Highest Upside)"
+        strategy_desc = "향후 1거래일 기준, 중앙값(q50) 상승폭이 가장 높게 예측된 종목입니다."
+        focus_point = "상승 여력(Upside Potential)과 단기 변동성"
+    elif strategy_key == "stable_positive":
+        strategy_name = "안정적 우상향(Stable Positive)"
+        strategy_desc = "향후 3거래일 동안 보수적 시나리오(q10)에서도 누적 수익이 높을 것으로 예측된 종목입니다."
+        focus_point = "하방 경직성(Risk Defense)과 추세의 안정성"
+    else:
+        strategy_name = strategy_key
+        strategy_desc = "기타 전략"
+        focus_point = "일반적인 예측 추이"
+
+    # strategy_label_map = {
+    #     "highest_upside": "다음 1거래일 상승 여지가 가장 큰 종목",
+    #     "stable_positive": "보수적 시나리오(q10) 기준 3거래일 누적 기대가 큰 종목",
+    # }
+    # strategy_label = strategy_label_map.get(strategy_key, strategy_key)
+
+    fc_rows = []
+    for r in (result_data.get("forecasts") or [])[:3]:
+        fc_rows.append(
+            f"{r.get('date')}: [하방(q10)] {r.get('pct_change_lower')}%, "
+            f"[기준(q50)] {r.get('pct_change')}%, [상방(q90)] {r.get('pct_change_upper')}%"
+        )
+    
+    fc_text = " | ".join(fc_rows) if fc_rows else "예측 데이터 없음"
+
+    prompt = (
+        f"당신은 딥러닝 퀀트 모델(TFT)의 예측 결과를 해석하여 투자자에게 브리핑하는 'AI 금융 분석가'입니다.\n"
+        f"상대는 '초보 투자자'로, 주식 초보도 이해하기 쉽게 이야기해야 합니다.\n"
+        f"아래의 [입력 데이터]를 바탕으로 [작성 포맷]에 맞춰 보고서를 작성해 주세요.\n\n"
+        f"[입력 데이터]\n"
+        f"1. 추천 전략: {strategy_name}\n"
+        f"   - 전략 정의: {strategy_desc}\n"
+        f"   - 해석 초점: {focus_point}\n"
+        f"2. 선정 기준값(Metric): {metric}\n"
+        f"3. 예상 수익률(1거래일 이후): {expected}\n"
+        f"4. 모델이 중요하게 본 변수(Top Variables): {top_vars_text}\n"
+        f"   (의미: 예측을 수행할 때 모델이 가장 민감하게 반응한 변수)\n"
+        f"5. 모델이 주목한 과거 시점(Attention): {top_attn_text}\n"
+        f"   (의미: 현재의 가격 변동을 예측하기 위해 참고한 과거의 유사 패턴 발생 시점)\n"
+        f"6. 향후 3일 시나리오 예측값:\n{fc_text}\n\n"
+        
+        f"[작성 포맷(엄수)]\n"
+        f"다음 3가지 항목으로 구분하여 작성하세요. 각 항목에서 '###' 헤더는 사용하지 않으며, 포맷을 엄수하세요.\n"
+        f"**1. 선정 배경** \n"
+        f"(이 종목이 왜 '{strategy_name}' 전략에 포착되었는지 전략 정의와 연결하여 1문장으로 설명)\n\n"
+        f"**2. AI 모델의 분석 근거** \n"
+        f"('중요 변수'와 '주목한 과거 시점'을 연결하여 서술형으로 작성. 단, 인과관게로 단정 짓지 말고 '모델은 ~변수의 움직임과 ~시점의 패턴을 중요하게 참고했습니다'와 같은 형식을 사용할 것.)\n\n"
+        f"**3. 투자 리스크** \n"
+        f"(q10과 q90의 격차(불확실성) 또는 예측의 한계를 언급하며 보수적 접근을 권고하는 1문장 경고문)\n\n"
+
+        f"[제약 사항]\n"
+        f"- 말투: 전문적이나 친절하게, '해요'체를 사용 (예: 분석됩니다, 참고했습니다).\n"
+        f"- 환각 방지: 입력된 데이터 외의 외부 뉴스나 사실을 절대 지어내지 말 것.\n"
+        f"- 수치 인용: 구체적인 예측 수치(%)를 포함하여 신뢰도를 높일 것.\n"
+        f"- 마크 다운: 모든 마크다운 강조(`**`) 기호 안팎에는 적절한 공백을 유지할 것."
+    )
+
+    try:
+        ai_msg = answer_llm.invoke([
+            (
+                "system",
+                "당신은 퀀트 모델이 추천한 종목의 선정 이유를 설명하는 '금융 전문가'입니다."
+                "사용자가 제공한 데이터만을 기반으로 TFT 모델의 내부 동작을 설명해야 합니다."
+            ),
+            ("human", prompt),
+        ])
+        text = (getattr(ai_msg, "content", "") or "").strip()
+        if text:
+            return text
+    except Exception as e:
+        print(f"Exception: {e}")
+
+    return (
+        f"이 종목은 '{metric}' 기준으로 선정되었습니다.\n"
+        f"모델이 중요하게 본 변수는 {top_vars_text}, 주요 참고 시점은 {top_attn_text}입니다.\n"
+        "예측값은 오차가 있을 수 있으므로 보수적으로 해석해야 합니다.\n"
+    )
+
 def safe_interpret_output(model, out_dict):
     """
     interpret_output() 호출하기 전에 모델을 CPU로 옮기기 (CUDA 에러 피하기 위함)
@@ -115,8 +248,6 @@ def safe_interpret_output(model, out_dict):
         interpretation = model_cpu.interpret_output(
             out_safe,
             reduction="none",
-            # attention_prediction_horizon=0,
-            # attention_as_autocorrelation=False
         )
     
     return interpretation, max_enc
@@ -128,8 +259,6 @@ def main():
     args = parser.parse_args()
 
     # 데이터 불러오기
-    #df = pd.read_csv(os.path.join(DATA_PATH, "kospi200_merged_2021_2025.csv"), dtype={'Code': str})
-    #df_holiday = pd.read_csv(os.path.join(DATA_PATH, "krx_close.csv"))
     df = pd.read_csv(args.data_csv, dtype={'Code': str})
     df_holiday = pd.read_csv(args.holiday_csv)
 
@@ -401,27 +530,7 @@ def main():
         pct_lower = (np.expm1(lr_lower) * 100.0).astype(np.float64)
         pct_upper = (np.expm1(lr_upper) * 100.0).astype(np.float64)
 
-        # 5일 누적 예상 수익률 (median, lower, upper)
-        # cum_lr_median = float(np.sum(lr_median))
-        # cum_ret_median = float(np.expm1(cum_lr_median))
-
-        # cum_lr_lower = float(np.sum(lr_lower))
-        # cum_ret_lower = float(np.expm1(cum_lr_lower))
-
-        # cum_lr_upper = float(np.sum(lr_upper))
-        # cum_ret_upper = float(np.expm1(cum_lr_upper))
-
-        # risk_spread = float(cum_ret_upper - cum_ret_lower)
-        # if best_up is None or cum_ret_median > best_up[0]:
-        #     best_up = (cum_ret_median, str(code).zfill(6), stock_name)
-
-        # if cum_ret_median > 0:
-        #     if best_stable is None:
-        #         best_stable = (risk_spread, cum_ret_median, str(code).zfill(6), stock_name)
-        #     else:
-        #         if (risk_spread < best_stable[0]) or (risk_spread == best_stable[0] and cum_ret_median > best_stable[1]):
-        #             best_stable = (risk_spread, cum_ret_median, str(code).zfill(6), stock_name)
-
+        # (1) 1일 뒤 가장 상승률이 높은 종목
         code_str = str(code).zfill(6)
         h = 3
         lr_m_h = np.asarray(lr_median[:h], dtype=np.float64)
@@ -434,6 +543,7 @@ def main():
         if (best_up is None) or (next_day_ret > best_up[0]):
             best_up = (next_day_ret, next_day_spread, code_str, stock_name)
         
+        # (2) 3일 누적 q10이 가장 높은 종목
         q10_cum_ret_3d = float(np.expm1(float(np.sum(lr_l_h))))
         med_cum_ret_3d = float(np.expm1(float(np.sum(lr_m_h))))
         up_cum_ret_3d = float(np.expm1(float(np.sum(lr_u_h))))
@@ -441,7 +551,7 @@ def main():
 
         if (best_stable is None) or (q10_cum_ret_3d > best_stable[0]) \
             or (q10_cum_ret_3d == best_stable[0] and med_cum_ret_3d > best_stable[1]):
-            best_stable = (q10_cum_ret_3d, med_cum_ret_3d, spread_3d, code_str, stock_name)
+            best_stable = (q10_cum_ret_3d, med_cum_ret_3d, next_day_ret, spread_3d, code_str, stock_name)
 
         daily_forecasts = []
         for i, date_str in enumerate(date_strings):
@@ -479,7 +589,9 @@ def main():
             "name": best_up[3],
             "horizon_days": 3,
             "expected_return": round(float(best_up[0]) * 100.0, 4),
-            "metric": "highest next-day median return"
+            "risk_spread": round(float(best_up[1]) * 100.0, 4),
+            "metric": "highest next-day median return",
+            "reason": None
         }
     else:
         recommendations["highest_upside"] = {
@@ -487,18 +599,20 @@ def main():
             "name": None,
             "horizon_days": 3,
             "expected_return": None,
-            "metric": "highest next-day median return"
+            "metric": "highest next-day median return",
+            "reason": None
         }
 
     
     if best_stable is not None:
         recommendations["stable_positive"] = {
-            "code": best_stable[3],
-            "name": best_stable[4],
+            "code": best_stable[4],
+            "name": best_stable[5],
             "horizon_days": 3,
-            "expected_return": round(float(best_stable[1]) * 100.0, 4),
-            "risk_spread": round(float(best_stable[2]) * 100.0, 4),
-            "metric": "maximize 3d cumulative q10 return"
+            "expected_return": round(float(best_stable[2]) * 100.0, 4),
+            "risk_spread": round(float(best_stable[3]) * 100.0, 4),
+            "metric": "maximize 3d cumulative q10 return",
+            "reason": None
         }
     else:
         recommendations["stable_positive"] = {
@@ -507,9 +621,33 @@ def main():
             "horizon_days": 3,
             "expected_return": None,
             "risk_spread": None,
-            "metric": "maximize 3d cumulative q10 return"
+            "metric": "maximize 3d cumulative q10 return",
+            "reason": None
         }
     
+    # 추천 이유 채우기 (HyperClovaX)
+    results_by_code = {
+        str(item.get("code") or "").strip(): item
+        for item in final_results
+    }
+
+    for rec_key in ("highest_upside", "stable_positive"):
+        rec = recommendations.get(rec_key)
+        if not rec:
+            continue
+            
+        code = str(rec.get("code") or "").strip()
+        if not code:
+            rec["reason"] = None
+            continue
+            
+        result_data = results_by_code.get(code, {})
+        rec["reason"] = _generate_reason_with_hcx(
+            strategy_key=rec_key,
+            rec_data=rec,
+            result_data=result_data
+        )
+
     payload = {
         "as_of_date": as_of_date.strftime("%Y-%m-%d"),
         "horizon_days": 3,
