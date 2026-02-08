@@ -14,7 +14,6 @@ export AIRFLOW__CORE__DEFAULT_TIMEZONE="Asia/Seoul"
 
 
 # DAG에서 읽는 값들 기본 세팅
-export PIPELINE_PYTHON="/data/ephemeral/home/.venv/bin/python"
 export CHROMA_DIR="${CHROMA_DIR:-$PROJECT_ROOT/Chroma_db}"
 export CSV_DIR="${CSV_DIR:-$PROJECT_ROOT/csv_out}"
 export CHROMA_COLLECTION="${CHROMA_COLLECTION:-naver_finance_news_chunks}"
@@ -33,6 +32,6 @@ export TFT_PYTHON="${TFT_PYTHON:-$PROJECT_ROOT/../.venv/bin/python}"
 export STOCK_CSV="$PROJECT_ROOT/tft/data/kospi200_merged_2021_2025_updated.csv"
 export HOLIDAY_CSV="$PROJECT_ROOT/tft/data/krx_close.csv"
 export ARTIFACT_DIR="$PROJECT_ROOT/tft/result"
-export MODEL_CKPT="$PROJECT_ROOT/model/epoch=5-step=10716.ckpt"
+export MODEL_CKPT="$PROJECT_ROOT/model/epoch=16-step=12580.ckpt"
 export TFT_SCHEDULE="${TFT_SCHEDULE:-0 7 * * *}"
 export TFT_INFERENCE_JSON="$PROJECT_ROOT/tft/result/inference_results.json"
