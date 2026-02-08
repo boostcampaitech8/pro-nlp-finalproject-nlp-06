@@ -132,7 +132,7 @@ def run_pipeline(
     vllm_api_key = os.getenv("VLLM_API_KEY", "vllm-key")
 
     # Embedding 설정 (HuggingFace 로컬 모델)
-    embedding_model_name = os.getenv("EMBEDDING_MODEL", "jhgan/ko-sroberta-multitask") #수정
+    embedding_model_name = os.getenv("EMBEDDING_MODEL", "dragonkue/snowflake-arctic-embed-l-v2.0-ko") #수정
 
     print("[pipeline] PROJECT_ROOT:", PROJECT_ROOT)
     print("[pipeline] chroma_dir:", chroma_dir)

@@ -17,7 +17,7 @@ STAT_DICT_PATH  = "./통계용어사전.xlsx"
 CHROMA_DB_DIR = "./Chroma_db/Vocab_chroma_db"
 
 # Embedding 모델 이름
-EMBEDDING_MODEL_NAME = "MODEL NAME"
+EMBEDDING_MODEL_NAME = "dragonkue/snowflake-arctic-embed-l-v2.0-ko"
 
 # ==================================================
 # 1. 엑셀 로드

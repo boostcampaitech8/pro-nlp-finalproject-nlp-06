@@ -33,7 +33,7 @@ def _normalize_dir(persist_dir: str | Path) -> str:
 def get_collection(
     persist_dir: str = DEFAULT_PERSIST_DIR,
     collection_name: str = DEFAULT_COLLECTION,
-    embedding_model_name: str = "jhgan/ko-sroberta-multitask", #수정
+    embedding_model_name: str = "dragonkue/snowflake-arctic-embed-l-v2.0-ko", #수정
 ):
     # persist_dir = str(Path(persist_dir).expanduser().resoslve())
     persist_dir = _normalize_dir(persist_dir)
@@ -94,7 +94,7 @@ def add_chunked_documents(
     persist_dir: str = DEFAULT_PERSIST_DIR,
     collection_name: str = DEFAULT_COLLECTION,
     # [변경] HuggingFace 모델명 전달
-    embedding_model_name: str = "jhgan/ko-sroberta-multitask", #수정
+    embedding_model_name: str = "dragonkue/snowflake-arctic-embed-l-v2.0-ko", #수정
 ) -> int:
     """
     chunked_rows item 예:

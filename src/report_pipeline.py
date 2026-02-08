@@ -53,9 +53,9 @@ class NaverReportPipeline:
     def __init__(
         self,
         vllm_base_url: str = "http://localhost:8001/v1",
-        vllm_api_key: str = "token-if-needed",
+        vllm_api_key: str = "vllm-key",
         vllm_model: str = "skt/A.X-4.0-Light",
-        embedding_model: str = "intfloat/multilingual-e5-large-instruct",
+        embedding_model: str = "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
         chroma_base_dir: str = "./Chroma_db",
         max_text_length: int = 8000,
         summary_max_tokens: int = 1024,
@@ -444,8 +444,9 @@ if __name__ == "__main__":
     # 파이프라인 초기화
     pipeline = NaverReportPipeline(
         vllm_base_url="http://localhost:8001/v1",
-        vllm_model="skt/A.X-4.0-Light", # 수정 
-        embedding_model="jhgan/ko-sroberta-multitask", # 수정
+        vllm_model="skt/A.X-4.0-Light",
+        vllm_api_key = "vllm-key",  # 수정 
+        embedding_model="dragonkue/snowflake-arctic-embed-l-v2.0-ko", # 수정
         chroma_base_dir="./Chroma_db",
         max_text_length=8000,      # PDF 8000자까지만 읽기
         summary_max_tokens=1024,   # 요약 최대 토큰

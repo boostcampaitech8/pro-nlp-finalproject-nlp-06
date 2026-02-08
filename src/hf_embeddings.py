@@ -12,7 +12,7 @@ class HuggingFaceEmbeddingFunction:
     """
 
     #임베딩 모델 수정
-    def __init__(self, model_name: str = "jhgan/ko-sroberta-multitask", device: str = "cuda"):
+    def __init__(self, model_name: str = "dragonkue/snowflake-arctic-embed-l-v2.0-ko", device: str = "cuda"):
         """
         model_name: 사용할 HuggingFace 모델명
         device: 'cuda' (GPU) 또는 'cpu'
