@@ -23,14 +23,13 @@ DATA_PATH = os.path.join(PROJECT_ROOT, 'tft/data')
 MODEL_PATH = os.path.join(PROJECT_ROOT, 'tft/model')
 CLOVA_STUDIO_API_KEY = os.getenv("CLOVA_STUDIO_API_KEY", "")
 
-answer_llm = ChatClovaX(
+reason_llm = ChatClovaX(
     model="HCX-007",
     api_key=CLOVA_STUDIO_API_KEY,
-    max_tokens=32000,
+    max_completion_tokens=8192,
     temperature=0.1,
     seed=42,
-    timeout=30,
-    max_retries=50
+    max_retries=200
 )
 
 def restore_price(base_price, log_returns):
@@ -206,7 +205,7 @@ def _generate_reason_with_hcx(
     )
 
     try:
-        ai_msg = answer_llm.invoke([
+        ai_msg = reason_llm.invoke([
             (
                 "system",
                 "당신은 퀀트 모델이 추천한 종목의 선정 이유를 설명하는 '금융 전문가'입니다."
@@ -227,46 +226,42 @@ def _generate_reason_with_hcx(
     )
 
 def _get_recent_news(name: str) -> str | None:
-    query = f"{name}에 대한 최근 뉴스를 보여주세요."
-    # state: AgentState = {
-    #     "query": query,           # ✅ LLM용 (대화 이력 포함)
-    #     "user_input": query, # ✅ 벡터 검색용 (순수 입력만)
-    #     "category": "rag",
-    #     "rag_categories": ["news"],          # ✅ 추가 필요
-    #     "results": [],                 # ✅ 추가 필요
-    #     "debate_history": [],          # ✅ 빈 리스트로 초기화
-    #     "debate_count": 0,
-    #     "response": "",
-    #     "target_companies": [],        # ✅ 추가 필요
-    #     "tft_data": [],                # ✅ 추가 필요
-    # }
-
+    query = f"오늘(2026년 2월) 기준으로 {name}에 대한 최근 뉴스를 보여주세요."
     state: AgentState = {
-        "query": query,           
-        "user_input": query,
-        "history": "", 
+        "query": query,           # ✅ LLM용 (대화 이력 포함)
+        "user_input": query, # ✅ 벡터 검색용 (순수 입력만)
         "category": "rag",
-        "rag_categories": ["news"], 
-        "final_query" : "",
-        "final_user_input" : "",
-        "relevance": "",         
-        "results": [],                 
-        "debate_history": [],          
+        "rag_categories": ["news"],          # ✅ 추가 필요
+        "results": [],                 # ✅ 추가 필요
+        "debate_history": [],          # ✅ 빈 리스트로 초기화
         "debate_count": 0,
         "response": "",
-        "target_companies": [],        
-        "tft_data": [],                
+        "target_companies": [],        # ✅ 추가 필요
+        "tft_data": [],                # ✅ 추가 필요
     }
+
+    # state: AgentState = {
+    #     "query": query,           
+    #     "user_input": query,
+    #     "history": "", 
+    #     "category": "rag",
+    #     "rag_categories": ["news"], 
+    #     "final_query" : "",
+    #     "final_user_input" : "",
+    #     "relevance": "",         
+    #     "results": [],                 
+    #     "debate_history": [],          
+    #     "debate_count": 0,
+    #     "response": "",
+    #     "target_companies": [],        
+    #     "tft_data": [],                
+    # }
     try:
         result = agent_app.invoke(state)
 
         answer = result.get("response", "응답을 생성할 수 없습니다.")
         category = result.get("category", "unknown")
         sub_category = result.get("sub_category", "")
-
-        print(f"Answer: {answer}\n")
-        print(f"Category: {category}\n")
-        print(f"Sub Category: {sub_category}\n")
 
         return answer
     except Exception as e:
@@ -281,7 +276,7 @@ def _final_reason_with_hcx(
         return tft_text
     
     news = (news_text or "").strip()
-    if (not news) or ("2023년" in news):
+    if not news:
         return tft_text.strip()
     
     if len(news) > 3000:
@@ -297,7 +292,7 @@ def _final_reason_with_hcx(
         "아래 [결합 입력]은 'TFT 모델 설명'과 '최근 뉴스'를 합친 텍스트입니다.\n"
         "두 정보를 함께 반영해 최종 설명을 작성하세요.\n\n"
         "[출력 규칙]\n"
-        "1) 2개 섹션으로 작성:\n"
+        "1) 반드시 2개의 섹션으로 작성:\n"
         "   **1. 선정 배경과 AI 모델의 분석 근거**\n"
         "   **2. 최근 뉴스 반영 관찰 포인트**\n"
         "2) 모델(TFT) 기반 설명과 뉴스 기반 설명을 명확하게 구분해서 서술하세요.\n"
@@ -308,7 +303,7 @@ def _final_reason_with_hcx(
     )
 
     try:
-        ai_msg = answer_llm.invoke([
+        ai_msg = reason_llm.invoke([
             (
                 "system",
                 "당신은 퀀트 모델이 추천한 종목의 선정 이유를 설명하는 '금융 전문가'입니다."
