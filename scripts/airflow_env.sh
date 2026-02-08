@@ -27,8 +27,8 @@ export PIPELINE_SCHEDULE="${PIPELINE_SCHEDULE:-0 * * * *}"
 
 # [추가] TFT Airflow Environment Variables
 # TFT_PYTHON 경로는 가상환경 경로에 맞게 설정하기
-# export TFT_PYTHON="${TFT_PYTHON:-$PROJECT_ROOT/../py310/bin/python}"
-export TFT_PYTHON="${TFT_PYTHON:-$PROJECT_ROOT/../.venv/bin/python}"
+# export TFT_PYTHON="${TFT_PYTHON:-$PROJECT_ROOT/../.venv/bin/python}"
+export TFT_PYTHON="${TFT_PYTHON:-$PROJECT_ROOT/../py310/bin/python}"
 export STOCK_CSV="$PROJECT_ROOT/tft/data/kospi200_merged_2021_2025_updated.csv"
 export HOLIDAY_CSV="$PROJECT_ROOT/tft/data/krx_close.csv"
 export ARTIFACT_DIR="$PROJECT_ROOT/tft/result"
