@@ -13,6 +13,8 @@ from pathlib import Path
 from dotenv import load_dotenv
 from langchain_naver import ChatClovaX
 
+from src.Agent import app as agent_app, AgentState
+
 load_dotenv()
 
 # PROJECT_ROOT = Path(__file__).resolve().parents[1]
@@ -223,6 +225,36 @@ def _generate_reason_with_hcx(
         f"모델이 중요하게 본 변수는 {top_vars_text}, 주요 참고 시점은 {top_attn_text}입니다.\n"
         "예측값은 오차가 있을 수 있으므로 보수적으로 해석해야 합니다.\n"
     )
+
+def _get_recent_news(name: str) -> str:
+    query = f"{name}에 대한 최근 뉴스를 보여주세요."
+    state: AgentState = {
+        "query": query,           # ✅ LLM용 (대화 이력 포함)
+        "user_input": query, # ✅ 벡터 검색용 (순수 입력만)
+        "category": "rag",
+        "rag_categories": ["news"],          # ✅ 추가 필요
+        "results": [],                 # ✅ 추가 필요
+        "debate_history": [],          # ✅ 빈 리스트로 초기화
+        "debate_count": 0,
+        "response": "",
+        "target_companies": [],        # ✅ 추가 필요
+        "tft_data": [],                # ✅ 추가 필요
+    }
+    try:
+        result = agent_app.invoke(state)
+
+        answer = result.get("response", "응답을 생성할 수 없습니다.")
+        category = result.get("category", "unknown")
+        sub_category = result.get("sub_category", "")
+
+        print(f"Answer: {answer}\n")
+        print(f"Category: {category}\n")
+        print(f"Sub Category: {sub_category}\n")
+
+        return answer
+    except Exception as e:
+        print(f"Exception: {e}")
+        raise
 
 def safe_interpret_output(model, out_dict):
     """
