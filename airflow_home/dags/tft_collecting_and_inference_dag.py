@@ -62,8 +62,8 @@ with DAG(
         bash_command=(
             # 'set -euo pipefail\n'
             f'mkdir -p "{run_dir}"\n'
-            f'cd "{PROJECT_ROOT}/tft"\n'
-            f'"{TFT_PYTHON}" -m krx_inference '
+            f'cd "{PROJECT_ROOT}"\n'
+            f'"{TFT_PYTHON}" -m tft.krx_inference '
             f'--data_csv "{updated_csv}" '
             f'--holiday_csv "{HOLIDAY_CSV}"\n'
             f'mv -f "inference_results.json" "{inference_json}"\n'
