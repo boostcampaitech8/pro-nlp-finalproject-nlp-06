@@ -318,30 +318,35 @@ def delete_session(session_id: str):
 def chat_with_session(session_id: str, request: ChatRequest):
     store = get_store()
 
-    history = store.get_last_n(session_id, n=3, chronological=True)
+    history = store.get_last_n(session_id, n=2, chronological=True)
 
     if history:
         formatted_history = "\n".join([f"{m['role']}: {m['content']}" for m in history])
         full_query = f"[이전 대화 내역]\n{formatted_history}\n\n[현재 질문]\n{request.message}"
     else:
+        formatted_history = ""
         full_query = request.message
 
     store.add_message(session_id, "user", request.message)
 
     state: AgentState = {
-        "query": full_query,           # ✅ LLM용 (대화 이력 포함)
-        "user_input": request.message, # ✅ 벡터 검색용 (순수 입력만)
+        "query": full_query,           
+        "user_input": request.message,
+        "history": formatted_history, 
         "category": "",
-        "rag_categories": [],          # ✅ 추가 필요
-        "results": [],                 # ✅ 추가 필요
-        "debate_history": [],          # ✅ 빈 리스트로 초기화
+        "rag_categories": [], 
+        "final_query" : "",
+        "final_user_input" : "",
+        "relevance": "",         
+        "results": [],                 
+        "debate_history": [],          
         "debate_count": 0,
         "response": "",
-        "target_companies": [],        # ✅ 추가 필요
-        "tft_data": [],                # ✅ 추가 필요
+        "target_companies": [],        
+        "tft_data": [],                
     }
 
-
+ 
     try:
         result = agent_app.invoke(state)
 
