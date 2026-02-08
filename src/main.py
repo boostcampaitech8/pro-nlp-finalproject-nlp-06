@@ -152,7 +152,7 @@ def _first_3_lines(text: str) -> List[str]:
     if not text:
         return []
     lines = [ln.strip() for ln in text.splitlines() if ln.strip()]
-    return lines[:3]
+    return lines[1:4]
 
 
 def fetch_latest_news(limit: int = 20) -> List[Dict[str, Any]]:
