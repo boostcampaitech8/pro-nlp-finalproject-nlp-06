@@ -30,7 +30,7 @@ answer_llm = ChatClovaX(
     temperature=0.1,
     seed=42,
     timeout=30,
-    max_retries=20
+    max_retries=50
 )
 
 def restore_price(base_price, log_returns):
@@ -226,19 +226,36 @@ def _generate_reason_with_hcx(
         "예측값은 오차가 있을 수 있으므로 보수적으로 해석해야 합니다.\n"
     )
 
-def _get_recent_news(name: str) -> str:
+def _get_recent_news(name: str) -> str | None:
     query = f"{name}에 대한 최근 뉴스를 보여주세요."
+    # state: AgentState = {
+    #     "query": query,           # ✅ LLM용 (대화 이력 포함)
+    #     "user_input": query, # ✅ 벡터 검색용 (순수 입력만)
+    #     "category": "rag",
+    #     "rag_categories": ["news"],          # ✅ 추가 필요
+    #     "results": [],                 # ✅ 추가 필요
+    #     "debate_history": [],          # ✅ 빈 리스트로 초기화
+    #     "debate_count": 0,
+    #     "response": "",
+    #     "target_companies": [],        # ✅ 추가 필요
+    #     "tft_data": [],                # ✅ 추가 필요
+    # }
+
     state: AgentState = {
-        "query": query,           # ✅ LLM용 (대화 이력 포함)
-        "user_input": query, # ✅ 벡터 검색용 (순수 입력만)
+        "query": query,           
+        "user_input": query,
+        "history": "", 
         "category": "rag",
-        "rag_categories": ["news"],          # ✅ 추가 필요
-        "results": [],                 # ✅ 추가 필요
-        "debate_history": [],          # ✅ 빈 리스트로 초기화
+        "rag_categories": ["news"], 
+        "final_query" : "",
+        "final_user_input" : "",
+        "relevance": "",         
+        "results": [],                 
+        "debate_history": [],          
         "debate_count": 0,
         "response": "",
-        "target_companies": [],        # ✅ 추가 필요
-        "tft_data": [],                # ✅ 추가 필요
+        "target_companies": [],        
+        "tft_data": [],                
     }
     try:
         result = agent_app.invoke(state)
@@ -254,7 +271,58 @@ def _get_recent_news(name: str) -> str:
         return answer
     except Exception as e:
         print(f"Exception: {e}")
-        raise
+        return None
+
+def _final_reason_with_hcx(
+        tft_text: str,
+        news_text: str | None
+) -> str:
+    if news_text is None:
+        return tft_text
+    
+    news = (news_text or "").strip()
+    if (not news) or ("2023년" in news):
+        return tft_text.strip()
+    
+    if len(news) > 3000:
+        news = news[:3000] + "\n...(중략)"
+    
+    concat_text = (
+        f"[TFT 기반 선정 이유]\n{tft_text.strip()}\n\n"
+        f"[최근 뉴스 정보]\n{news}"
+    )
+
+    prompt = (
+        "당신은 초보 투자자를 위한 금융 브리핑 도우미입니다.\n"
+        "아래 [결합 입력]은 'TFT 모델 설명'과 '최근 뉴스'를 합친 텍스트입니다.\n"
+        "두 정보를 함께 반영해 최종 설명을 작성하세요.\n\n"
+        "[출력 규칙]\n"
+        "1) 2개 섹션으로 작성:\n"
+        "   **1. 선정 배경과 AI 모델의 분석 근거**\n"
+        "   **2. 최근 뉴스 반영 관찰 포인트**\n"
+        "2) 모델(TFT) 기반 설명과 뉴스 기반 설명을 명확하게 구분해서 서술하세요.\n"
+        "3) 입력에 없는 사실은 절대 추가하지 마세요.\n"
+        "4) 초보자를 대상으로 작성해야 합니다. 특히 '최근 뉴스 반영 관찰 포인트'에서는 어려운 용어를 쉽게 풀어서 설명하세요."
+        "5) 과장/확정 표현 금지. 마지막 문장은 리스크/불확실성 경고로 마무리하세요.\n\n"
+        f"[결합 입력]\n{concat_text}"
+    )
+
+    try:
+        ai_msg = answer_llm.invoke([
+            (
+                "system",
+                "당신은 퀀트 모델이 추천한 종목의 선정 이유를 설명하는 '금융 전문가'입니다."
+                "사용자가 제공한 데이터만을 기반으로 TFT 모델의 내부 동작을 설명해야 합니다."
+            ),
+            ("human", prompt),
+        ])
+        text = (getattr(ai_msg, "content", "") or "").strip()
+        if text:
+            return text
+    except Exception as e:
+        print(f"Exception: {e}")
+
+    return tft_text
 
 def safe_interpret_output(model, out_dict):
     """
@@ -674,11 +742,14 @@ def main():
             continue
             
         result_data = results_by_code.get(code, {})
-        rec["reason"] = _generate_reason_with_hcx(
+        tft_reason = _generate_reason_with_hcx(
             strategy_key=rec_key,
             rec_data=rec,
             result_data=result_data
         )
+
+        news_reason = _get_recent_news(rec.get("name") or result_data.get("name") or "")
+        rec["reason"] = _final_reason_with_hcx(tft_reason, news_reason)
 
     payload = {
         "as_of_date": as_of_date.strftime("%Y-%m-%d"),

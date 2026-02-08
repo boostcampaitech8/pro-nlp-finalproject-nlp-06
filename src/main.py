@@ -434,6 +434,8 @@ def _extract_forecast(result: dict[str, Any], horizon_days: int = 3) -> Forecast
         q90=q90,
     )
 
+_WORD = r"0-9A-Za-z가-힣_"
+
 def _normalize_reason_markdown(text: str) -> str:
     """
     Frontend에서 볼드체 적용이 안되는 것을 막기 위한 정규화
@@ -442,9 +444,21 @@ def _normalize_reason_markdown(text: str) -> str:
         return ""
     
     s = str(text)
-    s = re.sub(r"(?<=\w)(\*\*[^*\n]+?\*\*)", r" \1", s, flags=re.UNICODE)
-    s = re.sub(r"(\*\*[^*\n]+?\*\*)(?=\w)", r"\1 ", s, flags=re.UNICODE)
+    tokens = []
+
+    def _hold(m: re.Match) -> str:
+        tokens.append(m.group(0))
+        return f"@@B{len(tokens)-1}@@"
     
+    s = re.sub(r"\*\*[^*\n]+?\*\*", _hold, s)
+    s = re.sub(rf"(?<=[{_WORD}])(@@B\d+@@)", r" \1", s)
+    s = re.sub(rf"(@@B\d+@@)(?=[{_WORD}])", r"\1 ", s)
+
+    def _restore(m: re.Match) -> str:
+        return tokens[int(m.group(1))]
+
+    s = re.sub(r"@@B(\d+)@@", _restore, s)
+
     return s
 
 def _build_why_text(
