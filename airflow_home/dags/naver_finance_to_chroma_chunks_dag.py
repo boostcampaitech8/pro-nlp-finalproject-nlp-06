@@ -26,7 +26,7 @@ CHROMA_COLLECTION = os.environ["CHROMA_COLLECTION"]
 VLLM_BASE_URL = os.environ["VLLM_BASE_URL"]
 VLLM_MODEL = os.environ["VLLM_MODEL"]
 VLLM_API_KEY = os.environ["VLLM_API_KEY"]
-EMBEDDING_MODEL = os.environ["EMBEDDING_MODEL"] # jhgan/ko-sroberta-multitask
+EMBEDDING_MODEL = os.environ["EMBEDDING_MODEL"]
 
 SCHEDULE = os.environ.get("PIPELINE_SCHEDULE", "0 * * * *")
 

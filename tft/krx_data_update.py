@@ -246,9 +246,9 @@ def main():
     parser.add_argument("--master_csv", type=str, default=os.path.join(DATA_PATH, "kospi200_merged_2021_2025_v2.csv"))
     parser.add_argument("--output_csv", type=str, default=os.path.join(DATA_PATH, "kospi200_merged_2021_2025_updated.csv"))
     parser.add_argument("--env_path", type=str, default=os.path.join(TFT_PATH, "api.env"))
-    parser.add_argument("--lookback_rows", type=int, default=200)  # 기술지표 재계산 구간(종목별 최근 N행)
-    parser.add_argument("--sleep", type=float, default=0.3)        # API 호출 간 sleep
-    parser.add_argument("--no_bfill", action="store_true")         # 데이터 누수 우려 시 bfill 끄기
+    parser.add_argument("--lookback_rows", type=int, default=200) # 기술지표 재계산 구간(종목별 최근 N행)
+    parser.add_argument("--sleep", type=float, default=0.3) # API 호출 간 sleep
+    parser.add_argument("--no_bfill", action="store_true") # 데이터 누수 우려 시 bfill 끄기
     args = parser.parse_args()
 
     # 0) 기존 merged CSV 로드 (1) 대체
@@ -350,7 +350,7 @@ def main():
     print(f"[INFO] 기술지표 재계산(종목별 최근 {args.lookback_rows}행)")
     df_updated = update_features_recent_window(df_updated, lookback_rows=args.lookback_rows)
 
-    # 6) (4) macro 업데이트: 필요한 구간만 다시 받아서 덮어쓰기
+    # 6) macro 업데이트: 필요한 구간만 다시 받아서 덮어쓰기
     macro_sources = {
         "KOSPI": "KS11",
         "SP500": "US500",
@@ -388,9 +388,6 @@ def main():
     df_updated["Date"] = pd.to_datetime(df_updated["Date"])
     df_updated = df_updated.sort_values(["Code", "Date"]).reset_index(drop=True)
 
-    # NOTE:
-    # - ffill은 과거값으로 채움(안전)
-    # - bfill은 미래값으로 채움(학습용 데이터 생성 시 "미래 누수"가 될 수 있음)
     if args.no_bfill:
         df_updated = df_updated.groupby("Code", group_keys=False).apply(lambda g: g.ffill())
     else:

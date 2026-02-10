@@ -41,26 +41,24 @@ with DAG(
     run_dir = f"{ARTIFACT_DIR}"
 
     # Output 파일 경로
-    # updated_csv = f"{run_dir}/kospi200_updated.csv"
     updated_csv = f"{PROJECT_ROOT}/tft/data/kospi200_merged_2021_2025_updated.csv"
     inference_json = f"{run_dir}/inference_results.json"
 
     update_data = BashOperator(
         task_id="update_krx_data_csv",
         bash_command=(
-            # 'set -euo pipefail\n'
+            'set -euo pipefail\n'
             f'mkdir -p "{run_dir}"\n'
             f'cd "{PROJECT_ROOT}/tft"\n'
             f'"{TFT_PYTHON}" -m krx_data_update '
             f'--master_csv "{STOCK_CSV}"\n'
-            # f'--output_csv "{updated_csv}"\n'
         )
     )
     
     run_inference = BashOperator(
         task_id="run_tft_inference",
         bash_command=(
-            # 'set -euo pipefail\n'
+            'set -euo pipefail\n'
             f'mkdir -p "{run_dir}"\n'
             f'cd "{PROJECT_ROOT}"\n'
             f'"{TFT_PYTHON}" -m tft.krx_inference '

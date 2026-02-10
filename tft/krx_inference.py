@@ -157,12 +157,6 @@ def _generate_reason_with_hcx(
         strategy_desc = "기타 전략"
         focus_point = "일반적인 예측 추이"
 
-    # strategy_label_map = {
-    #     "highest_upside": "다음 1거래일 상승 여지가 가장 큰 종목",
-    #     "stable_positive": "보수적 시나리오(q10) 기준 3거래일 누적 기대가 큰 종목",
-    # }
-    # strategy_label = strategy_label_map.get(strategy_key, strategy_key)
-
     fc_rows = []
     for r in (result_data.get("forecasts") or [])[:3]:
         fc_rows.append(
@@ -228,40 +222,20 @@ def _generate_reason_with_hcx(
 def _get_recent_news(name: str) -> str | None:
     query = f"오늘(2026년 2월) 기준으로 {name}에 대한 최근 뉴스를 보여주세요."
     state: AgentState = {
-        "query": query,           # ✅ LLM용 (대화 이력 포함)
-        "user_input": query, # ✅ 벡터 검색용 (순수 입력만)
+        "query": query,
+        "user_input": query,
         "category": "rag",
-        "rag_categories": ["news"],          # ✅ 추가 필요
-        "results": [],                 # ✅ 추가 필요
-        "debate_history": [],          # ✅ 빈 리스트로 초기화
+        "rag_categories": ["news"],
+        "results": [],
+        "debate_history": [],
         "debate_count": 0,
         "response": "",
-        "target_companies": [],        # ✅ 추가 필요
-        "tft_data": [],                # ✅ 추가 필요
+        "target_companies": [],
+        "tft_data": [],
     }
-
-    # state: AgentState = {
-    #     "query": query,           
-    #     "user_input": query,
-    #     "history": "", 
-    #     "category": "rag",
-    #     "rag_categories": ["news"], 
-    #     "final_query" : "",
-    #     "final_user_input" : "",
-    #     "relevance": "",         
-    #     "results": [],                 
-    #     "debate_history": [],          
-    #     "debate_count": 0,
-    #     "response": "",
-    #     "target_companies": [],        
-    #     "tft_data": [],                
-    # }
     try:
         result = agent_app.invoke(state)
-
         answer = result.get("response", "응답을 생성할 수 없습니다.")
-        category = result.get("category", "unknown")
-        sub_category = result.get("sub_category", "")
 
         return answer
     except Exception as e:
@@ -389,7 +363,7 @@ def main():
     df_60days = df.groupby('Code').tail(60).reset_index(drop=True)
     print(df_60days.tail())
 
-    # 로그 수익률 -> 실제 주가로 변환하기 위함
+    # 로그 수익률 -> 실제 주가로 변환
     base_price_map = (
         df_60days.sort_values(['Code', 'Date'])
         .groupby('Code', observed=True)
@@ -409,13 +383,11 @@ def main():
         info = static_info.get(code)
         name_val = info['Name'] if info else np.nan
         sector_val = info['Sector'] if info else np.nan
-        last_time_idx = df_60days[df_60days['Code'] == code].iloc[-1]['time_idx']
 
         for i, date in enumerate(future_dates):
             new_rows.append({
                 'Date': date,
                 'Code': code,
-                # 'time_idx': int(last_time_idx + i + 1),
                 'time_idx': int(date2idx.loc[date]),
                 'Name': name_val,
                 'Sector': sector_val,

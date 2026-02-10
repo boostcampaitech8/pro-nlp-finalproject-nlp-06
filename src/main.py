@@ -469,6 +469,7 @@ def _build_why_text(
 ) -> str:
     """
     top_variables 바탕으로 추천 이유 문구 생성
+    - HyperClovaX에서 에러 생길 시 적용
     """
     parsed = []
     for v in top_vars or []:
@@ -501,16 +502,8 @@ def _build_why_text(
         desc = meta.get("desc", "모델 예측에 반영된 입력 변수")
         share = abs(w) / denom * 100.0
         lines.append(f"- {label} ({share:.1f}%): {desc}")
-    # lines.append("※ 중요도는 예측에 대한 상대적 기여도이며, 가격 방향의 인과를 직접 의미하지 않습니다.")
 
     return "\n".join(lines)
-
-def _build_headline(strategy_key: str, expected_return_raw: Any) -> str:
-    strategy = strategy_key.replace("_", " ").title()
-    er = expected_return_raw
-    if er is None:
-        return strategy
-    return f"{strategy} · 3일 기대수익 {er:+.2f}%"
 
 def load_tft_result(file_path: Path) -> dict[str, Any] | None:
     """
@@ -549,7 +542,6 @@ def stock_recommendation() -> list[StockRecOut]:
     processed_list = []
 
     for strategy_key, rec_data in raw_recs.items():
-        # code = rec_data.get("code")
         code = (rec_data.get("code") or "").strip()
         if not code:
             continue
@@ -586,7 +578,6 @@ def stock_recommendation() -> list[StockRecOut]:
         # 4. Interpretability
 
         # 4-1. why_text
-        # reason_from_json = str(rec_data.get("reason") or "").strip()
         reason_from_json = _normalize_reason_markdown(rec_data.get("reason"))
         if reason_from_json:
             why_text = reason_from_json
@@ -605,7 +596,6 @@ def stock_recommendation() -> list[StockRecOut]:
             symbol=code,
             name=name,
             market="KRX",
-            # price=float(base_close) if base_close is not None else 0.0,
             prev_close=prev_close,
             current_price=None,
             predicted_price=predicted_price,

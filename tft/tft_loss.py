@@ -12,10 +12,10 @@ class HorizonWeightedQuantileLoss(QuantileLoss):
     def __init__(
         self,
         quantiles=(0.1, 0.5, 0.9),
-        horizon_weights=None,          # 예: [3.0, 1.0, 1.0]
+        horizon_weights=None,          # e.g.: [3.0, 1.0, 1.0]
         t1_weight=1.0,                 # horizon_weights가 없을 때 t+1만 키우는 용도
-        prediction_length=None,        # horizon_weights가 없을 때 길이 만들기 위해 필요
-        normalize_to_mean=True,        # True: mean(weights)=1로 스케일 고정(권장)
+        prediction_length=None,        # horizon_weights가 없을 때 길이 만들기
+        normalize_to_mean=True,        # True: mean(weights)=1로 스케일 고정
         reduction="mean",
         **kwargs,
     ):
@@ -30,14 +30,14 @@ class HorizonWeightedQuantileLoss(QuantileLoss):
             horizon_weights = w
 
         w = torch.as_tensor(horizon_weights, dtype=torch.float32)
-        # Metric도 nn.Module이므로 buffer 등록 가능 (device 이동 자동)
         self.register_buffer("horizon_weights", w, persistent=False)
         self.normalize_to_mean = bool(normalize_to_mean)
 
     def _get_horizon_w(self, T: int, device, dtype):
         w = self.horizon_weights.to(device=device, dtype=dtype)
 
-        # 길이가 부족하면 1.0으로 패딩, 길이가 길면 잘라냄
+        # 길이가 부족하면 1.0으로 패딩
+        # 길이가 길면 잘라내기
         if w.numel() < T:
             pad = torch.ones(T - w.numel(), device=device, dtype=dtype)
             w = torch.cat([w, pad], dim=0)
@@ -51,7 +51,7 @@ class HorizonWeightedQuantileLoss(QuantileLoss):
         return w  # (T,)
 
     def loss(self, y_pred: torch.Tensor, y_actual: torch.Tensor) -> torch.Tensor:
-        # base pinball loss: (B, T, Q)  (또는 경우에 따라 (B, T))
+        # base pinball loss: (B, T, Q)  (혹은 (B, T))
         base = super().loss(y_pred, y_actual)
 
         if base.ndim < 2:
