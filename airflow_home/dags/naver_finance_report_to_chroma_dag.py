@@ -19,9 +19,9 @@ default_args = {
 PROJECT_ROOT = os.environ["PROJECT_ROOT"]
 PY310_PYTHON = os.environ["PIPELINE_PYTHON"]
 
-CHROMA_DIR = os.environ["PDF_CHROMA_DIR"]
+CHROMA_DIR = os.environ["CHROMA_DIR"]
 CSV_DIR = os.environ["CSV_DIR"]
-CHROMA_COLLECTION = os.environ["PDF_CHROMA_COLLECTION"]
+CHROMA_COLLECTION = os.environ["CHROMA_COLLECTION"]
 
 VLLM_BASE_URL = os.environ["VLLM_BASE_URL"]
 VLLM_MODEL = os.environ["VLLM_MODEL"]

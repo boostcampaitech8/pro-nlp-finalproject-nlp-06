@@ -24,6 +24,7 @@ export VLLM_API_KEY="${VLLM_API_KEY:-vllm-key}"
 export EMBEDDING_MODEL="${EMBEDDING_MODEL:-dragonkue/snowflake-arctic-embed-l-v2.0-ko}"
 export PIPELINE_PYTHON="${PIPELINE_PYTHON:-$PROJECT_ROOT/../py310/bin/python}"
 export PIPELINE_SCHEDULE="${PIPELINE_SCHEDULE:-0 * * * *}" 
+export PDF_PIPELINE_SCHEDULE="${PDF_PIPELINE_SCHEDULE:-0 12 * * *}" 
 
 # [추가] TFT Airflow Environment Variables
 # TFT_PYTHON 경로는 가상환경 경로에 맞게 설정하기

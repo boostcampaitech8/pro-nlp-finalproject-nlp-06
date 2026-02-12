@@ -46,3 +46,47 @@
 | 황연하 | **팀장**, 프로젝트 기획, baseline 코드 작성, 프론트엔드 / 백엔드 구현, 데이터 수집, 코드 리뷰, 피드백, GitHub 협업 환경 구축, Wrap-up report 및 발표 자료 초안 작성 |
 | 홍용훈 | Agent 시스템 설계, 데이터 수집 및 생성, RAG, 모델 학습 및 양자화 시도 |
 | 이성연 | 주가 데이터 수집, 기술 지표 선정 및 계산, 시계열 모델 학습, 종목 추천 파이프라인 설계 |
+
+
+설치 - py310
+source /data/ephemeral/home/py310/bin/activate
+chmod +x install-py310.sh
+./install-py310.sh
+
+vLLM 실행
+vllm serve skt/A.X-4.0-Light \
+--trust-remote-code \
+--dtype half \
+--quantization bitsandbytes \
+--max-model-len 8192 \
+--gpu-memory-utilization 0.7 \
+--port 8001
+
+fastAPI 실행
+python -m uvicorn src.main:app --host 127.0.0.1 --port 8000 --reload
+
+redis 실행
+service redis-server start
+
+설치 - airflow
+source /data/ephemeral/home/py310-airflow/bin/activate
+chmod +x airflow.sh
+./airflow.sh
+
+airflow 실행
+./scripts/run_airflow.sh
+
+frontend 실행
+npm install react-markdown
+npm i lucide-react
+npm run dev
+
+필요한 파일
+시사경제용어사전.xlsx
+통계용어사전.xlsx
+kospi200_merged_2021_2025_updated.csv
+
+필요한 키/토큰
+CLOVA_STUDIO_API_KEY
+한국투자증권 API KEY
+Hugging face token

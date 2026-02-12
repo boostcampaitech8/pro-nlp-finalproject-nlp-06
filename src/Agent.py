@@ -55,7 +55,7 @@ CLOVA_STUDIO_API_KEY = os.getenv("CLOVA_STUDIO_API_KEY")
 answer_llm = ChatClovaX(
     model="HCX-007",
     api_key=CLOVA_STUDIO_API_KEY,
-    max_tokens= 32000,
+    max_tokens= 28000,
     max_retries=20
 )
 
@@ -70,13 +70,14 @@ def get_embeddings():
     """임베딩 모델을 GPU에서 한 번만 로드"""
     global _embeddings
     if _embeddings is None:
-        print(f"[INFO] 임베딩 모델 로드 중 (GPU 사용)...")
+        device = os.getenv("EMBEDDING_DEVICE", "cpu")
+        print(f"[INFO] 임베딩 모델 로드 중 (device={device})...")
         _embeddings = HuggingFaceEmbeddings(
             model_name=os.getenv("EMBEDDING_MODEL", "dragonkue/snowflake-arctic-embed-l-v2.0-ko"), #수정 
-            model_kwargs={"device": os.getenv("EMBEDDING_DEVICE", "cuda")},  # 기본 cuda
+            model_kwargs={"device": device}, 
             encode_kwargs={
                 "device": os.getenv("EMBEDDING_DEVICE", "cuda"),
-                "batch_size": int(os.getenv("EMBEDDING_BATCH_SIZE", "32")),
+                "batch_size": int(os.getenv("EMBEDDING_BATCH_SIZE", "16")),
             },
         )
     return _embeddings

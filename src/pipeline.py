@@ -227,11 +227,11 @@ def run_pipeline(
 
 if __name__ == "__main__":
     out = run_pipeline(
-        hours=int(os.getenv("HOURS", "12")),
+        hours=int(os.getenv("HOURS", "1")),
         max_page=int(os.getenv("MAX_PAGE", "10")),
         chunk_size=int(os.getenv("CHUNK_SIZE", "800")),
         overlap=int(os.getenv("CHUNK_OVERLAP", "120")),
         cleanup_days=int(os.getenv("CLEANUP_DAYS", "14")),
-        save_csv=os.getenv("SAVE_CSV", "true").lower() == "true",
+        save_csv=os.getenv("SAVE_CSV", "false").lower() == "true",
     )
     print(out)
