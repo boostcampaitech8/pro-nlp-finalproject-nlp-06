@@ -83,7 +83,7 @@ npm run dev
 
 필요한 파일  
 시사경제용어사전.xlsx - https://www.data.go.kr/data/15006052/fileData.do   
-통계용어사전.xlsx - https://ecos.bok.or.kr/#/StatisticsMeta/StatisticsGlossary
+통계용어사전.xlsx - https://ecos.bok.or.kr/#/StatisticsMeta/StatisticsGlossary  
 kospi200_merged_2021_2025_updated.csv  
 
 필요한 키/토큰  
