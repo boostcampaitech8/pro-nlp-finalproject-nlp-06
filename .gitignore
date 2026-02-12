@@ -1,0 +1,10 @@
+airflow_home/dags/__pycache__
+airflow_home/logs
+airflow_home/airflow.cfg
+airflow_home/airflow.db
+tft/__pycache__
+tft/data/inference.json
+tft/data/kospi200_merged_2021_2025_v2.csv
+tft/data/kospi200_merged_2021_2025_updated.csv
+tft/lightning_logs
+tft/token.dat
